@@ -1,12 +1,4 @@
-## MARTFURY ADMIN TEMPLATE - REACT VERSION v1.0.0
-
-Author: nouthemes
-
-Homepage:
-[Nouthemes](https://themeforest.net/user/nouthemes/portfolio)
-
-More information, please visit
-[Martfury React](https://themeforest.net/item/martfury-multipurpose-marketplace-react-ecommerce-template/25783100)
+## JEI-RedSys-AdminDashboard Front-End
 
 ### Installation
 
@@ -25,6 +17,8 @@ yarn install
 ```bash
 yarn dev
 ```
+Or
+```bash
+npm run dev 
+```
 
-More informations, please refer:
-[https://nextjs.org/docs/deployment](https://nextjs.org/docs/deployment)
