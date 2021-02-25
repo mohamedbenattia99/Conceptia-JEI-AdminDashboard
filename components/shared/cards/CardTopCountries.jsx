@@ -1,3 +1,4 @@
+// on a pas besoin de cette partie on peux la supprimer
 import React from 'react';
 
 const CardTopCountries = () => (

@@ -25,7 +25,7 @@ const ProductPage = () => {
                     <Link href="/products/create-product">
                         <a className="ps-btn success">
                             <i className="icon icon-plus mr-2" />
-                            New Product
+                            Nouveau Produit
                         </a>
                     </Link>
                 </div>
@@ -77,7 +77,7 @@ const ProductPage = () => {
                             <div className="ps-form__right">
                                 <button className="ps-btn ps-btn--gray">
                                     <i className="icon icon-funnel mr-2"></i>
-                                    Filter
+                                    Filtrer
                                 </button>
                             </div>
                         </form>
@@ -102,7 +102,7 @@ const ProductPage = () => {
                     <TableProjectItems />
                 </div>
                 <div className="ps-section__footer">
-                    <p>Show 10 in 30 items.</p>
+                    <p>Afficher 10 sur 30 articles.</p>
                     <Pagination />
                 </div>
             </section>

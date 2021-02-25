@@ -136,11 +136,11 @@ const TableProjectItems = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Name</th>
+                        <th>Nom</th>
                         <th>SKU</th>
                         <th>Stock</th>
-                        <th>Price</th>
-                        <th>Categories</th>
+                        <th>Prix</th>
+                        <th>Catégories</th>
                         <th>Date</th>
                         <th></th>
                     </tr>

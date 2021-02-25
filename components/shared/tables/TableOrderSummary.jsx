@@ -7,9 +7,9 @@ const TableOrderSummary = () => (
                 <tr>
                     <th>ID</th>
                     <th>Date</th>
-                    <th>Product</th>
-                    <th>Payment</th>
-                    <th>Fullfillment</th>
+                    <th>Produit</th>
+                    <th>Payement</th>
+                    <th>Accomplissement</th>
                     <th>Total</th>
                     <th></th>
                 </tr>
@@ -30,7 +30,7 @@ const TableOrderSummary = () => (
                     </td>
                     <td>
                         <span className="ps-fullfillment success">
-                            delivered
+                            livré
                         </span>
                     </td>
                     <td>
@@ -49,10 +49,10 @@ const TableOrderSummary = () => (
                                 className="dropdown-menu"
                                 aria-labelledby="dropdownMenuButton">
                                 <a className="dropdown-item" href="#">
-                                    Edit
+                                    Editer
                                 </a>
                                 <a className="dropdown-item" href="#">
-                                    Delete
+                                    Supprimer
                                 </a>
                             </div>
                         </div>
@@ -73,7 +73,7 @@ const TableOrderSummary = () => (
                     </td>
                     <td>
                         <span className="ps-fullfillment success">
-                            delivered
+                            livré
                         </span>
                     </td>
                     <td>
@@ -92,10 +92,10 @@ const TableOrderSummary = () => (
                                 className="dropdown-menu"
                                 aria-labelledby="dropdownMenuButton">
                                 <a className="dropdown-item" href="#">
-                                    Edit
+                                    Editer
                                 </a>
                                 <a className="dropdown-item" href="#">
-                                    Delete
+                                    Supprimer
                                 </a>
                             </div>
                         </div>
@@ -116,7 +116,7 @@ const TableOrderSummary = () => (
                     </td>
                     <td>
                         <span className="ps-fullfillment warning">
-                            In Progress
+                            En progrès
                         </span>
                     </td>
                     <td>
@@ -135,10 +135,10 @@ const TableOrderSummary = () => (
                                 className="dropdown-menu"
                                 aria-labelledby="dropdownMenuButton">
                                 <a className="dropdown-item" href="#">
-                                    Edit
+                                    Editer
                                 </a>
                                 <a className="dropdown-item" href="#">
-                                    Delete
+                                    Supprimer
                                 </a>
                             </div>
                         </div>
@@ -159,7 +159,7 @@ const TableOrderSummary = () => (
                     </td>
                     <td>
                         <span className="ps-fullfillment success">
-                            delivered
+                        livré
                         </span>
                     </td>
                     <td>
@@ -219,10 +219,10 @@ const TableOrderSummary = () => (
                                 className="dropdown-menu"
                                 aria-labelledby="dropdownMenuButton">
                                 <a className="dropdown-item" href="#">
-                                    Edit
+                                    Editer
                                 </a>
                                 <a className="dropdown-item" href="#">
-                                    Delete
+                                    Supprimer
                                 </a>
                             </div>
                         </div>

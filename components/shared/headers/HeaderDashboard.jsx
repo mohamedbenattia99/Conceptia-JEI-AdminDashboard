@@ -2,8 +2,8 @@ import React from 'react';
 import FormHeaderSearch from '~/components/shared/forms/FormHeaderSearch';
 
 const HeaderDashboard = ({
-    title = 'Dashboard',
-    description = 'Everything here',
+    title = 'Tableau de bord',
+    description = 'Vous trouvez tout ici ',
 }) => {
     return (
         <header className="header--dashboard">
@@ -16,7 +16,7 @@ const HeaderDashboard = ({
             </div>
             <div className="header__right">
                 <a className="header__site-link" href="#">
-                    <span>View your store</span>
+                    <span>Consultez votre boutique</span>
                     <i className="icon-exit-right"></i>
                 </a>
             </div>

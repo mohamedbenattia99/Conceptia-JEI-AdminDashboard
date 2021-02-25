@@ -53,13 +53,13 @@ const TableOrdersItems = () => {
             <Menu>
                 <Menu.Item key={0}>
                     <a className="dropdown-item" href="#">
-                        Edit
+                        Editer
                     </a>
                 </Menu.Item>
                 <Menu.Item key={0}>
                     <a className="dropdown-item" href="#">
                         <i className="icon-t"></i>
-                        Delete
+                        Supprimer
                     </a>
                 </Menu.Item>
             </Menu>
@@ -117,9 +117,9 @@ const TableOrdersItems = () => {
                     <tr>
                         <th>ID</th>
                         <th>Date</th>
-                        <th>Product</th>
-                        <th>Payment</th>
-                        <th>Fullfillment</th>
+                        <th>Produit</th>
+                        <th>Payement</th>
+                        <th>Accomplissement</th>
                         <th>Total</th>
                         <th></th>
                     </tr>

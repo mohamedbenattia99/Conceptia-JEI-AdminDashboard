@@ -28,7 +28,7 @@ const CreateProductPage = () => {
                                     <div className="ps-block__content">
                                         <div className="form-group">
                                             <label>
-                                                Product Name<sup>*</sup>
+                                                Nom du produit<sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
@@ -38,7 +38,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Reference<sup>*</sup>
+                                                Reférence<sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
@@ -48,7 +48,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Product Summary<sup>*</sup>
+                                            Informations sur le produit<sup>*</sup>
                                             </label>
                                             <text-area
                                                 className="form-control"
@@ -57,7 +57,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Regular Price<sup>*</sup>
+                                            Prix ​​habituel<sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
@@ -67,7 +67,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Sale Price<sup>*</sup>
+                                            Prix ​​de vente<sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
@@ -77,7 +77,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Sale Quantity<sup>*</sup>
+                                            Quantité de vente<sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
@@ -87,7 +87,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Sold Items<sup>*</sup>
+                                            Articles vendus<sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
@@ -97,7 +97,7 @@ const CreateProductPage = () => {
                                         </div>
                                         <div className="form-group">
                                             <label>
-                                                Product Description<sup>*</sup>
+                                            Description du produit<sup>*</sup>
                                             </label>
                                             <textarea
                                                 className="form-control"
@@ -109,10 +109,10 @@ const CreateProductPage = () => {
                             </div>
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
                                 <figure className="ps-block--form-box">
-                                    <figcaption>Product Images</figcaption>
+                                    <figcaption>Images du produit</figcaption>
                                     <div className="ps-block__content">
                                         <div className="form-group">
-                                            <label>Product Thumbnail</label>
+                                            <label>Produit Thumbnail</label>
                                             <div className="form-group--nest">
                                                 <input
                                                     className="form-control mb-1"
@@ -120,12 +120,12 @@ const CreateProductPage = () => {
                                                     placeholder=""
                                                 />
                                                 <button className="ps-btn ps-btn--sm">
-                                                    Choose
+                                                    Choisir
                                                 </button>
                                             </div>
                                         </div>
                                         <div className="form-group">
-                                            <label>Product Gallery</label>
+                                            <label>Galerie de produitsy</label>
                                             <div className="form-group--nest">
                                                 <input
                                                     className="form-control mb-1"
@@ -133,7 +133,7 @@ const CreateProductPage = () => {
                                                     placeholder=""
                                                 />
                                                 <button className="ps-btn ps-btn--sm">
-                                                    Choose
+                                                    Choisir
                                                 </button>
                                             </div>
                                         </div>
@@ -144,7 +144,7 @@ const CreateProductPage = () => {
                                                 placeholder=""
                                             />
                                             <button className="ps-btn ps-btn--sm">
-                                                Choose
+                                                Choisir
                                             </button>
                                         </div>
                                         <div className="form-group">
@@ -158,7 +158,7 @@ const CreateProductPage = () => {
                                     </div>
                                 </figure>
                                 <figure className="ps-block--form-box">
-                                    <figcaption>Inventory</figcaption>
+                                    <figcaption>Inventaire</figcaption>
                                     <div className="ps-block__content">
                                         <div className="form-group">
                                             <label>
@@ -197,22 +197,22 @@ const CreateProductPage = () => {
                                     <figcaption>Meta</figcaption>
                                     <div className="ps-block__content">
                                         <div className="form-group form-group--select">
-                                            <label>Brand</label>
+                                            <label>Marque</label>
                                             <div className="form-group__content">
                                                 <select
                                                     className="ps-select"
                                                     title="Brand">
                                                     <option value="1">
-                                                        Brand 1
+                                                    Marque 1
                                                     </option>
                                                     <option value="2">
-                                                        Brand 2
+                                                    Marque 2
                                                     </option>
                                                     <option value="3">
-                                                        Brand 3
+                                                    Marque 3
                                                     </option>
                                                     <option value="4">
-                                                        Brand 4
+                                                    Marque 4
                                                     </option>
                                                 </select>
                                             </div>
@@ -233,10 +233,10 @@ const CreateProductPage = () => {
                         <a
                             className="ps-btn ps-btn--black"
                             href="products.html">
-                            Back
+                            Retour
                         </a>
-                        <button className="ps-btn ps-btn--gray">Cancel</button>
-                        <button className="ps-btn">Submit</button>
+                        <button className="ps-btn ps-btn--gray">Annuler</button>
+                        <button className="ps-btn">Soumettre</button>
                     </div>
                 </form>
             </section>

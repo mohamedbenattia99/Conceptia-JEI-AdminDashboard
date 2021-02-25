@@ -27,7 +27,7 @@ const CategoriesPage = () => {
                     <div className="ps-section__content">
                         <TableCategoryItems />
                         <div className="ps-section__footer">
-                            <p>Show 5 in 30 items.</p>
+                            <p>Afficher 5 sur 30 articles.</p>
                             <Pagination />
                         </div>
                     </div>

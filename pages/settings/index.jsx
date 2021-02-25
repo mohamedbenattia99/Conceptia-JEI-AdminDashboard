@@ -17,7 +17,7 @@ const SettingsPage = () => {
                 <div className="ps-section__left">
                     <section className="ps-card">
                         <div className="ps-card__header">
-                            <h4>Account Settings</h4>
+                            <h4>Paramètres du compte</h4>
                         </div>
                         <div className="ps-card__content">
                             <FormAccountSettings />

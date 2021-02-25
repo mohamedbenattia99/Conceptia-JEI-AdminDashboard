@@ -6,32 +6,32 @@ const MenuSidebar = () => {
     const router = useRouter();
     const menuItems = [
         {
-            text: 'Dashboard',
+            text: 'Tableau de bord',
             url: '/',
             icon: 'icon-home',
         },
         {
-            text: 'Products',
+            text: 'Produits',
             url: '/products',
             icon: 'icon-database',
         },
         {
-            text: 'Orders',
+            text: 'Commandes',
             url: '/orders',
             icon: 'icon-bag2',
         },
+        // {
+        //     text: 'Customers',
+        //     url: '/customers',
+        //     icon: 'icon-users2',
+        // },
         {
-            text: 'Customers',
-            url: '/customers',
-            icon: 'icon-users2',
-        },
-        {
-            text: 'Categories',
+            text: 'Catégories',
             url: '/categories',
             icon: 'icon-users2',
         },
         {
-            text: 'Settings',
+            text: 'Paramètres',
             url: '/settings',
             icon: 'icon-cog',
         },

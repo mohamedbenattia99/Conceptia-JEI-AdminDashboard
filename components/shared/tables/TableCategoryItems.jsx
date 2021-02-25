@@ -6,9 +6,9 @@ const TableCategoryItems = () => {
             <table className="table ps-table">
                 <thead>
                     <tr>
-                        <th>Category name</th>
+                        <th>Nom de la catégorie</th>
                         <th>Slug</th>
-                        <th>Created at</th>
+                        <th>Creé le</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -32,10 +32,10 @@ const TableCategoryItems = () => {
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuButton">
                                     <a className="dropdown-item" href="#">
-                                        Edit
+                                        Editer
                                     </a>
                                     <a className="dropdown-item" href="#">
-                                        Delete
+                                        Supprimer
                                     </a>
                                 </div>
                             </div>
@@ -60,10 +60,10 @@ const TableCategoryItems = () => {
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuButton">
                                     <a className="dropdown-item" href="#">
-                                        Edit
+                                        Editer
                                     </a>
                                     <a className="dropdown-item" href="#">
-                                        Delete
+                                        Supprimer
                                     </a>
                                 </div>
                             </div>
@@ -88,10 +88,10 @@ const TableCategoryItems = () => {
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuButton">
                                     <a className="dropdown-item" href="#">
-                                        Edit
+                                        Editer
                                     </a>
                                     <a className="dropdown-item" href="#">
-                                        Delete
+                                        Supprimer
                                     </a>
                                 </div>
                             </div>
@@ -116,10 +116,10 @@ const TableCategoryItems = () => {
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuButton">
                                     <a className="dropdown-item" href="#">
-                                        Edit
+                                        Editer
                                     </a>
                                     <a className="dropdown-item" href="#">
-                                        Delete
+                                        Supprimer
                                     </a>
                                 </div>
                             </div>
@@ -144,10 +144,10 @@ const TableCategoryItems = () => {
                                     className="dropdown-menu"
                                     aria-labelledby="dropdownMenuButton">
                                     <a className="dropdown-item" href="#">
-                                        Edit
+                                        Editer
                                     </a>
                                     <a className="dropdown-item" href="#">
-                                        Delete
+                                        Supprimer
                                     </a>
                                 </div>
                             </div>

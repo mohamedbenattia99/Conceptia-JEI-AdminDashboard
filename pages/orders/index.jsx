@@ -50,7 +50,7 @@ const OrdersPage = () => {
                             <div className="ps-form__right">
                                 <button className="ps-btn ps-btn--gray">
                                     <i className="icon icon-funnel mr-2"></i>
-                                    Filter
+                                    Filtrer
                                 </button>
                             </div>
                         </form>
@@ -58,13 +58,13 @@ const OrdersPage = () => {
                     <div className="ps-section__actions">
                         <Link href="/products/create-product">
                             <a className="ps-btn success">
-                                <i className="icon icon-plus mr-2"></i>New Order
+                                <i className="icon icon-plus mr-2"></i>Nouvelle commande
                             </a>
                         </Link>
                         <a
                             className="ps-btn ps-btn--gray"
                             href="new-order.html">
-                            <i className="icon icon-download2 mr-2"></i>Export
+                            <i className="icon icon-download2 mr-2"></i>Exporter
                         </a>
                     </div>
                 </div>
@@ -72,7 +72,7 @@ const OrdersPage = () => {
                     <TableOrdersItems />
                 </div>
                 <div className="ps-section__footer">
-                    <p>Show 10 in 30 items.</p>
+                    <p>Afficher 10 sur 30 articles.</p>
                     <Pagination />
                 </div>
             </section>

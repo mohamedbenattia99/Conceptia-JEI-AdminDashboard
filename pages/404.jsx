@@ -5,15 +5,15 @@ function Error({ statusCode }) {
     return (
         <div className="ps-page--404">
             <figure className="ps-block--notfound">
-                <h3>Ohh! Page not found</h3>
+                <h3>Ohh! Page non trouvée</h3>
                 <p>
-                    It seems we can't find what you're looking for. <br />
+                Il semble que nous ne trouvons pas ce que vous cherchez. <br />
                 </p>
                 <p>
                     <strong className="mr-2">Return to</strong>
                     <Link href="/">
                         <a className="ps-btn ps-btn--black ps-btn--rounded ps-btn--sm">
-                            Dashboard
+                            Tableau de bord
                         </a>
                     </Link>
                 </p>
