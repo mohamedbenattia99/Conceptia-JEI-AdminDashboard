@@ -39,7 +39,7 @@ const CardEarning = () => {
     return (
         <div className="ps-card ps-card--earning">
             <div className="ps-card__header">
-                <h4>Earnings</h4>
+                <h4>Revenus</h4>
             </div>
             <div className="ps-card__content">
                 <div className="ps-card__chart">
@@ -57,7 +57,7 @@ const CardEarning = () => {
                 <div className="ps-card__status">
                     <p className="yellow">
                         <strong> $20,199</strong>
-                        <span>Income</span>
+                        <span>Revenus</span>
                     </p>
                     <p className="red">
                         <strong> $1,021</strong>
@@ -65,7 +65,7 @@ const CardEarning = () => {
                     </p>
                     <p className="green">
                         <strong> $992.00</strong>
-                        <span>Fees</span>
+                        <span>Frais</span>
                     </p>
                 </div>
             </div>

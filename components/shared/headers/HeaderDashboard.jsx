@@ -11,9 +11,10 @@ const HeaderDashboard = ({
                 <h3>{title}</h3>
                 <p>{description}</p>
             </div>
-            <div className="header__center">
+            {/* We decided to not implement the header Search component */}
+            {/* <div className="header__center">
                 <FormHeaderSearch />
-            </div>
+            </div> */}
             <div className="header__right">
                 <a className="header__site-link" href="#">
                     <span>Consultez votre boutique</span>

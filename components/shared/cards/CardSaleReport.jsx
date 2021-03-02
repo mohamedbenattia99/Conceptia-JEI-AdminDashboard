@@ -72,7 +72,7 @@ const CardSaleReport = () => {
     return (
         <div className="ps-card ps-card--sale-report">
             <div className="ps-card__header">
-                <h4>Sales Reports</h4>
+                <h4>Rapports de Ventes</h4>
             </div>
 
             <div className="ps-card__content">
@@ -88,11 +88,12 @@ const CardSaleReport = () => {
             <div className="ps-card__footer">
                 <div className="row">
                     <div className="col-md-8">
-                        <p>Items Earning Sales ($)</p>
+                        <p>Articles vendus ($)</p>
+                        {/* Items Earning Sales  */}
                     </div>
                     <div className="col-md-4">
                         <a href="#">
-                            Export Report
+                            Export 
                             <i className="icon icon-cloud-download ml-2"></i>
                         </a>
                     </div>

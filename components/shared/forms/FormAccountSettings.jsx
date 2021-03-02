@@ -9,7 +9,7 @@ const FormAccountSettings = () => {
             <div className="row">
                 <div className="col-sm-6">
                     <div className="form-group">
-                        <label>Full Name</label>
+                        <label>Nom</label>
                         <input
                             className="form-control"
                             type="text"
@@ -19,7 +19,7 @@ const FormAccountSettings = () => {
                 </div>
                 <div className="col-sm-6">
                     <div className="form-group">
-                        <label>Display Name</label>
+                        <label>Nom d'Utilisateur</label>
                         <input
                             className="form-control"
                             type="text"
@@ -39,7 +39,7 @@ const FormAccountSettings = () => {
                 </div>
                 <div className="col-sm-6">
                     <div className="form-group">
-                        <label>Role</label>
+                        <label>Rôle</label>
                         <input
                             className="form-control"
                             type="text"
@@ -49,7 +49,7 @@ const FormAccountSettings = () => {
                 </div>
                 <div className="col-sm-6">
                     <div className="form-group">
-                        <label>Address</label>
+                        <label>Adresse</label>
                         <input
                             className="form-control"
                             type="text"
@@ -59,7 +59,7 @@ const FormAccountSettings = () => {
                 </div>
                 <div className="col-sm-12">
                     <div className="form-group">
-                        <label>Bio</label>
+                        <label>Biographie</label>
                         <textarea
                             className="form-control"
                             rows="6"
@@ -68,8 +68,8 @@ const FormAccountSettings = () => {
                 </div>
             </div>
             <div className="ps-form__submit text-center">
-                <button className="ps-btn ps-btn--gray mr-3">Cancel</button>
-                <button className="ps-btn success">Update Profile</button>
+                <button className="ps-btn ps-btn--gray mr-3">Annuler</button>
+                <button className="ps-btn success">Mettre à Jour</button>
             </div>
         </form>
     );

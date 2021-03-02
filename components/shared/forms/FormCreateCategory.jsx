@@ -6,7 +6,7 @@ const FormCreateCategory = () => {
             <div className="ps-form__content">
                 <div className="form-group">
                     <label>
-                        Name<sup>*</sup>
+                        Nom<sup>*</sup>
                     </label>
                     <input
                         className="form-control"
