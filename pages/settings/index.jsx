@@ -12,7 +12,7 @@ const SettingsPage = () => {
     }, []);
     return (
         <ContainerDefault title="Settings">
-            <HeaderDashboard title="Settings" description="Martfury Settings" />
+            <HeaderDashboard title="Settings" description="RED SYS Settings" />
             <section className="ps-dashboard ps-items-listing">
                 <div className="ps-section__left">
                     <section className="ps-card">

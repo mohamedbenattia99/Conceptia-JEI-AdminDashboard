@@ -5,7 +5,7 @@ import DrawerMenu from '~/components/shared/drawers/DrawerMenu';
 
 const DefaultLayout = ({ children }) => {
     return (
-        <div id="martfury">
+        <div id="RED SYS">
             <Head />
             <HeaderMobile />
             {children}

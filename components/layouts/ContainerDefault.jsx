@@ -15,7 +15,7 @@ const ContainerDefault = ({ children, title }) => {
     }
 
     return (
-        <div className="martfury-admin">
+        <div className="RED SYS-admin">
             <Head>
                 <title>{titleView}</title>
             </Head>

@@ -16,7 +16,7 @@ const ModuleOrderShippingInformation = () => {
                     <strong>Phone No.:</strong> (+998) 117-211-31
                 </p>
                 <p>
-                    <strong>Email:</strong> customer@martfury.com
+                    <strong>Email:</strong> customer@RED SYS.com
                 </p>
             </div>
         </div>

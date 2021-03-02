@@ -1,5 +1,5 @@
 /*
-* Martfury - Admin Template
+* RED SYS - Admin Template
 * Author: nouthemes
 * Homepage: https://themeforest.net/user/nouthemes/portfolio
 * Created at: n/a
@@ -11,7 +11,7 @@ const withImages = require('next-images');
 
 const nextSettings = {
     env: {
-        title: 'Martfury',
+        title: 'RED SYS',
         titleDescription: 'Admin Template',
     },
 };

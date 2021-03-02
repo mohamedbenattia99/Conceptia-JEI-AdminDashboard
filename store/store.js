@@ -28,7 +28,7 @@ export const wrapper = createWrapper(makeStore, { debug: false });
 
 /*
 const persistConfig = {
-    key: 'martfury',
+    key: 'RED SYS',
     storage,
     whitelist: ['cart', 'compare', 'auth', 'wishlist'],
 };

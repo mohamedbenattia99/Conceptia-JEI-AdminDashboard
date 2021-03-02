@@ -13,7 +13,7 @@ const CreateProductPage = () => {
         <ContainerDefault title="Create new product">
             <HeaderDashboard
                 title="Create Product"
-                description="Martfury Create New Product "
+                description="RED SYS Create New Product "
             />
             <section className="ps-new-item">
                 <form
