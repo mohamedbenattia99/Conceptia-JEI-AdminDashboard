@@ -30,16 +30,7 @@ function reducer(state = initialState, action) {
                 ...state,
                 ...{ categories: action.payload },
             };
-        case actionTypes.GET_SINGLE_PRODUCT_SUCCESS:
-            return {
-                ...state,
-                ...{ singleProduct: action.data, productLoading: false },
-            };
-        case actionTypes.GET_PRODUCTS_BY_KEYWORD_SUCCESS:
-            return {
-                ...state,
-                ...{ searchResults: action.payload },
-            };
+
 
         case actionTypes.GET_PRODUCTS_ERROR:
             return {

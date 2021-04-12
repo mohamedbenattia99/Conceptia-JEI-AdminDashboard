@@ -1,6 +1,6 @@
 import Repository, { baseUrl, serializeQuery } from './Repository';
 
-class ProductRepositoryARevisiter {
+class ProductRepository {
     constructor(callback) {
         this.callback = callback;
     }
@@ -17,8 +17,8 @@ class ProductRepositoryARevisiter {
     }
 
 
-
     async getProductCategories() {
+
         const reponse = await Repository.get(`${baseUrl}/product-categories`)
             .then(response => {
                 return response.data;
@@ -36,24 +36,13 @@ class ProductRepositoryARevisiter {
         return reponse;
     }
 
-   /*to work on */ async getProductsByProductNumber(payload) {
-        const reponse = await Repository.get(`${baseUrl}/products/${payload}`)
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
 
-    async getProductByPriceRange (priceRange){
-       // to fill up
-    }
-
-    async getProductByName(name){
-        // to fill up
-    }
 
     async getProductsByCategory(payload) {
+       /*
+        payload ='slug_name'
+       */
+
         const reponse = await Repository.get(
             `${baseUrl}/product-categories?slug=${payload}`
         )
@@ -65,10 +54,6 @@ class ProductRepositoryARevisiter {
     }
 
 
-
-
-
-
 }
 
-export default new ProductRepositoryARevisiter();
+export default new ProductRepository();

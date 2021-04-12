@@ -24,18 +24,6 @@ function reducer(state = initialState, action) {
             };
 
 
-        case actionTypes.GET_ORDERS_BY_PRODUCT_SUCCESS:
-            return {
-                ...state,
-                ...{ singleOrder: action.data, orderLoading: false },
-            };
-
-        case actionTypes.GET_ORDER_BY_ID_SUCCESS:
-            return {
-                ...state,
-                ...{ singleProduct: action.data, productLoading: false },
-            };
-
         case actionTypes.GET_ORDERS_ERROR:
             return {
                 ...state,

@@ -1,6 +1,6 @@
 import { all, put, takeEvery, call } from 'redux-saga/effects';
 import { polyfill } from 'es6-promise';
-import OrderRepository from '../../repositories/OrderRepository(a revisiter)';
+import OrderRepository from '../../repositories/OrderRepository';
 
 import {
     actionTypes,
@@ -13,6 +13,10 @@ import {
 polyfill();
 
 function* getOrders({ payload }) {
+    // used for pagination payload  = {
+//             _start: number,
+//             _limit: number,
+//         }
     try {
         const data = yield call(OrderRepository.getRecords,payload);
         yield put(getOrdersSuccess(data));
@@ -22,6 +26,7 @@ function* getOrders({ payload }) {
 }
 
 function* getTotalOfOrders() {
+    // used to get all orders
     try {
         const result = yield call(OrderRepository.getTotalRecords);
         yield put(getTotalOrdersSuccess(result));
@@ -30,21 +35,41 @@ function* getTotalOfOrders() {
     }
 }
 
+function* getOrderByKeyword({ keyword }) {
+    //used for search results
+    /*
+         keyword ='' ;
+     */
+    try {
+        const searchParams = {
+            title_contains: keyword,
+        };
+            const result = yield call(OrderRepository.getRecords, searchParams);
+            yield put(getOrdersSuccess(result));
+    } catch (err) {
+        yield put(getProductsError(err));
+    }
+}
 
 function* getOrderById({ id }) {
+    //used for single product
     try {
         const order = yield call(OrderRepository.getOrderById, id);
-        yield put(getSingleOrderSuccess(order));
+        yield put(getOrdersSuccess(order));
     } catch (err) {
         yield put(getOrdersError(err));
     }
 }
 
 function* getOrdersByProductName({ productName }) {
+    // productName : type string
+    const params = {
+        product_name : productName ,
+    }
     try {
         const result = yield call(
-            OrderRepository.getOrdersByProduct,
-            productName
+            OrderRepository.getRecords,
+            params
         );
         yield put(getOrdersSuccess(result));
         yield put(getTotalOrdersSuccess(result.length));
@@ -54,9 +79,13 @@ function* getOrdersByProductName({ productName }) {
 }
 
 function* getOrdersByDate({ date }) {
+    // date = {
+    // date_min : value
+    // date_max : value
+    // }
     try {
         const result = yield call(
-            OrderRepository.getOrdersByDate,
+            OrderRepository.getRecords,
             date
         );
         yield put(getOrdersSuccess(result));
@@ -78,9 +107,13 @@ export default function* rootSaga() {
         takeEvery(actionTypes.GET_TOTAL_OF_ORDERS, getTotalOfOrders)
     ]);
 
-    yield all([takeEvery(actionTypes.GET_ORDER_BY_ID, getOrderById)]);
+    yield all([takeEvery(actionTypes.GET_ORDERS_BY_ID, getOrderById)]);
 
     yield all([ takeEvery(actionTypes.GET_ORDERS_BY_PRODUCT_NAME, getOrdersByProductName) ]);
+
+    yield all([
+        takeEvery(actionTypes.GET_ORDERS_BY_KEYWORD, getOrderByKeyword),
+    ]);
 
     yield all([takeEvery(actionTypes.GET_ORDERS_BY_DATE,getOrdersByDate)]);
 

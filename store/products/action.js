@@ -25,6 +25,11 @@ export const actionTypes = {
 };
 
 export function getProducts(payload) {
+    /* payload
+    payload ={
+        key : value
+    }
+     */
     return { type: actionTypes.GET_PRODUCTS, payload };
 }
 
@@ -53,31 +58,6 @@ export function getProductsSuccess(data) {
         data,
     };
 }
-export function getProductByKeywordsSuccess(payload) {
-    return {
-        type: actionTypes.GET_PRODUCTS_BY_KEYWORD_SUCCESS,
-        payload,
-    };
-}
-
-export function getProductByName(name) {
-    return {
-        type: actionTypes.GET_PRODUCTS_BY_KEYWORD_SUCCESS,
-        name,
-    };
-}
-
-export function getProductByNameSuccess(data){
-    return{type : actionTypes.GET_PRODUCTS_BY_NAME_SUCCESS , data}
-
-}
-
-export function getSingleProductsSuccess(data) {
-    return {
-        type: actionTypes.GET_SINGLE_PRODUCT_SUCCESS,
-        data,
-    };
-}
 
 export function getProductsError(error) {
     return {
@@ -87,6 +67,8 @@ export function getProductsError(error) {
 }
 
 export function getProductsByCategory(category) {
+     // category  type :string  ;
+
     return {
         type: actionTypes.GET_PRODUCTS_BY_CATEGORY,
         category,
@@ -94,6 +76,9 @@ export function getProductsByCategory(category) {
 }
 
 export function getProductsByKeyword(keyword) {
+
+    /// used for search by title
+    // keyword : type string
     return {
         type: actionTypes.GET_PRODUCTS_BY_KEYWORD,
         keyword,
@@ -101,6 +86,7 @@ export function getProductsByKeyword(keyword) {
 }
 
 export function getProductByProductNumber(number) {
+    // number type : string
     return {
         type: actionTypes.GET_PRODUCT_BY_PRODUCT_NUMBER,
         number,
@@ -108,6 +94,11 @@ export function getProductByProductNumber(number) {
 }
 
 export function getProductsByPriceRange(payload) {
+   /*
+        payload = {
+            price_min : value ,
+            price_max : value ,
+    }*/
     return {
         type: actionTypes.GET_PRODUCTS_BY_PRICE_RANGE,
         payload,
