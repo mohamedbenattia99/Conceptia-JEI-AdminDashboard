@@ -1,74 +1,92 @@
 // on a plus besoin de ce composant
 
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
 
 const TableCustomerItems = () => {
-    const customers = [
-        {
-            name: 'Jenny Simmonds',
-            phone: '(+921) 211-32-1145',
-            balance: '$211.00',
-            orders: '10',
-            status: 'true',
-        },
-        {
-            name: 'Ammara Molloy',
-            phone: '(+921) 916-971-217',
-            balance: '$211.00',
-            orders: '10',
-            status: 'true',
-        },
-        {
-            name: 'Anisa Forster',
-            phone: '(+921) 319-176-113',
-            balance: '$211.00',
-            orders: '10',
-            status: 'true',
-        },
-        {
-            name: 'Hashir Wilson',
-            phone: '(+921) 393-112-298',
-            balance: '$211.00',
-            orders: '10',
-            status: 'false',
-        },
-        {
-            name: 'Grover Sampson',
-            phone: '(+921) 393-872-137',
-            balance: '$211.00',
-            orders: '10',
-            status: 'true',
-        },
-        {
-            name: 'Nelson Mckeown',
-            phone: '(+921) 393-872-998',
-            balance: '$211.00',
-            orders: '10',
-            status: 'false',
-        },
-        {
-            name: 'Zunaira Akhtar',
-            phone: '(+921) 393-872-145',
-            balance: '$211.00',
-            orders: '10',
-            status: 'true',
-        },
-        {
-            name: 'Natan Kramer',
-            phone: '(+921) 293-872-145',
-            balance: '$211.00',
-            orders: '10',
-            status: 'false',
-        },
-        {
-            name: 'Jesse Pollard',
-            phone: '(+921) 291-32-145',
-            balance: '$211.00',
-            orders: '10',
-            status: 'true',
-        },
-    ];
+
+    const customers = () => {
+        const dispatch = useDispatch();
+        const { name, phone, balance, orders, status } = useSelector(
+            state => ({
+                name: state.name,
+                phone: state.phone,
+                balance: state.balance,
+                orders: state.orders,
+                status: state.status
+            })
+        );
+    }
+
+    useEffect(() => {
+        dispatch();
+    }, [dispatch]);
+    // const customers = [
+    //     {
+    //         name: 'Jenny Simmonds',
+    //         phone: '(+921) 211-32-1145',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'true',
+    //     },
+    //     {
+    //         name: 'Ammara Molloy',
+    //         phone: '(+921) 916-971-217',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'true',
+    //     },
+    //     {
+    //         name: 'Anisa Forster',
+    //         phone: '(+921) 319-176-113',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'true',
+    //     },
+    //     {
+    //         name: 'Hashir Wilson',
+    //         phone: '(+921) 393-112-298',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'false',
+    //     },
+    //     {
+    //         name: 'Grover Sampson',
+    //         phone: '(+921) 393-872-137',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'true',
+    //     },
+    //     {
+    //         name: 'Nelson Mckeown',
+    //         phone: '(+921) 393-872-998',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'false',
+    //     },
+    //     {
+    //         name: 'Zunaira Akhtar',
+    //         phone: '(+921) 393-872-145',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'true',
+    //     },
+    //     {
+    //         name: 'Natan Kramer',
+    //         phone: '(+921) 293-872-145',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'false',
+    //     },
+    //     {
+    //         name: 'Jesse Pollard',
+    //         phone: '(+921) 291-32-145',
+    //         balance: '$211.00',
+    //         orders: '10',
+    //         status: 'true',
+    //     },
+    // ];
     const tableItemsView = customers.map((item, index) => {
         let badgeView;
 

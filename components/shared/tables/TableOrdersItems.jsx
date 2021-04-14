@@ -2,52 +2,71 @@ import React from 'react';
 import Link from 'next/link';
 import { Menu } from 'antd';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrders } from '~/store/orders/action';
+
+
 
 const TableOrdersItems = () => {
-    const orderItems = [
-        {
-            id: '#A580',
-            date: 'Aug 15, 2020',
-            product: 'Unero Black Military',
-            payment: true,
-            fullfillment: 'delivered',
-            total: '$56.00',
-        },
-        {
-            id: '#B260',
-            date: 'Aug 16, 2020',
-            product: 'Marsh Speaker',
-            payment: false,
-            fullfillment: 'delivered',
-            total: '$56.00',
-        },
-        {
-            id: '#A583',
-            date: 'Aug 17, 2020',
-            product: 'Lined Blend T-Shirt',
-            payment: true,
-            fullfillment: 'In Progress',
-            total: '$516.00',
-        },
-        {
-            id: '#A523',
-            date: 'Aug 18, 2020',
-            product: 'DJI MAcvic Quadcopter',
-            payment: false,
-            fullfillment: 'delivered',
-            total: '$112.00',
-        },
-        {
-            id: '#A112',
-            date: 'Aug 19, 2020',
-            product: 'Black T-Shirt',
-            payment: true,
-            fullfillment: 'Cancel',
-            total: '$30.00',
-        },
-    ];
 
-    const tableItemsView = orderItems.map((item) => {
+    const dispatch = useDispatch();
+    const fetchOrderItems = () => {
+        dispatch(getOrders());
+    }
+
+    const state = useSelector(state => ({
+        ...state.allOrders
+    }))
+
+    useEffect(() => {
+        dispatch(fetchOrderItems());
+    }, [dispatch]);
+
+
+    /*    const orderItems = [
+            {
+                id: '#A580',
+                date: 'Aug 15, 2020',
+                product: 'Unero Black Military',
+                payment: true,
+                fullfillment: 'delivered',
+                total: '$56.00',
+            },
+            {
+                id: '#B260',
+                date: 'Aug 16, 2020',
+                product: 'Marsh Speaker',
+                payment: false,
+                fullfillment: 'delivered',
+                total: '$56.00',
+            },
+            {
+                id: '#A583',
+                date: 'Aug 17, 2020',
+                product: 'Lined Blend T-Shirt',
+                payment: true,
+                fullfillment: 'In Progress',
+                total: '$516.00',
+            },
+            {
+                id: '#A523',
+                date: 'Aug 18, 2020',
+                product: 'DJI MAcvic Quadcopter',
+                payment: false,
+                fullfillment: 'delivered',
+                total: '$112.00',
+            },
+            {
+                id: '#A112',
+                date: 'Aug 19, 2020',
+                product: 'Black T-Shirt',
+                payment: true,
+                fullfillment: 'Cancel',
+                total: '$30.00',
+            },
+        ];*/
+
+    const tableItemsView = state.allOrders.map((item) => {
         let badgeView, fullfillmentView;
         const menuView = (
             <Menu>
