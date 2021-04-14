@@ -48,28 +48,28 @@ function* getProductCategories() {
 }
 
 function* getProductByProductNumber({ number }) {
-    const params ={
-        product_number : number ,
+    const params = {
+        product_number: number,
     }
     try {
-        const product = yield call(ProductRepository.getRecords, params );
+        const product = yield call(ProductRepository.getRecords, params);
         yield put(getProductsSuccess(product));
     } catch (err) {
         yield put(getProductsError(err));
     }
 }
 
-function* getProductByKeyword({ keyword }) {
-    try {
-        const searchParams = {
-            title_contains: keyword,
-        };
-        const result = yield call(ProductRepository.getRecords, searchParams);
-        yield put(getProductsSuccess(result));
-    } catch (err) {
-        yield put(getProductsError(err));
-    }
-}
+// function* getProductByKeyword({ keyword }) {
+//     try {
+//         const searchParams = {
+//             title_contains: keyword,
+//         };
+//         const result = yield call(ProductRepository.getRecords, searchParams);
+//         yield put(getProductsSuccess(result));
+//     } catch (err) {
+//         yield put(getProductsError(err));
+//     }
+// }
 
 
 function* getProductByCategory({ category }) {
@@ -98,19 +98,19 @@ function* getProductByKeyword({ keyword }) {
     }
 }
 
-function* getProductByPriceRange({params}){
-     /* params = {
-        price_min : value  ,
-        price_max : value  ,
-     }
-      */
-    try{
-        const result = yield call(productRepository.getRecords,params) ;
+function* getProductByPriceRange({ params }) {
+    /* params = {
+       price_min : value  ,
+       price_max : value  ,
+    }
+     */
+    try {
+        const result = yield call(productRepository.getRecords, params);
         yield put(getProductsSuccess(result));
         yield put(getTotalProductsSuccess(result.length));
     }
-    catch (err){
-        yield put(getProductsError(err)) ;
+    catch (err) {
+        yield put(getProductsError(err));
     }
 }
 
@@ -123,7 +123,7 @@ export default function* rootSaga() {
         takeEvery(actionTypes.GET_TOTAL_OF_PRODUCTS, getTotalOfProducts),
     ]);
 
-    yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_PRICE_RANGE,getProductByPriceRange)])
+    yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_PRICE_RANGE, getProductByPriceRange)])
 
     yield all([
         takeEvery(actionTypes.GET_PRODUCT_CATEGORIES, getProductCategories),
@@ -137,10 +137,10 @@ export default function* rootSaga() {
         takeEvery(actionTypes.GET_PRODUCTS_BY_KEYWORD, getProductByKeyword),
     ]);
 
-    yield all([takeEvery(actionTypes.GET_PRODUCT_BY_PRODUCT_NUMBER , getProductByProductNumber)])
+    yield all([takeEvery(actionTypes.GET_PRODUCT_BY_PRODUCT_NUMBER, getProductByProductNumber)])
 
 
 
-    yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_PRICE_RANGE,getProductByPriceRange)])
+    yield all([takeEvery(actionTypes.GET_PRODUCTS_BY_PRICE_RANGE, getProductByPriceRange)])
 
 }
