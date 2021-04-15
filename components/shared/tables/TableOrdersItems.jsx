@@ -24,7 +24,7 @@ const TableOrdersItems = () => {
 
 
 
-    const tableItemsView = state.allOrders.map((item) => {
+    const tableItemsView = state?.allOrders?.map((item) => {
         let badgeView, fullfillmentView;
         const menuView = (
             <Menu>
