@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '~/store/orders/action';
 
 const TableOrderSummary = () => {
@@ -109,4 +109,4 @@ const TableOrderSummary = () => {
     )
 };
 
-export default TableOrderSummary;
+export default connect(state => state.app)(TableOrderSummary);

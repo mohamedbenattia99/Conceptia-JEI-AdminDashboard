@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { Menu } from 'antd';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '~/store/orders/action';
 
 
@@ -107,4 +107,4 @@ const TableOrdersItems = () => {
     );
 };
 
-export default TableOrdersItems;
+export default connect(state => state.app)(TableOrdersItems);

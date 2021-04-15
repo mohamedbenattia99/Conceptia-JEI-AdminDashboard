@@ -1,6 +1,23 @@
 import React from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { getProductCategories } from '~/store/products/action';
 
 const TableCategoryItems = () => {
+
+    const dispatch = useDispatch();
+    const fetchCategories = () => {
+        dispatch(getProductCategories());
+    }
+
+    const state = useSelector(state => ({
+        ...state.categories
+    }))
+
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, [dispatch]);
+
+
     return (
         <div className="table-responsive">
             <table className="table ps-table">
@@ -13,150 +30,40 @@ const TableCategoryItems = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <strong>Babies &amp; Moms</strong>
-                        </td>
-                        <td>babies-and-moms</td>
-                        <td>Jul 21, 2020</td>
-                        <td>
-                            <div className="dropdown">
-                                <a
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i className="icon-ellipsis"></i>
-                                </a>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#">
-                                        Editer
+                    {categories && categories?.map((item) => {
+                        <tr>
+                            <td>
+                                <strong>{categories.title}</strong>
+                            </td>
+                            <td>{categories.slug}</td>
+                            <td>{categories.date}</td>
+                            <td>
+                                <div className="dropdown">
+                                    <a
+                                        id="dropdownMenuButton"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <i className="icon-ellipsis"></i>
                                     </a>
-                                    <a className="dropdown-item" href="#">
-                                        Supprimer
+                                    <div
+                                        className="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton">
+                                        <a className="dropdown-item" href="#">
+                                            Editer
                                     </a>
+                                        <a className="dropdown-item" href="#">
+                                            Supprimer
+                                    </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Clothing &amp; Apparel</strong>
-                        </td>
-                        <td>clothing-and-apparel</td>
-                        <td>Jul 21, 2020</td>
-                        <td>
-                            <div className="dropdown">
-                                <a
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i className="icon-ellipsis"></i>
-                                </a>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#">
-                                        Editer
-                                    </a>
-                                    <a className="dropdown-item" href="#">
-                                        Supprimer
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Electronic</strong>
-                        </td>
-                        <td>clothing-and-apparel</td>
-                        <td>Jul 21, 2020</td>
-                        <td>
-                            <div className="dropdown">
-                                <a
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i className="icon-ellipsis"></i>
-                                </a>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#">
-                                        Editer
-                                    </a>
-                                    <a className="dropdown-item" href="#">
-                                        Supprimer
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Home Garden &amp; Kitchen</strong>
-                        </td>
-                        <td>Home-garden-and-kitchen</td>
-                        <td>Jul 21, 2020</td>
-                        <td>
-                            <div className="dropdown">
-                                <a
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i className="icon-ellipsis"></i>
-                                </a>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#">
-                                        Editer
-                                    </a>
-                                    <a className="dropdown-item" href="#">
-                                        Supprimer
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <strong>Computer &amp; Technologies</strong>
-                        </td>
-                        <td>computer-and-technologies</td>
-                        <td>Jul 21, 2020</td>
-                        <td>
-                            <div className="dropdown">
-                                <a
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">
-                                    <i className="icon-ellipsis"></i>
-                                </a>
-                                <div
-                                    className="dropdown-menu"
-                                    aria-labelledby="dropdownMenuButton">
-                                    <a className="dropdown-item" href="#">
-                                        Editer
-                                    </a>
-                                    <a className="dropdown-item" href="#">
-                                        Supprimer
-                                    </a>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    })}
                 </tbody>
             </table>
         </div>
     );
 };
 
-export default TableCategoryItems;
+export default connect(state => state.app)(TableCategoryItems);

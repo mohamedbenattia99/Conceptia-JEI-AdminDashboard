@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
 import { getProducts } from '~/store/products/action';
 
@@ -75,4 +75,4 @@ const TableProjectItems = () => {
     );
 };
 
-export default TableProjectItems;
+export default connect(state => state.app)(TableProjectItems);
