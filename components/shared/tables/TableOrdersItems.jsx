@@ -74,7 +74,7 @@ const TableOrdersItems = () => {
                     </Link>
                 </td>
                 <td>
-                    <strong> Aug 15, 2020</strong>
+                    <strong>{item.date}</strong>
                 </td>
                 <td>{badgeView}</td>
                 <td>{fullfillmentView}</td>
