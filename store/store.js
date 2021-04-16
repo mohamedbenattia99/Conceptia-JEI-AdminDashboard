@@ -5,7 +5,6 @@ import storage from 'redux-persist/lib/storage';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
-import thunk from 'redux-thunk';
 import { createWrapper } from 'next-redux-wrapper';
 
 const bindMiddleware = (middleware) => {
@@ -13,7 +12,7 @@ const bindMiddleware = (middleware) => {
         const { composeWithDevTools } = require('redux-devtools-extension');
         return composeWithDevTools(applyMiddleware(...middleware));
     }
-    return applyMiddleware(...middleware, thunk);
+    return applyMiddleware(...middleware);
 };
 
 export const makeStore = (context) => {
