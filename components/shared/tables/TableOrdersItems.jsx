@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu } from 'antd';
+import { Menu, Checkbox } from 'antd';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { getOrders } from '~/store/orders/action';
@@ -82,6 +82,9 @@ class TableOrdersItems extends Component {
                         <strong>{item.total}</strong>
                     </td>
                     <td>
+                        <Checkbox>Valider</Checkbox>
+                    </td>
+                    <td>
                         <DropdownAction />
                     </td>
                 </tr>
@@ -99,6 +102,7 @@ class TableOrdersItems extends Component {
                             <th>Payement</th>
                             <th>Accomplissement</th>
                             <th>Total</th>
+                            <th>Valider</th>
                             <th></th>
                         </tr>
                     </thead>
