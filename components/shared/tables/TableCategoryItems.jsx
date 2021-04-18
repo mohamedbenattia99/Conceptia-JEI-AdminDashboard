@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import { getProductCategories } from '~/store/products/action';
+import { connect } from 'react-redux';
 
 class TableCategoryItems extends Component {
 
-    // const dispatch = useDispatch();
-    // const fetchCategories = () => {
-    //     dispatch(getProductCategories());
-    // }
 
-    // const state = useSelector(state => ({
-    //     ...state.categories
-    // }))
 
-    // useEffect(() => {
-    //     dispatch(fetchCategories());
-    // }, [dispatch]);
 
-    componentDidMount() {
-        this.props.dispatch(getProductCategories());
-    }
 
     render() {
-
+        const allCategories =this.props.allCategories ;
+        const categoriesLoading = this.props.categoriesLoading ;
         return (
             <div className="table-responsive" >
                 <table className="table ps-table">
@@ -35,13 +22,13 @@ class TableCategoryItems extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.categories && this.props.categories?.map((item) => {
+                        {!(categoriesLoading) && typeof (allCategories)==='array'? allCategories.map((item) => {
                             <tr>
                                 <td>
-                                    <strong>{categories.title}</strong>
+                                    <strong>{item.title}</strong>
                                 </td>
-                                <td>{categories.slug}</td>
-                                <td>{categories.date}</td>
+                                <td>{item.slug}</td>
+                                <td>{item.date}</td>
                                 <td>
                                     <div className="dropdown">
                                         <a
@@ -64,7 +51,7 @@ class TableCategoryItems extends Component {
                                     </div>
                                 </td>
                             </tr>
-                        })}
+                        }):null}
                     </tbody>
                 </table>
             </div>
@@ -72,4 +59,4 @@ class TableCategoryItems extends Component {
     }
 };
 
-export default connect(state => state.app)(TableCategoryItems);
+export default connect(state => state.categories)(TableCategoryItems);

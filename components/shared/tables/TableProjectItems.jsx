@@ -5,28 +5,15 @@ import { getProducts } from '~/store/products/action';
 
 class TableProjectItems extends Component {
 
-    // const dispatch = useDispatch();
-    // const fetchProducts = () => {
-    //     dispatch(getProducts());
-    // }
 
-    // const state = useSelector(state => ({
-    //     ...state.allProducts
-    // }))
-
-    // useEffect(() => {
-    //     dispatch(fetchProducts());
-    // }, [dispatch]);
-
-    componentDidMount() {
-        this.props.dispatch(getProducts());
-    }
 
 
 
     render() {
 
-        const tableItems = this.props.allProducts?.map((item, index) => {
+    console.log(this.props.productLoading);
+    const allProducts =this.props.allProducts ;
+    const tableItems = !(this.props.productLoading) && typeof(allProducts)=="array"? this.props.allProducts.map((item, index) => {
             let badgeView;
             if (item.stock) {
                 badgeView = <span className="ps-badge success">Stock</span>;
@@ -61,7 +48,7 @@ class TableProjectItems extends Component {
                     </td>
                 </tr>
             );
-        });
+        }) :null ;
 
         return (
             <div className="table-responsive">
@@ -70,7 +57,7 @@ class TableProjectItems extends Component {
                         <tr>
                             <th>ID</th>
                             <th>Nom</th>
-                            <th>SKU</th>
+                            <th>référence</th>
                             <th>Stock</th>
                             <th>Prix</th>
                             <th>Catégories</th>
@@ -85,4 +72,4 @@ class TableProjectItems extends Component {
     }
 };
 
-export default connect(state => state.app)(TableProjectItems);
+export default connect(state => state.products)(TableProjectItems);

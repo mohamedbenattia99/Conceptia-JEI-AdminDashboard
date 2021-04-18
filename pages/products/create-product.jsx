@@ -125,7 +125,7 @@ const CreateProductPage = () => {
                                             </div>
                                         </div>
                                         <div className="form-group">
-                                            <label>Galerie de produitsy</label>
+                                            <label>Galerie de produits</label>
                                             <div className="form-group--nest">
                                                 <input
                                                     className="form-control mb-1"

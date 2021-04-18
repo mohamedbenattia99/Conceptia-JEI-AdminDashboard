@@ -56,7 +56,7 @@ export function getOrdersByProductName(productName) {
 export function getOrderById(id) {
   // id : type :string
   return {
-    type: actionTypes.GET_ORDER_BY_ID,
+    type: actionTypes.GET_ORDERS_BY_ID,
     id,
   };
 }

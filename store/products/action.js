@@ -3,6 +3,8 @@ export const actionTypes = {
     GET_PRODUCTS: 'GET_PRODUCTS',
     GET_PRODUCTS_SUCCESS: 'GET_PRODUCTS_SUCCESS',
     GET_PRODUCTS_ERROR: 'GET_PRODUCTS_ERROR',
+    GET_PRODUCTS_CATEGORIES_ERROR: 'GET_PRODUCTS_CATEGORIES_ERROR',
+
 
     GET_PRODUCTS_BY_CATEGORY: 'GET_PRODUCTS_BY_CATEGORY',
     GET_PRODUCTS_BY_PRICE_RANGE: 'GET_PRODUCTS_BY_PRICE_RANGE',
@@ -66,6 +68,14 @@ export function getProductsError(error) {
     };
 }
 
+export function getProductCategoriesError(error) {
+    return {
+        type: actionTypes.GET_PRODUCTS_CATEGORIES_ERROR
+        ,
+        error,
+    };
+}
+
 export function getProductsByCategory(category) {
      // category  type :string  ;
 
@@ -78,7 +88,7 @@ export function getProductsByCategory(category) {
 export function getProductsByKeyword(keyword) {
 
     /// used for search by title
-    // keyword : type string
+    // keyword : type object
     return {
         type: actionTypes.GET_PRODUCTS_BY_KEYWORD,
         keyword,

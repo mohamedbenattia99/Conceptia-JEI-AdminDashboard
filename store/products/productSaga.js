@@ -7,6 +7,7 @@ import {
     getProductsSuccess,
     getTotalProductsSuccess,
     getProductCategoriesSuccess,
+    getProductCategoriesError,
 
 
 } from './action';
@@ -43,7 +44,7 @@ function* getProductCategories() {
         const result = yield call(ProductRepository.getProductCategories);
         yield put(getProductCategoriesSuccess(result));
     } catch (err) {
-        console.log(err);
+        yield put(getProductCategoriesError(err));
     }
 }
 
@@ -59,17 +60,7 @@ function* getProductByProductNumber({ number }) {
     }
 }
 
-// function* getProductByKeyword({ keyword }) {
-//     try {
-//         const searchParams = {
-//             title_contains: keyword,
-//         };
-//         const result = yield call(ProductRepository.getRecords, searchParams);
-//         yield put(getProductsSuccess(result));
-//     } catch (err) {
-//         yield put(getProductsError(err));
-//     }
-// }
+
 
 
 function* getProductByCategory({ category }) {

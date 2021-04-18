@@ -1,11 +1,12 @@
 import { actionTypes } from './action';
 
 export const initialState = {
-    allProducts: null,
+    allProducts: null ,
     singleProduct: null,
     error: false,
     totalProducts: 0,
-    categories: null,
+    categories: null ,
+    categoriesLoading :true ,
     brands: [],
     productsLoading: true,
     productLoading: true,
@@ -28,11 +29,16 @@ function reducer(state = initialState, action) {
         case actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS:
             return {
                 ...state,
-                ...{ categories: action.payload },
+                ...{ categories: action.payload ,categoriesLoading: false},
             };
 
 
         case actionTypes.GET_PRODUCTS_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
+        case actionTypes.GET_PRODUCTS_CATEGORIES_ERROR:
             return {
                 ...state,
                 ...{ error: action.error },

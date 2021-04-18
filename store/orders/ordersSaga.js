@@ -53,8 +53,9 @@ function* getOrderByKeyword({ keyword }) {
 
 function* getOrderById({ id }) {
     //used for single product
+    const payload ={id: id}
     try {
-        const order = yield call(OrderRepository.getOrderById, id);
+        const order = yield call(OrderRepository.getOrderById, payload);
         yield put(getOrdersSuccess(order));
     } catch (err) {
         yield put(getOrdersError(err));

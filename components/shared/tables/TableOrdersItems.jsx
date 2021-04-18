@@ -2,8 +2,7 @@ import React, { Component, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, Checkbox } from 'antd';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { getOrders } from '~/store/orders/action';
+import { connect} from 'react-redux';
 
 
 
@@ -14,17 +13,13 @@ class TableOrdersItems extends Component {
         super(props);
     }
 
-    // state = useSelector(state => ({
-    //     ...state.allOrders
-    // }))
-    componentDidMount() {
-        this.props.dispatch(getOrders());
-    }
+
 
 
     render() {
-
-        const tableItemsView = this.props?.allOrders?.map((item) => {
+        const ordersLoading =this.props.orderLoading;
+        const orders =this.props.orders ;
+        const tableItemsView = !(ordersLoading) && typeof (orders) =='array' ?orders.map((item) => {
             let badgeView, fullfillmentView;
             const menuView = (
                 <Menu>
@@ -89,7 +84,7 @@ class TableOrdersItems extends Component {
                     </td>
                 </tr>
             );
-        });
+        }): null ;
 
         return (
             <div className="table-responsive">
@@ -113,4 +108,4 @@ class TableOrdersItems extends Component {
     }
 };
 
-export default connect(state => state.app)(TableOrdersItems);
+export default connect(state => state.orders)(TableOrdersItems);

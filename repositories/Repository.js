@@ -36,5 +36,6 @@ export const serializeQuery = (query) => {
         )
         .join('&');
 
+
 };
 

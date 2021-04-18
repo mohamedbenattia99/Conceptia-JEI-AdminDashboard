@@ -1,6 +1,10 @@
 import React from 'react';
+import {getProductByProductNumber, getProductsByKeyword} from "~/store/products/action";
 
 const FormSearchSimple = () => {
+
+
+
     return (
         <form
             className="ps-form--search-simple"
@@ -10,6 +14,7 @@ const FormSearchSimple = () => {
                 className="form-control"
                 type="text"
                 placeholder="Search..."
+
             />
             <button>
                 <i className="icon icon-magnifier"></i>

@@ -1,6 +1,6 @@
 import Repository, { baseUrl, serializeQuery } from './Repository';
 
-class OrderRepository {
+class CategoriesRepository {
 
     constructor(callback) {
         this.callback = callback;
@@ -13,7 +13,7 @@ class OrderRepository {
 //             _limit: number,
 //         }
         const reponse = await Repository.get(
-            `${baseUrl}/orders?${serializeQuery(params)}`
+            `${baseUrl}/categories?${serializeQuery(params)}`
         )
             .then(response => {
                 return response.data;
@@ -27,32 +27,15 @@ class OrderRepository {
 
     async getTotalRecords() {
 
-        const reponse = await Repository.get(`${baseUrl}/orders/count`)
+        const reponse = await Repository.get(`${baseUrl}/categories/count`)
             .then(response => {
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));
         return reponse;
     }
-
-    async getOrderById(payload) {
-       /*
-        payload {
-            id : string
-        }
-
-       */
-        const reponse = await Repository.get(`${baseUrl}/orders/${payload}`)
-            .then(response => {
-                return response.data;
-            })
-            .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
-    }
-
-
 
 
 }
 
-export default new OrderRepository();
+export default new CategoriesRepository();
