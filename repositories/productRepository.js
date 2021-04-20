@@ -6,14 +6,19 @@ class ProductRepository {
     }
 
     async getRecords(params) {
+        console.log(`/products?${serializeQuery(params)}`);
+
         const reponse = await Repository.get(
             `${baseUrl}/products?${serializeQuery(params)}`
         )
             .then(response => {
                 return response.data;
+
             })
             .catch(error => ({ error: JSON.stringify(error) }));
+
         return reponse;
+
     }
 
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
 import TableOrdersItems from '~/components/shared/tables/TableOrdersItems';
-import { Select , Pagination}from 'antd';
+import {Select, Pagination, notification} from 'antd';
 
 import Link from 'next/link';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
@@ -45,23 +45,39 @@ class OrdersPage extends Component {
 
     handleSearch(e) {
         if (e.target.value !== '') {
-            const keyword = e.target.value;
-            this.setState({
-                keyword: e.target.value
-            });
-
+            const key = e.target.value
             if(this.state.searchParam=="productName") {
-                console.log('searchparam = product name')
-                this.props.dispatch(getOrdersByProductName(keyword))
+                this.setState({
+                    keyword: e.target.value
+                });
+                this.props.dispatch(getOrdersByProductName(key))
             } else if(this.state.searchParam=="ID"){
-                console.log(typeof(parseInt(this.state.keyword)))
-                this.props.dispatch(getOrderById(keyword))
+
+                if(!isNaN(e.target.value)){
+                    this.setState({
+                        keyword: e.target.value
+                    });
+                    this.props.dispatch(getOrderById(parseInt(key)))
+
+                }else {
+                    notification.open({
+                        message: 'valeur non valide',
+                        description: 'case ID doit être un entier ',
+                        duration: 500,
+                        type : "warning"
+                    });
+                        e.target.value = '';
+                        this.setState({keyword: ''})
+                    }
+            }
+
+
             }
 
 
 
         }
-    }
+
 
     render(){
         const total = this.props.totalOrders ;

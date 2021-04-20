@@ -7,6 +7,8 @@ class OrderRepository {
     }
 
     async getRecords(params) {
+        console.log(`/orders?${serializeQuery(params)}`);
+
         // used for pagination & search by keyword
         // params  = {
 //             _start: number,
@@ -42,6 +44,7 @@ class OrderRepository {
         }
 
        */
+        console.log(`${baseUrl}/orders/${payload}`) ;
         const reponse = await Repository.get(`${baseUrl}/orders/${payload}`)
             .then(response => {
                 return response.data;

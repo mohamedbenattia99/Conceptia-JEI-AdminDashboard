@@ -169,7 +169,7 @@ class ProductPage extends Component  {
                         </div>
                         <div className="ps-section__footer">
                             <Pagination
-                                total={total - 1}
+                                total={total-1}
                                 pageSize={10}
                                 responsive={true}
                                 defaultCurrent={1}

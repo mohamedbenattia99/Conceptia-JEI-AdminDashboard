@@ -51,9 +51,9 @@ function* getOrderByKeyword({ keyword }) {
     }
 }
 
-function* getOrderById({ id }) {
+function* getOrderById(param) {
     //used for single product
-    const payload ={id: id}
+    const payload ={id: param.id}
     try {
         const order = yield call(OrderRepository.getOrderById, payload);
         yield put(getOrdersSuccess(order));
@@ -65,7 +65,7 @@ function* getOrderById({ id }) {
 function* getOrdersByProductName({ productName }) {
     // productName : type string
     const params = {
-        product_name : productName ,
+        product_title_contains : productName ,
     }
     try {
         const result = yield call(
