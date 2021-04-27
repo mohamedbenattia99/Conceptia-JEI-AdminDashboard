@@ -120,11 +120,7 @@ class OrdersPage extends Component {
                             </form>
                         </div>
                         <div className="ps-section__actions">
-                            <Link href="/products/create-product">
-                                <a className="ps-btn success">
-                                    <i className="icon icon-plus mr-2"></i>Nouvelle commande
-                                </a>
-                            </Link>
+
                             <a
                                 className="ps-btn ps-btn--gray"
                                 href="new-order.html">

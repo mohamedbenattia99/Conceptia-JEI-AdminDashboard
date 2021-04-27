@@ -1,14 +1,45 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
+import Link from "next/link";
 import { connect, useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
+import { useForm } from 'react-hook-form';
+
+const MARQUE=['marque1', 'marque2', 'marque3', 'marque4'];
+const CATEGORY=['category1', 'category2', 'category3', 'category4'];
 
 const CreateProductPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
     }, []);
+
+
+    const { register, handleSubmit, formState: {errors} } = useForm();
+
+    const onSubmit = (data) =>{
+         console.log(data);
+    
+      }
+
+    const uploadMultipleFiles = (e) => {
+        if (Array.from(e.target.files).length > 3) {
+          e.preventDefault();
+          alert(`Cannot upload files more than ${3}`);
+          return;
+        }
+      }  
+
+    
+    const hiddenFileInput = useRef(null);
+  
+  
+    // const handleClick = event => {
+    //   hiddenFileInput.current.click();
+    // };  
+
+
     return (
         <ContainerDefault title="Create new product">
             <HeaderDashboard
@@ -19,7 +50,8 @@ const CreateProductPage = () => {
                 <form
                     className="ps-form ps-form--new-product"
                     action=""
-                    method="get">
+                    method="get"
+                    onSubmit={handleSubmit(onSubmit)}>
                     <div className="ps-form__content">
                         <div className="row">
                             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
@@ -34,7 +66,12 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder="Enter product name..."
+                                                name="name"
+                                                {...register("name",{
+                                                required: "Nom est un champ obligatoire",
+                                                })}
                                             />
+                                             {errors.name && <span role="alert">{errors.name.message}</span>}
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -44,7 +81,12 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder="Enter product Reference..."
+                                                name="ref"
+                                                {...register("ref",{
+                                                required: "Reférence est un champ obligatoire",
+                                                })}
                                             />
+                                            {errors.ref && <span role="alert">{errors.ref.message}</span>}
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -53,7 +95,9 @@ const CreateProductPage = () => {
                                             <text-area
                                                 className="form-control"
                                                 rows="6"
-                                                placeholder="Enter product description..."></text-area>
+                                                placeholder="Enter product description..."
+                                            >
+                                            </text-area>
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -62,8 +106,17 @@ const CreateProductPage = () => {
                                             <input
                                                 className="form-control"
                                                 type="text"
-                                                placeholder=""
+                                                placeholder="Prix habituel en DT"
+                                                name="prixH"
+                                                {...register("prixH",{
+                                                required: "Prix habituel est un champ obligatoire",
+                                                pattern: {
+                                                    value: /^[0-9 .]+$/,
+                                                    message: "Prix habituel contient que des chiffres"
+                                                }
+                                                })}
                                             />
+                                            {errors.prixH && <span role="alert">{errors.prixH.message}</span>}
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -72,8 +125,16 @@ const CreateProductPage = () => {
                                             <input
                                                 className="form-control"
                                                 type="text"
-                                                placeholder=""
+                                                placeholder="Prix de vente en DT"
+                                                name="prixV"
+                                                {...register("prixV",{
+                                                required: "Prix de vente est un champ obligatoire",
+                                                pattern: {
+                                                    value: /^[0-9 .]+$/,
+                                                    message: "Prix de vente contient que des chiffres"
+                                                }})}
                                             />
+                                            {errors.prixV && <span role="alert">{errors.prixV.message}</span>}
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -83,7 +144,16 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder=""
+                                                name="quantity"
+                                                {...register("quantity",{
+                                                required: "Quantité de vente est un champ obligatoire",
+                                                pattern: {
+                                                    value: /^[0-9 .]+$/,
+                                                    message: "Quantité contient que des chiffres"
+                                                }
+                                                })}
                                             />
+                                            {errors.quantity && <span role="alert">{errors.quantity.message}</span>}
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -93,7 +163,12 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder=""
+                                                name="article"
+                                                {...register("article",{
+                                                required: "Articles vendus est un champ obligatoire",
+                                                })}
                                             />
+                                            {errors.article && <span role="alert">{errors.article.message}</span>}
                                         </div>
                                         <div className="form-group">
                                             <label>
@@ -102,7 +177,12 @@ const CreateProductPage = () => {
                                             <textarea
                                                 className="form-control"
                                                 rows="6"
-                                                name="editordata"></textarea>
+                                                // name="editordata"
+                                                name="description"
+                                                {...register("description",{
+                                                required: "Description est un champ obligatoire",
+                                                })}></textarea>
+                                            {errors.description && <span role="alert">{errors.description.message}</span>}    
                                         </div>
                                     </div>
                                 </figure>
@@ -111,7 +191,7 @@ const CreateProductPage = () => {
                                 <figure className="ps-block--form-box">
                                     <figcaption>Images du produit</figcaption>
                                     <div className="ps-block__content">
-                                        <div className="form-group">
+                                        {/* <div className="form-group">
                                             <label>Produit Thumbnail</label>
                                             <div className="form-group--nest">
                                                 <input
@@ -123,38 +203,28 @@ const CreateProductPage = () => {
                                                     Choisir
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="form-group">
                                             <label>Galerie de produits</label>
-                                            <div className="form-group--nest">
-                                                <input
-                                                    className="form-control mb-1"
-                                                    type="text"
-                                                    placeholder=""
-                                                />
-                                                <button className="ps-btn ps-btn--sm">
+                                            <div className="form-group--nest" >
+                                                 <input
+                                                    // className="form-control mb-1"
+                                                    type="file"
+                                                    name="image"
+                                                    placeholder="Choose photos"
+                                                    {...register('image', { required: "Vous devez choisir des images"})}
+                                                    multiple
+                                                    // style={{display:"none"}}
+                                                    accept=".jpeg, .png"
+                                                    ref={hiddenFileInput}
+                                                    onChange={uploadMultipleFiles}
+                                                /> 
+                                                {/* <button  className="ps-btn ps-btn--sm" onClick={handleClick}>
                                                     Choisir
-                                                </button>
+                                                </button> */}
                                             </div>
-                                        </div>
-                                        <div className="form-group form-group--nest">
-                                            <input
-                                                className="form-control mb-1"
-                                                type="text"
-                                                placeholder=""
-                                            />
-                                            <button className="ps-btn ps-btn--sm">
-                                                Choisir
-                                            </button>
-                                        </div>
-                                        <div className="form-group">
-                                            <label>Video (optional)</label>
-                                            <input
-                                                className="form-control"
-                                                type="text"
-                                                placeholder="Enter video URL"
-                                            />
-                                        </div>
+                                            {errors.image && <span role="alert">{errors.image.message}</span>}
+                                        </div>                                    
                                     </div>
                                 </figure>
                                 <figure className="ps-block--form-box">
@@ -168,28 +238,12 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder=""
+                                                name="sku"
+                                                {...register("sku",{
+                                                    required: "SKU est un champ obligatoire",
+                                                    })}
                                             />
-                                        </div>
-                                        <div className="form-group form-group--select">
-                                            <label>Status</label>
-                                            <div className="form-group__content">
-                                                <select
-                                                    className="ps-select"
-                                                    title="Status">
-                                                    <option value="1">
-                                                        Status 1
-                                                    </option>
-                                                    <option value="2">
-                                                        Status 2
-                                                    </option>
-                                                    <option value="3">
-                                                        Status 3
-                                                    </option>
-                                                    <option value="4">
-                                                        Status 4
-                                                    </option>
-                                                </select>
-                                            </div>
+                                             {errors.sku && <span role="alert">{errors.sku.message}</span>} 
                                         </div>
                                     </div>
                                 </figure>
@@ -197,32 +251,40 @@ const CreateProductPage = () => {
                                     <figcaption>Meta</figcaption>
                                     <div className="ps-block__content">
                                         <div className="form-group form-group--select">
-                                            <label>Marque</label>
+                                            <label>Marque<sup>*</sup></label>
                                             <div className="form-group__content">
                                                 <select
                                                     className="ps-select"
-                                                    title="Brand">
-                                                    <option value="1">
-                                                    Marque 1
-                                                    </option>
-                                                    <option value="2">
-                                                    Marque 2
-                                                    </option>
-                                                    <option value="3">
-                                                    Marque 3
-                                                    </option>
-                                                    <option value="4">
-                                                    Marque 4
-                                                    </option>
+                                                    title="Brand"
+                                                    name="marque"
+                                                    {...register("marque",{
+                                                        required: "Catégorie est un champ obligatoire"
+                                                    })}
+                                                    >
+                                                        <option value="" disabled>Veuillez choisir une marque</option>
+                                                        {MARQUE.map(c => <option key={c}>{c}</option>)}
                                                 </select>
+                                                <br></br>
+                                                {errors.marque && <span role="alert">{errors.marque.message}</span>}
+                                                
                                             </div>
                                         </div>
-                                        <div className="form-group">
-                                            <label>Tags</label>
-                                            <input
-                                                className="form-control"
-                                                type="text"
-                                            />
+                                        <div className="form-group form-group--select">
+                                            <label>Nom de la catégorie associée au produit<sup>*</sup></label>
+                                            <div className="form-group__content">
+                                                <select
+                                                    className="ps-select"
+                                                    title="Brand"
+                                                    {...register("category",{
+                                                        required: "Catégorie est un champ obligatoire"
+                                                        })}
+                                                    >
+                                                        <option value="" disabled>Veuillez choisir une catégorie</option>
+                                                        {CATEGORY.map(c => <option key={c} value={c}>{c}</option>)}
+                                                </select>
+                                                <br></br>
+                                                {errors.category && <span role="alert">{errors.category.message}</span>}
+                                            </div>
                                         </div>
                                     </div>
                                 </figure>
@@ -230,13 +292,16 @@ const CreateProductPage = () => {
                         </div>
                     </div>
                     <div className="ps-form__bottom">
+                        <Link href={'/products'}>
                         <a
                             className="ps-btn ps-btn--black"
-                            href="products.html">
+                            >
                             Retour
                         </a>
+                        </Link>
+
                         <button className="ps-btn ps-btn--gray">Annuler</button>
-                        <button className="ps-btn">Soumettre</button>
+                        <button className="ps-btn" type="submit">Soumettre</button>
                     </div>
                 </form>
             </section>
