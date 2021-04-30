@@ -20,7 +20,7 @@ class TableOrdersItems extends Component {
         const ordersLoading =this.props.orderLoading;
         const orders =this.props.orders ;
         const tableItemsView = !(ordersLoading) && typeof (orders) =='array' ?orders.map((item) => {
-            let badgeView, fullfillmentView;
+            let  fullfillmentView;
             const menuView = (
                 <Menu>
                     <Menu.Item key={0}>
@@ -36,11 +36,7 @@ class TableOrdersItems extends Component {
                     </Menu.Item>
                 </Menu>
             );
-            if (item.payment) {
-                badgeView = <span className="ps-badge success">Paid</span>;
-            } else {
-                badgeView = <span className="ps-badge gray">Unpaid</span>;
-            }
+
             switch (item.fullfillment) {
                 case 'In Progress':
                     fullfillmentView = (
@@ -71,7 +67,10 @@ class TableOrdersItems extends Component {
                     <td>
                         <strong>{item.date}</strong>
                     </td>
-                    <td>{badgeView}</td>
+                    <td>{item.productNumber}</td>
+                    <td>{item.customerName}</td>
+                    <td>{item.customerPhoneNumber}</td>
+                    <td>{item.customerEmail}</td>
                     <td>{fullfillmentView}</td>
                     <td>
                         <strong>{item.total}</strong>
@@ -94,7 +93,10 @@ class TableOrdersItems extends Component {
                             <th>ID</th>
                             <th>Date</th>
                             <th>Produit</th>
-                            <th>Payement</th>
+                            <th>n° d'article</th>
+                            <th>nom du client </th>
+                            <th>numéro de telephone</th>
+                            <th>email du client </th>
                             <th>Accomplissement</th>
                             <th>Total</th>
                             <th>Valider</th>

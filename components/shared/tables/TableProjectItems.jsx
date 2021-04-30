@@ -29,9 +29,13 @@ class TableProjectItems extends Component {
                         </a>
                     </td>
                     <td>{item.sku}</td>
+                    <td>{item.productNumber}</td>
                     <td>{badgeView}</td>
                     <td>
                         <strong>{item.price}</strong>
+                    </td>
+                    <td>
+                        <strong>{item.sale_price}</strong>
                     </td>
                     <td>
                         <p className="ps-item-categories">
@@ -58,8 +62,10 @@ class TableProjectItems extends Component {
                             <th>ID</th>
                             <th>Nom</th>
                             <th>référence</th>
+                            <th>n° d'article</th>
                             <th>Stock</th>
                             <th>Prix</th>
+                            <th>prix de vente</th>
                             <th>Catégories</th>
                             <th>Date</th>
                             <th></th>

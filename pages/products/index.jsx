@@ -113,7 +113,7 @@ class ProductPage extends Component  {
                                                 nom du produit
                                             </Option>
                                             <Option value="productNumber">
-                                                Référence du produit
+                                                numéro d'article
                                             </Option>
                                         </Select>
                                     </div>
