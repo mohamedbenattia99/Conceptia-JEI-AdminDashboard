@@ -13,6 +13,8 @@ const TableProjectItems =({values})=>{
 
     const  handleDelete =( id)=> {
         deleteProduct(id) ;
+        router.push('/products')
+
     }
     const  handleUpdate = (item)=>{
         dispatch(updateSingleProduct(item))

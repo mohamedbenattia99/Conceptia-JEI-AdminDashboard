@@ -12,7 +12,10 @@ const MARQUE=['marque1', 'marque2', 'marque3', 'marque4'];
 const CATEGORY=['category1', 'category2', 'category3', 'category4'];
 import {notification} from "antd";
 import PicturesWall from './uploadImage'
+import { useRouter } from 'next/router';
 const CreateProductPage = () => {
+    const router =useRouter() ;
+
     const [property,setProperty] = useState([
         { id:"", key:"", value:""}
     ]);
@@ -54,8 +57,11 @@ const CreateProductPage = () => {
              sku : productRef ,
              inventory :productQuantity,
 
+
          }
          fetchData(data,'products');
+
+        router.push("/products")
     
       }
 
@@ -379,7 +385,10 @@ const CreateProductPage = () => {
                         </Link>
 
                         <button className="ps-btn ps-btn--gray">Annuler</button>
-                        <button className="ps-btn" type="submit" onClick={()=>{handleSubmit(onSubmit)}}>Soumettre</button>
+                        <button className="ps-btn" type="submit" onClick={()=>{
+                         handleSubmit(onSubmit)
+
+                        }}>Soumettre</button>
                     </div>
                 </form>
             </section>
