@@ -4,7 +4,7 @@ export const actionTypes = {
     GET_PRODUCTS_SUCCESS: 'GET_PRODUCTS_SUCCESS',
     GET_PRODUCTS_ERROR: 'GET_PRODUCTS_ERROR',
     GET_PRODUCTS_CATEGORIES_ERROR: 'GET_PRODUCTS_CATEGORIES_ERROR',
-
+    UPDATE_SINGLE_PRODUCT : 'UPDATE_SINGLE_PRODUCT',
 
     GET_PRODUCTS_BY_CATEGORY: 'GET_PRODUCTS_BY_CATEGORY',
     GET_PRODUCTS_BY_PRICE_RANGE: 'GET_PRODUCTS_BY_PRICE_RANGE',
@@ -41,6 +41,9 @@ export function getTotalProducts() {
 
 export function getProductCategories() {
     return { type: actionTypes.GET_PRODUCT_CATEGORIES };
+}
+export function updateSingleProduct(singleProduct){
+    return {type:actionTypes.UPDATE_SINGLE_PRODUCT,singleProduct}
 }
 
 export function getProductCategoriesSuccess(payload) {

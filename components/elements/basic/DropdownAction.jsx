@@ -1,19 +1,29 @@
 import React from 'react';
 import { Dropdown, Menu } from 'antd';
+import connect from "react-redux/lib/connect/connect";
+import Link from "next/link";
+const DropdownAction = ({handleDelete,handleUpdate}) => {
 
-const DropdownAction = () => {
+
+
     const menuView = (
         <Menu>
+
+
+
             <Menu.Item key={0}>
-                <a className="dropdown-item" href="#">
+
+                <a className="dropdown-item" onClick={handleUpdate} >
                     <i className="icon-pencil mr-2"></i>
-                    Edit
+                    mise à jour
                 </a>
-            </Menu.Item>
+
+                </Menu.Item>
+
             <Menu.Item key={0}>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="#" onClick={handleDelete}>
                     <i className="icon-trash2 mr-2"></i>
-                    Delete
+                    supprimer
                 </a>
             </Menu.Item>
         </Menu>

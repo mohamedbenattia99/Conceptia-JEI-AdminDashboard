@@ -5,39 +5,56 @@ import Link from "next/link";
 import { connect, useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import { useForm } from 'react-hook-form';
-
+import {fetchData,serializeQuery} from "~/repositories/Repository";
 const MARQUE=['marque1', 'marque2', 'marque3', 'marque4'];
 const CATEGORY=['category1', 'category2', 'category3', 'category4'];
-
+import {notification} from "antd";
+import PicturesWall from './uploadImage'
 const CreateProductPage = () => {
+    const [productName,setProductName] =useState()
+    const [productRef,setProductRef] =useState()
+    const [productDescription,setProductDescription] =useState()
+    const [productNumber,setProductNumber] =useState()
+    const [productPrice,setProductPrice] =useState()
+    const [productSalePrice,setProductSalePrice] =useState()
+    const [productQuantity,setProductQuantity] =useState()
+    const [productCategories,setProductCategories] =useState()
+    const [productBrand,setProductBrand] =useState()
+    const [productImages,setProductImages] =useState()
+
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
     }, []);
 
+    const handleChange = (fileList ) => {
+        setProductImages({fileList})
+        console.log(productImages)
+    }
+
 
     const { register, handleSubmit, formState: {errors} } = useForm();
 
-    const onSubmit = (data) =>{
-         console.log(data);
+    const onSubmit = () =>{
+
+         const data={
+             title :productName ,
+             //product_categories:productCategories,
+             images :productImages,
+             price :productPrice,
+             sale_price : productSalePrice ,
+            // brands : productBrand ,
+             productNumber : productNumber ,
+           //  description : productDescription ,
+             sku : productRef ,
+             inventory :productQuantity,
+
+         }
+         fetchData(data,'products');
     
       }
 
-    const uploadMultipleFiles = (e) => {
-        if (Array.from(e.target.files).length > 3) {
-          e.preventDefault();
-          alert(`Cannot upload files more than ${3}`);
-          return;
-        }
-      }  
 
-    
-    const hiddenFileInput = useRef(null);
-  
-  
-    // const handleClick = event => {
-    //   hiddenFileInput.current.click();
-    // };  
 
 
     return (
@@ -66,6 +83,9 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder="Enter product name..."
+                                                value={productName}
+
+                                                onInput={(event)=>{setProductName(event.target.value);}}
                                                 name="name"
                                                 {...register("name",{
                                                 required: "Nom est un champ obligatoire",
@@ -81,6 +101,8 @@ const CreateProductPage = () => {
                                                 className="form-control"
                                                 type="text"
                                                 placeholder="Enter product Reference..."
+                                                value={productRef}
+                                                onInput={(event)=>{setProductRef(event.target.value)}}
                                                 name="ref"
                                                 {...register("ref",{
                                                 required: "Reférence est un champ obligatoire",
@@ -108,6 +130,8 @@ const CreateProductPage = () => {
                                                 type="text"
                                                 placeholder="Prix habituel en DT"
                                                 name="prixH"
+                                                value={productPrice}
+                                                onInput={(event)=>{setProductPrice(event.target.value)}}
                                                 {...register("prixH",{
                                                 required: "Prix habituel est un champ obligatoire",
                                                 pattern: {
@@ -127,6 +151,8 @@ const CreateProductPage = () => {
                                                 type="text"
                                                 placeholder="Prix de vente en DT"
                                                 name="prixV"
+                                                value={productSalePrice}
+                                                onInput={(event)=>{setProductSalePrice(event.target.value)}}
                                                 {...register("prixV",{
                                                 required: "Prix de vente est un champ obligatoire",
                                                 pattern: {
@@ -145,6 +171,8 @@ const CreateProductPage = () => {
                                                 type="text"
                                                 placeholder=""
                                                 name="quantity"
+                                                value={productQuantity}
+                                                onInput={(event)=>{setProductQuantity(event.target.value)}}
                                                 {...register("quantity",{
                                                 required: "Quantité de vente est un champ obligatoire",
                                                 pattern: {
@@ -155,21 +183,7 @@ const CreateProductPage = () => {
                                             />
                                             {errors.quantity && <span role="alert">{errors.quantity.message}</span>}
                                         </div>
-                                        <div className="form-group">
-                                            <label>
-                                            Articles vendus<sup>*</sup>
-                                            </label>
-                                            <input
-                                                className="form-control"
-                                                type="text"
-                                                placeholder=""
-                                                name="article"
-                                                {...register("article",{
-                                                required: "Articles vendus est un champ obligatoire",
-                                                })}
-                                            />
-                                            {errors.article && <span role="alert">{errors.article.message}</span>}
-                                        </div>
+
                                         <div className="form-group">
                                             <label>
                                             Description du produit<sup>*</sup>
@@ -179,10 +193,12 @@ const CreateProductPage = () => {
                                                 rows="6"
                                                 // name="editordata"
                                                 name="description"
+                                                value={productDescription}
+                                                onInput={(event)=>{setProductDescription(event.target.value)}}
                                                 {...register("description",{
                                                 required: "Description est un champ obligatoire",
                                                 })}></textarea>
-                                            {errors.description && <span role="alert">{errors.description.message}</span>}    
+                                            {errors.description && <span role="alert">{errors.description.message}</span>}
                                         </div>
                                     </div>
                                 </figure>
@@ -191,40 +207,15 @@ const CreateProductPage = () => {
                                 <figure className="ps-block--form-box">
                                     <figcaption>Images du produit</figcaption>
                                     <div className="ps-block__content">
-                                        {/* <div className="form-group">
-                                            <label>Produit Thumbnail</label>
-                                            <div className="form-group--nest">
-                                                <input
-                                                    className="form-control mb-1"
-                                                    type="text"
-                                                    placeholder=""
-                                                />
-                                                <button className="ps-btn ps-btn--sm">
-                                                    Choisir
-                                                </button>
-                                            </div>
-                                        </div> */}
+
                                         <div className="form-group">
                                             <label>Galerie de produits</label>
                                             <div className="form-group--nest" >
-                                                 <input
-                                                    // className="form-control mb-1"
-                                                    type="file"
-                                                    name="image"
-                                                    placeholder="Choose photos"
-                                                    {...register('image', { required: "Vous devez choisir des images"})}
-                                                    multiple
-                                                    // style={{display:"none"}}
-                                                    accept=".jpeg, .png"
-                                                    ref={hiddenFileInput}
-                                                    onChange={uploadMultipleFiles}
-                                                /> 
-                                                {/* <button  className="ps-btn ps-btn--sm" onClick={handleClick}>
-                                                    Choisir
-                                                </button> */}
+                                                <PicturesWall handleChange={handleChange} />
+
                                             </div>
                                             {errors.image && <span role="alert">{errors.image.message}</span>}
-                                        </div>                                    
+                                        </div>
                                     </div>
                                 </figure>
                                 <figure className="ps-block--form-box">
@@ -232,18 +223,21 @@ const CreateProductPage = () => {
                                     <div className="ps-block__content">
                                         <div className="form-group">
                                             <label>
-                                                SKU<sup>*</sup>
+                                                n° du produit <sup>*</sup>
                                             </label>
                                             <input
                                                 className="form-control"
                                                 type="text"
-                                                placeholder=""
-                                                name="sku"
-                                                {...register("sku",{
-                                                    required: "SKU est un champ obligatoire",
+                                                placeholder="entrer le n° du produit"
+                                                name="N° du produit"
+                                                value={productNumber}
+                                                onInput={(event)=>{setProductNumber(event.target.value)}}
+
+                                                {...register("N° du produit",{
+                                                    required: "n° du produit est un champ obligatoire",
                                                     })}
                                             />
-                                             {errors.sku && <span role="alert">{errors.sku.message}</span>} 
+                                             {errors.sku && <span role="alert">{errors.sku.message}</span>}
                                         </div>
                                     </div>
                                 </figure>
@@ -257,8 +251,10 @@ const CreateProductPage = () => {
                                                     className="ps-select"
                                                     title="Brand"
                                                     name="marque"
+                                                    value={productDescription}
+                                                    onSelect={(event)=>{setProductBrand(event.target.value)}}
                                                     {...register("marque",{
-                                                        required: "Catégorie est un champ obligatoire"
+                                                        required: "Marque est un champ obligatoire"
                                                     })}
                                                     >
                                                         <option value="" disabled>Veuillez choisir une marque</option>
@@ -266,7 +262,7 @@ const CreateProductPage = () => {
                                                 </select>
                                                 <br></br>
                                                 {errors.marque && <span role="alert">{errors.marque.message}</span>}
-                                                
+
                                             </div>
                                         </div>
                                         <div className="form-group form-group--select">
@@ -274,7 +270,9 @@ const CreateProductPage = () => {
                                             <div className="form-group__content">
                                                 <select
                                                     className="ps-select"
-                                                    title="Brand"
+                                                    title="Category"
+                                                    value={productCategories}
+                                                    onSelect={(event)=>{setProductCategories(event.target.value)}}
                                                     {...register("category",{
                                                         required: "Catégorie est un champ obligatoire"
                                                         })}
@@ -301,7 +299,7 @@ const CreateProductPage = () => {
                         </Link>
 
                         <button className="ps-btn ps-btn--gray">Annuler</button>
-                        <button className="ps-btn" type="submit">Soumettre</button>
+                        <button className="ps-btn" type="submit" onClick={()=>{handleSubmit(onSubmit)}}>Soumettre</button>
                     </div>
                 </form>
             </section>

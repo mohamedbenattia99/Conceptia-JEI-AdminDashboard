@@ -44,14 +44,23 @@ class ProductPage extends Component  {
             _start: page === 1 ? 0 : page * pageSize,
             _limit: pageSize,
         };
-        this.props.dispatch(getOrders(params));
+        this.props.dispatch(getProducts(params));
     }
 
     handleSelectParameter(value){
         this.setState({searchParam :value}) ;
     }
 
-
+    handleClick (){
+        const params = {
+            _start: 1,
+            _limit: 10,
+        };
+        this.props.dispatch(toggleDrawerMenu(false))
+        this.props.dispatch(getTotalProducts())
+        this.props.dispatch(getProductCategories())
+        this.props.dispatch(getProducts(params))
+    }
 
     handleSearch(e) {
         if (e.target.value !== '') {
@@ -118,29 +127,10 @@ class ProductPage extends Component  {
                                         </Select>
                                     </div>
 
-                                    <div className="ps-form__left">
-                                        <div className="form-group">
-                                            <Select
-                                                placeholder="selectionnez la catégorie"
-                                                className="ps-ant-dropdown"
-                                                listItemHeight={20}>
 
-
-                                              {!(categoriesLoading) && typeof(categories)=="array" ? categories.map(
-                                                        item=>{
-                                                            return <Option  value={item.slug}>item.slug</Option>
-                                                        })
-                                                    :null}
-
-                                            </Select>
-                                        </div>
-
-
-                                    </div>
                                     <div className="ps-form__right">
-                                        <button className="ps-btn ps-btn--gray">
-                                            <i className="icon icon-funnel mr-2"></i>
-                                            Filtrer
+                                        <button className="ps-btn ps-btn--gray" onClick={this.handleClick.bind(this)}>
+                                            annuler
                                         </button>
                                     </div>
                                 </form>
@@ -170,7 +160,7 @@ class ProductPage extends Component  {
                         <div className="ps-section__footer">
                             <Pagination
                                 total={total-1}
-                                pageSize={10}
+                                pageSize={20}
                                 responsive={true}
                                 defaultCurrent={1}
                                 onChange={this.handlePagination.bind(this)}

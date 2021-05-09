@@ -1,31 +1,48 @@
 import React, { Component } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
-import { getProducts } from '~/store/products/action';
-
-class TableProjectItems extends Component {
-
-
+import {updateSingleProduct } from '~/store/products/action';
+import {deleteProduct} from '../../../repositories/Repository'
+import { useRouter } from 'next/router'
 
 
+const TableProjectItems =()=>{
+    const router =useRouter() ;
 
-    render() {
+    const dispatch =useDispatch();
 
-    console.log(this.props.productLoading);
-    const allProducts =this.props.allProducts ;
-    const tableItems = !(this.props.productLoading) && typeof(allProducts)=="array"? this.props.allProducts.map((item, index) => {
+   const  handleDelete =( id)=> {
+    deleteProduct(id) ;
+}
+   const  handleUpdate = (item)=>{
+    dispatch(updateSingleProduct(item))
+    router.push('/products/update-product')
+
+    }
+
+
+
+
+    const allProducts =useSelector(state=>state.products.allProducts) ;
+    const productsLoading =useSelector(state=>state.products.productsLoading) ;
+
+
+      console.log( allProducts)
+
+    const tableItems = !(productsLoading) && Array.isArray(allProducts) ? allProducts.map((item, index) => {
+
             let badgeView;
-            if (item.stock) {
+            if (item.inventory!=0) {
                 badgeView = <span className="ps-badge success">Stock</span>;
             } else {
                 badgeView = <span className="ps-badge gray">Out of stock</span>;
             }
             return (
-                <tr key={item.sku}>
-                    <td>{index + 1}</td>
+                <tr key={item.id}>
+                    <td>{item.id}</td>
                     <td>
                         <a href="#">
-                            <strong>{item.name}</strong>
+                            <strong>{item.title}</strong>
                         </a>
                     </td>
                     <td>{item.sku}</td>
@@ -39,16 +56,23 @@ class TableProjectItems extends Component {
                     </td>
                     <td>
                         <p className="ps-item-categories">
-                            {item.categories.map((cat) => (
-                                <a href="#" key={cat.name}>
-                                    {cat.name}
-                                </a>
-                            ))}
+                            {/*{item.categories.map((cat) => (*/}
+                            {/*    <a href="#" key={cat.name}>*/}
+                            {/*        {cat.name}*/}
+                            {/*    </a>*/}
+                            {/*))}*/}
+                            fill this with categories after the client send database
                         </p>
                     </td>
-                    <td>{item.date}</td>
+                    <td>{item.brand}</td>
                     <td>
-                        <DropdownAction />
+                        <DropdownAction  handleDelete={()=> {
+                            handleDelete(item.id)
+                        }}
+                                         handleUpdate={()=> {
+                                             handleUpdate(item)
+                                         }}
+                        />
                     </td>
                 </tr>
             );
@@ -75,7 +99,7 @@ class TableProjectItems extends Component {
                 </table>
             </div>
         );
-    }
+
 };
 
-export default connect(state => state.products)(TableProjectItems);
+export default TableProjectItems;

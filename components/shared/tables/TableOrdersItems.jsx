@@ -19,7 +19,7 @@ class TableOrdersItems extends Component {
     render() {
         const ordersLoading =this.props.orderLoading;
         const orders =this.props.orders ;
-        const tableItemsView = !(ordersLoading) && typeof (orders) =='array' ?orders.map((item) => {
+        const tableItemsView = !(ordersLoading) &&  Array.isArray(orders) ? orders.map((item) => {
             let  fullfillmentView;
             const menuView = (
                 <Menu>

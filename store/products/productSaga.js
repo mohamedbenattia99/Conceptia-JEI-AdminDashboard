@@ -50,7 +50,7 @@ function* getProductCategories() {
 
 function* getProductByProductNumber({ number }) {
     const params = {
-        product_number: number,
+        productNumber: number,
     }
     try {
         const product = yield call(ProductRepository.getRecords, params);

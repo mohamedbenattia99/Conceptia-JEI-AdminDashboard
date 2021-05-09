@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "@zeit/next-sass": "^1.0.1",
-        "antd": "^4.8.5",
+        "antd": "^4.15.4",
         "apexcharts": "^3.22.2",
         "axios": "^0.21.0",
         "es6-promise": "^4.2.8",

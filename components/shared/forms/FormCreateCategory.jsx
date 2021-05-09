@@ -1,9 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
+import {fetchData,serializeQuery} from "~/repositories/Repository";
 
 const FormCreateCategory = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
-    const onSubmit = data => console.log(data);
+
+    const [categoryName,setCategoryName]=useState()
+    const [categorySlug,setCategorySlug]=useState()
+    const [categoryDescription,setCategoryDescription]=useState()
+
+
+    const onSubmit = () => {
+        console.log("hi");
+        const data={
+            name:categoryName,
+            slug:categorySlug
+ }
+        fetchData(serializeQuery(data),'product-categories')
+    };
 
     return (
         <form 
@@ -21,7 +35,10 @@ const FormCreateCategory = () => {
                         className="form-control"
                         type="text"
                         placeholder="Entrer le nom de la catégorie"
+
                         name="name"
+                        value={categoryName}
+                        onInput={(event)=>{setCategoryName(event.target.value)}}
                         {...register("name",{
                             required: "Nom est un champ obligatoire",
                             pattern: {
@@ -40,6 +57,8 @@ const FormCreateCategory = () => {
                         className="form-control"
                         type="text"
                         placeholder="Entrer le slug de la catégorie"
+                        value={categorySlug}
+                        onInput={(e)=>{setCategorySlug(e.target.value)}}
                         name="slug"
                         {...register('slug', { required: "Slug est un champ obligatoire"})}   
                     />
@@ -82,6 +101,8 @@ const FormCreateCategory = () => {
                             type="file"
                             placeholder=""
                             accept=".jpeg, .png"
+                            value={categoryDescription}
+                            onInput={(e)=>{setCategoryDescription(e.target.value)}}
                             {...register('description', { required: "Description est un champ obligatoire"})}
                         />
                 </div>

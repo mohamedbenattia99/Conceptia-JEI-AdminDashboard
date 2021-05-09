@@ -1,15 +1,15 @@
-import { actionTypes } from './action';
+import {actionTypes, updateSingleProduct} from './action';
 
 export const initialState = {
     allProducts: null ,
-    singleProduct: null,
     error: false,
+    updateSingleProduct : null ,
+    updateLoading :true,
     totalProducts: 0,
     categories: null ,
     categoriesLoading :true ,
     brands: [],
     productsLoading: true,
-    productLoading: true,
     searchResults: null,
 };
 
@@ -38,6 +38,10 @@ function reducer(state = initialState, action) {
                 ...state,
                 ...{ error: action.error },
             };
+
+        case actionTypes.UPDATE_SINGLE_PRODUCT :
+            return {...state,...{updateSingleProduct:action.singleProduct,updateLoading: false}};
+
         case actionTypes.GET_PRODUCTS_CATEGORIES_ERROR:
             return {
                 ...state,
