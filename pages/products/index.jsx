@@ -19,6 +19,8 @@ class ProductPage extends Component  {
         this.state = {
             searchParam :'',
             keyword: '',
+            values: ["id", "name", "ref", "price", "category","edit"],
+
         };
 
     }
@@ -81,7 +83,9 @@ class ProductPage extends Component  {
 
     }
     }
-
+    handleChange = (e) => {
+        this.setState({ values: e });
+    }
 
         render(){
             const total = this.props.totalProducts ;
@@ -102,6 +106,65 @@ class ProductPage extends Component  {
                                     Nouveau Produit
                                 </a>
                             </Link>
+                        </div>
+                        <div className="form-group">
+                            <Select
+                                placeholder="Séléctionnez les colonnes"
+                                mode="multiple"
+                                allowClear
+                                className="ps-ant-dropdown"
+                                style={{ height: '100%' }}
+                                defaultValue={["id", "name", "ref", "price", "category","edit"]}
+                                onChange={this.handleChange}
+                            >
+                                <Option value="id"
+                                        selected={this.state.values.includes("id")}
+                                >
+                                    ID
+                                </Option>
+                                <Option value="name"
+                                        selected={this.state.values.includes("name")}
+                                >
+                                    Nom
+                                </Option>
+                                <Option value="ref"
+                                        selected={this.state.values.includes("ref")}
+                                >
+                                    Référence
+                                </Option>
+                                <Option value="numArt"
+                                        selected={this.state.values.includes("numArt")}
+                                >
+                                    N° d'article
+                                </Option>
+                                <Option value="stock"
+                                        selected={this.state.values.includes("stock")}
+                                >
+                                    stock
+                                </Option>
+
+                                <Option value="price"
+                                        selected={this.state.values.includes("price")}
+                                >
+                                    Prix
+                                </Option>
+                                <Option value="salePrice"
+                                        selected={this.state.values.includes("salePrice")}
+                                >
+                                    Prix de vente
+                                </Option>
+                                <Option value="category"
+                                        selected={this.state.values.includes("category")}
+                                >
+                                    category
+                                </Option>
+                                <Option value="edit"
+                                        selected={this.state.values.includes("edit")}
+                                >
+                                    edit
+                                </Option>
+
+                            </Select>
                         </div>
                         <div className="ps-section__header">
                             <div className="ps-section__filter">
@@ -154,7 +217,7 @@ class ProductPage extends Component  {
                             </div>
                         </div>
                         <div className="ps-section__content">
-                            <TableProjectItems />
+                            <TableProjectItems values ={this.state.values}/>
 
                         </div>
                         <div className="ps-section__footer">

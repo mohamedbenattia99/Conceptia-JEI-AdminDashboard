@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import Link from "next/link";
+import { generate } from 'shortid';
+import { produce } from "immer";
 import { connect, useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import { useForm } from 'react-hook-form';
@@ -11,6 +13,9 @@ const CATEGORY=['category1', 'category2', 'category3', 'category4'];
 import {notification} from "antd";
 import PicturesWall from './uploadImage'
 const CreateProductPage = () => {
+    const [property,setProperty] = useState([
+        { id:"", key:"", value:""}
+    ]);
     const [productName,setProductName] =useState()
     const [productRef,setProductRef] =useState()
     const [productDescription,setProductDescription] =useState()
@@ -282,6 +287,81 @@ const CreateProductPage = () => {
                                                 </select>
                                                 <br></br>
                                                 {errors.category && <span role="alert">{errors.category.message}</span>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </figure>
+                                <figure className="ps-block--form-box">
+                                    <figcaption>Spécification</figcaption>
+                                    <div className="ps-block__content">
+                                        <div className="form-group form-group--select">
+                                            <label>Spécification & Valeurs<sup>*</sup></label>
+                                            <button
+                                                className="ps-btn"
+                                                style={{marginBottom:"8px"}}
+                                                onClick= {()=>{
+                                                    setProperty(currentProperty => [
+                                                        ...currentProperty,
+                                                        {
+                                                            id: generate(),
+                                                            prop:"",
+                                                            value:""
+                                                        }
+                                                    ]);
+                                                }}
+                                            >
+                                                Ajouter une propriété
+                                            </button>
+                                            <div className="form-group__content" >
+
+
+
+                                                {property.map((p, index)=>{
+                                                        return(
+                                                            <div className="row" key={p.id}>
+                                                                <input
+                                                                    className="form-control col-sm-4"
+                                                                    style={{width:"50%"}}
+                                                                    onChange={e => {
+                                                                        const prop = e.target.value;
+                                                                        setProperty(currentProperty =>
+                                                                            produce(currentProperty, v => {
+                                                                                v[index].prop = prop;
+                                                                            }))
+                                                                    }}
+                                                                    value = {p.prop}
+                                                                    placeholder="Entrer une propriété"
+                                                                />
+                                                                <input
+                                                                    className="form-control col-sm-4"
+                                                                    style={{width:"50%"}}
+                                                                    onChange={e => {
+                                                                        const value = e.target.value;
+                                                                        setProperty(currentProperty =>
+                                                                            produce(currentProperty, v => {
+                                                                                v[index].value = value;
+                                                                            }))
+                                                                    }}
+                                                                    value = {p.value}
+                                                                    placeholder="Entrer une valeur"
+                                                                />
+                                                                <button
+                                                                    className="ps-btn ps-btn--gray col-sm-4"
+                                                                    onClick={()=> {
+                                                                        setProperty(currentProperty => currentProperty.filter(x => x.id !== p.id))
+                                                                    }}
+                                                                >
+                                                                    Supprimer
+                                                                </button>
+                                                            </div>
+
+                                                        )
+                                                    }
+
+                                                )}
+
+
+
                                             </div>
                                         </div>
                                     </div>
