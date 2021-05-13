@@ -24,14 +24,6 @@ class Login extends Component {
         return false;
     }
 
-    handleFeatureWillUpdate(e) {
-        e.preventDefault();
-        notification.open({
-            message: 'Opp! Something went wrong.',
-            description: 'This feature has been updated later!',
-            duration: 500,
-        });
-    }
 
     handleChange = input => e => {
         const data = {...this.state.data}
@@ -40,7 +32,7 @@ class Login extends Component {
     }
     handleLoginSubmit = e => {
         const userData = {
-            identifier: this.state.data.email,
+            email: this.state.data.email,
             password: this.state.data.password
         };
 
