@@ -2,6 +2,8 @@ import axios from 'axios';
 export const isGrapql = true;
 const baseDomain = 'http://localhost:1337';
 /*const baseDomain = 'http://45.76.97.89:1337';*/
+const shopBaseUrl = "http://localhost:3000";
+
 const authorization_prefix = 'Bearer ';
 export const customHeaders = {
     Accept: 'application/json',
@@ -9,6 +11,7 @@ export const customHeaders = {
 };
 
 export const baseUrl = `${baseDomain}`;
+export const shopUrl = `${shopBaseUrl}`;
 
 export default axios.create({
     baseUrl,
