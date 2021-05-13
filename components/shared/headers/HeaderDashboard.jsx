@@ -17,7 +17,7 @@ const HeaderDashboard = ({
                 <FormHeaderSearch />
             </div> */}
             <div className="header__right">
-                <a className="header__site-link" href={shopUrl}>
+                <a className="header__site-link" href={shopUrl} target="_blank">
                     <span>Consultez votre boutique</span>
                     <i className="icon-exit-right"></i>
                 </a>
