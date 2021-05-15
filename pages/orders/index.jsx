@@ -9,6 +9,7 @@ import { connect, useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import {getOrders, getTotalOrders,getOrderById,getOrdersByProductName} from "~/store/orders/action";
 import {Option} from "antd/lib/mentions";
+import {deleteProduct} from "~/repositories/Repository";
 
 class OrdersPage extends Component {
     constructor(props) {
@@ -20,11 +21,14 @@ class OrdersPage extends Component {
     }
 
 
+    handleExport () {
+    }
+
     componentDidMount() {
 
         const params = {
-            _start: 1,
-            _limit: 12,
+            _start: 0,
+            _limit: 20,
         };
         this.props.dispatch(toggleDrawerMenu(false))
         this.props.dispatch(getTotalOrders())
@@ -46,12 +50,8 @@ class OrdersPage extends Component {
     handleSearch(e) {
         if (e.target.value !== '') {
             const key = e.target.value
-            if(this.state.searchParam=="productName") {
-                this.setState({
-                    keyword: e.target.value
-                });
-                this.props.dispatch(getOrdersByProductName(key))
-            } else if(this.state.searchParam=="ID"){
+
+            if(this.state.searchParam=="ID"){
 
                 if(!isNaN(e.target.value)){
                     this.setState({
@@ -111,7 +111,6 @@ class OrdersPage extends Component {
                                             placeholder=" paramètre de recherche "
                                             className="ps-ant-dropdown"
                                             listItemHeight={20}>
-                                            <Option value='productName'> nom du produit </Option>
                                             <Option value='ID'> ID </Option>
                                          </Select>
                                     </div>
@@ -121,7 +120,7 @@ class OrdersPage extends Component {
                         </div>
                         <div className="ps-section__actions">
 
-                            <a
+                            <a  on onClick={this.handleExport}
                                 className="ps-btn ps-btn--gray"
                                 href="new-order.html">
                                 <i className="icon icon-download2 mr-2"></i>Exporter
@@ -134,7 +133,7 @@ class OrdersPage extends Component {
                     <div className="ps-section__footer">
                         <Pagination
                             total={total - 1}
-                            pageSize={10}
+                            pageSize={20}
                             responsive={true}
                             defaultCurrent={1}
                             onChange={(page, pageSize)=>{this.handlePagination(page,pageSize)}}

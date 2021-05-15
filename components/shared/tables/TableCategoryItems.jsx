@@ -22,7 +22,7 @@ class TableCategoryItems extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {!(categoriesLoading) && typeof (allCategories)==='array'? allCategories.map((item) => {
+                        {!(categoriesLoading) && Array.isArray(allCategories)? allCategories.map((item) => {
                             <tr>
                                 <td>
                                     <strong>{item.title}</strong>

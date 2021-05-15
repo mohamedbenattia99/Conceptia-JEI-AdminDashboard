@@ -5,8 +5,8 @@ export const initialState = {
     singleOrder: null,
     error: false,
     totalOrders: 0,
+    orderLoading: true ,
     ordersLoading: true,
-    orderLoading: true,
     searchResults: null,
 };
 
@@ -22,6 +22,20 @@ function reducer(state = initialState, action) {
                 ...state,
                 ...{ totalOrders: action.payload },
             };
+
+        case actionTypes.VALIDATE_ORDER_SUCCESS:
+            return {
+                ...state
+
+            };
+
+
+        case actionTypes.VALIDATE_ORDER_ERROR:
+            return {
+                ...state,
+                ...{ error :action.error },
+            };
+
 
 
         case actionTypes.GET_ORDERS_ERROR:

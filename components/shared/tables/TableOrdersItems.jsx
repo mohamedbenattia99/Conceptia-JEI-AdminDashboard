@@ -1,9 +1,9 @@
 import React, { Component, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, Checkbox } from 'antd';
+import { Menu, Checkbox,Popconfirm,Button} from 'antd';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
 import { connect} from 'react-redux';
-
+import {validateOrder} from "~/store/orders/action";
 
 
 class TableOrdersItems extends Component {
@@ -11,15 +11,33 @@ class TableOrdersItems extends Component {
 
     constructor(props) {
         super(props);
+        this.state ={
+            valid : false ,
+            visibility:true ,
+        }
     }
 
 
+     handleValidate (item){
+        const data =item
+        data.valid =!(data.valid) ;
+        this.props.dispatch(validateOrder(data.id,data)) ;
+    }
 
 
     render() {
-        const ordersLoading =this.props.orderLoading;
-        const orders =this.props.orders ;
-        const tableItemsView = !(ordersLoading) && typeof (orders) =='array' ?orders.map((item) => {
+
+
+        const allOrders =this.props.allOrders ;
+        const ordersLoading =this.props.ordersLoading;
+
+    console.log(allOrders)
+    console.log(ordersLoading)
+    console.log(Array.isArray(allOrders))
+
+
+        const tableItemsView = (!(ordersLoading) && Array.isArray(allOrders) )? allOrders.map((item) => {
+            console.log(item.productName)
             let  fullfillmentView;
             const menuView = (
                 <Menu>
@@ -38,19 +56,20 @@ class TableOrdersItems extends Component {
             );
 
             switch (item.fullfillment) {
-                case 'In Progress':
+                case 'Success':
                     fullfillmentView = (
-                        <span className="ps-fullfillment warning">In Progress</span>
+                        <span className="ps-fullfillment success">delivered</span>
                     );
                     break;
                 case 'Cancel':
                     fullfillmentView = (
                         <span className="ps-fullfillment danger">Cancel</span>
                     );
+
                     break;
                 default:
                     fullfillmentView = (
-                        <span className="ps-fullfillment success">delivered</span>
+                        <span className="ps-fullfillment warning">In Progress</span>
                     );
                     break;
             }
@@ -60,7 +79,7 @@ class TableOrdersItems extends Component {
                     <td>
                         <Link href="/orders/order-detail">
                             <a>
-                                <strong>{item.product}</strong>
+                                <strong>{item.productName}</strong>
                             </a>
                         </Link>
                     </td>
@@ -70,13 +89,13 @@ class TableOrdersItems extends Component {
                     <td>{item.productNumber}</td>
                     <td>{item.customerName}</td>
                     <td>{item.customerPhoneNumber}</td>
-                    <td>{item.customerEmail}</td>
+                    <td>put customer mail in here</td>
                     <td>{fullfillmentView}</td>
                     <td>
                         <strong>{item.total}</strong>
                     </td>
                     <td>
-                        <Checkbox>Valider</Checkbox>
+                        <Button color={item.valid ? "success":"danger"}>{item.valid ? 'validé':'non validé'}</Button>
                     </td>
                     <td>
                         <DropdownAction />

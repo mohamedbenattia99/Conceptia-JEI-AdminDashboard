@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
-import { Select , Pagination}from 'antd';
+import {Select, Pagination, Spin} from 'antd';
 import Link from 'next/link';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ import {getOrders} from "~/store/orders/action";
 import TableProjectItems from "~/components/shared/tables/TableProjectItems";
 import {getProductCategories} from "~/store/products/action";
 import {getProductsByKeyword , getProductByProductNumber} from "~/store/products/action";
+import {LoadingOutlined} from "@ant-design/icons";
 
 const { Option } = Select;
 class ProductPage extends Component  {
@@ -19,6 +20,8 @@ class ProductPage extends Component  {
         this.state = {
             searchParam :'',
             keyword: '',
+            values: ["id", "name", "ref", "price", "category","edit"],
+
         };
 
     }
@@ -44,14 +47,23 @@ class ProductPage extends Component  {
             _start: page === 1 ? 0 : page * pageSize,
             _limit: pageSize,
         };
-        this.props.dispatch(getOrders(params));
+        this.props.dispatch(getProducts(params));
     }
 
     handleSelectParameter(value){
         this.setState({searchParam :value}) ;
     }
 
-
+    handleClick (){
+        const params = {
+            _start: 1,
+            _limit: 10,
+        };
+        this.props.dispatch(toggleDrawerMenu(false))
+        this.props.dispatch(getTotalProducts())
+        this.props.dispatch(getProductCategories())
+        this.props.dispatch(getProducts(params))
+    }
 
     handleSearch(e) {
         if (e.target.value !== '') {
@@ -72,20 +84,24 @@ class ProductPage extends Component  {
 
     }
     }
-
+    handleChange = (e) => {
+        this.setState({ values: e });
+    }
 
         render(){
+            const productsLoading = this.props.productsLoading ;
+            const allProducts =this.props.allProducts ;
             const total = this.props.totalProducts ;
-            const categories =this.props.categories ;
-            const categoriesLoading =this.props.categoriesLoading ;
+            const antIcon = <LoadingOutlined style={{ fontSize: 50 , color :'red' ,  position: 'fixed ', left: '50%', top: '60%'}
+            } spin />;
 
             return (
-                <ContainerDefault title="Products">
+                <ContainerDefault title="produits" >
                     <HeaderDashboard
                         title="Products"
                         description="RED SYS Product Listing "
                     />
-                    <section className="ps-items-listing">
+                    <section className="ps-items-listing" style={{position:"relative"}}>
                         <div className="ps-section__actions">
                             <Link href="/products/create-product">
                                 <a className="ps-btn success">
@@ -93,6 +109,65 @@ class ProductPage extends Component  {
                                     Nouveau Produit
                                 </a>
                             </Link>
+                        </div>
+                        <div className="form-group">
+                            <Select
+                                placeholder="Séléctionnez les colonnes"
+                                mode="multiple"
+                                allowClear
+                                className="ps-ant-dropdown"
+                                style={{ height: '100%' }}
+                                defaultValue={["id", "name", "ref", "price", "category","edit"]}
+                                onChange={this.handleChange}
+                            >
+                                <Option value="id"
+                                        selected={this.state.values.includes("id")}
+                                >
+                                    ID
+                                </Option>
+                                <Option value="name"
+                                        selected={this.state.values.includes("name")}
+                                >
+                                    Nom
+                                </Option>
+                                <Option value="ref"
+                                        selected={this.state.values.includes("ref")}
+                                >
+                                    Référence
+                                </Option>
+                                <Option value="numArt"
+                                        selected={this.state.values.includes("numArt")}
+                                >
+                                    N° d'article
+                                </Option>
+                                <Option value="stock"
+                                        selected={this.state.values.includes("stock")}
+                                >
+                                    stock
+                                </Option>
+
+                                <Option value="price"
+                                        selected={this.state.values.includes("price")}
+                                >
+                                    Prix
+                                </Option>
+                                <Option value="salePrice"
+                                        selected={this.state.values.includes("salePrice")}
+                                >
+                                    Prix de vente
+                                </Option>
+                                <Option value="category"
+                                        selected={this.state.values.includes("category")}
+                                >
+                                    category
+                                </Option>
+                                <Option value="edit"
+                                        selected={this.state.values.includes("edit")}
+                                >
+                                    edit
+                                </Option>
+
+                            </Select>
                         </div>
                         <div className="ps-section__header">
                             <div className="ps-section__filter">
@@ -118,29 +193,11 @@ class ProductPage extends Component  {
                                         </Select>
                                     </div>
 
-                                    <div className="ps-form__left">
-                                        <div className="form-group">
-                                            <Select
-                                                placeholder="selectionnez la catégorie"
-                                                className="ps-ant-dropdown"
-                                                listItemHeight={20}>
 
-
-                                              {!(categoriesLoading) && typeof(categories)=="array" ? categories.map(
-                                                        item=>{
-                                                            return <Option  value={item.slug}>item.slug</Option>
-                                                        })
-                                                    :null}
-
-                                            </Select>
-                                        </div>
-
-
-                                    </div>
                                     <div className="ps-form__right">
-                                        <button className="ps-btn ps-btn--gray">
-                                            <i className="icon icon-funnel mr-2"></i>
-                                            Filtrer
+                                        <button className="ps-btn ps-btn--gray" disabled={this.state.searchParam===''}
+                                                onClick={this.handleClick.bind(this)}>
+                                            annuler
                                         </button>
                                     </div>
                                 </form>
@@ -163,19 +220,24 @@ class ProductPage extends Component  {
                                 </form>
                             </div>
                         </div>
-                        <div className="ps-section__content">
-                            <TableProjectItems />
+                        { productsLoading  || !(Array.isArray(allProducts)) ?  <Spin indicator={antIcon}/> :
+                           ( <>
+                               <div className="ps-section__content">
+                                <TableProjectItems values={this.state.values}/>
+                            </div>
 
-                        </div>
-                        <div className="ps-section__footer">
+                            <div className="ps-section__footer">
                             <Pagination
-                                total={total-1}
-                                pageSize={10}
-                                responsive={true}
-                                defaultCurrent={1}
-                                onChange={this.handlePagination.bind(this)}
+                            total={total-1}
+                            pageSize={20}
+                            responsive={true}
+                            defaultCurrent={1}
+                            onChange={this.handlePagination.bind(this)}
                             />
-                        </div>
+                            </div>
+                               </>
+                               )
+                        }
                     </section>
                 </ContainerDefault>
             );
