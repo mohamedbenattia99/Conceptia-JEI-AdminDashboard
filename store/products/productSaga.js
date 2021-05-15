@@ -1,14 +1,17 @@
 import { all, put, takeEvery, call } from 'redux-saga/effects';
 import { polyfill } from 'es6-promise';
 import ProductRepository from '../../repositories/productRepository';
+import { updateProduct } from '../../repositories/Repository'
+import { deleteProduct } from '../../repositories/Repository'
+
 import {
     actionTypes,
     getProductsError,
     getProductsSuccess,
     getTotalProductsSuccess,
     getProductCategoriesSuccess,
-    getProductCategoriesError,
-
+    getProductCategoriesError, updateSingleProductSuccess, deleteSingleProductSuccess
+    ,deleteSingleProductError,updateSingleProductError
 
 } from './action';
 import productRepository from "../../repositories/productRepository";
@@ -45,6 +48,24 @@ function* getProductCategories() {
         yield put(getProductCategoriesSuccess(result));
     } catch (err) {
         yield put(getProductCategoriesError(err));
+    }
+}
+
+function* updateProducts({id,query}) {
+    try {
+        const result = yield call(updateProduct(id,query,'products'));
+        yield put(updateSingleProductSuccess(result));
+    } catch (err) {
+        yield put(updateSingleProductError(err));
+    }
+}
+
+function* deleteProducts({id}) {
+    try {
+        const result = yield call(deleteProduct(id));
+        yield put(deleteSingleProductSuccess(result));
+    } catch (err) {
+        yield put(deleteSingleProductError(err));
     }
 }
 
@@ -109,6 +130,10 @@ function* getProductByPriceRange({ params }) {
 
 export default function* rootSaga() {
     yield all([takeEvery(actionTypes.GET_PRODUCTS, getProducts)]);
+
+    yield all([takeEvery(actionTypes.UPDATE_SINGLE_PRODUCT, updateProducts)]);
+
+    yield all([takeEvery(actionTypes.DELETE_SINGLE_PRODUCT, deleteProducts)]);
 
     yield all([
         takeEvery(actionTypes.GET_TOTAL_OF_PRODUCTS, getTotalOfProducts),

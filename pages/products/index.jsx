@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
-import { Select , Pagination}from 'antd';
+import {Select, Pagination, Spin} from 'antd';
 import Link from 'next/link';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import { connect } from 'react-redux';
@@ -10,6 +10,7 @@ import {getOrders} from "~/store/orders/action";
 import TableProjectItems from "~/components/shared/tables/TableProjectItems";
 import {getProductCategories} from "~/store/products/action";
 import {getProductsByKeyword , getProductByProductNumber} from "~/store/products/action";
+import {LoadingOutlined} from "@ant-design/icons";
 
 const { Option } = Select;
 class ProductPage extends Component  {
@@ -88,17 +89,19 @@ class ProductPage extends Component  {
     }
 
         render(){
+            const productsLoading = this.props.productsLoading ;
+            const allProducts =this.props.allProducts ;
             const total = this.props.totalProducts ;
-            const categories =this.props.categories ;
-            const categoriesLoading =this.props.categoriesLoading ;
+            const antIcon = <LoadingOutlined style={{ fontSize: 50 , color :'red' ,  position: 'fixed ', left: '50%', top: '60%'}
+            } spin />;
 
             return (
-                <ContainerDefault title="Products">
+                <ContainerDefault title="produits" >
                     <HeaderDashboard
                         title="Products"
                         description="RED SYS Product Listing "
                     />
-                    <section className="ps-items-listing">
+                    <section className="ps-items-listing" style={{position:"relative"}}>
                         <div className="ps-section__actions">
                             <Link href="/products/create-product">
                                 <a className="ps-btn success">
@@ -192,7 +195,8 @@ class ProductPage extends Component  {
 
 
                                     <div className="ps-form__right">
-                                        <button className="ps-btn ps-btn--gray" onClick={this.handleClick.bind(this)}>
+                                        <button className="ps-btn ps-btn--gray" disabled={this.state.searchParam===''}
+                                                onClick={this.handleClick.bind(this)}>
                                             annuler
                                         </button>
                                     </div>
@@ -216,19 +220,24 @@ class ProductPage extends Component  {
                                 </form>
                             </div>
                         </div>
-                        <div className="ps-section__content">
-                            <TableProjectItems values ={this.state.values}/>
+                        { productsLoading  || !(Array.isArray(allProducts)) ?  <Spin indicator={antIcon}/> :
+                           ( <>
+                               <div className="ps-section__content">
+                                <TableProjectItems values={this.state.values}/>
+                            </div>
 
-                        </div>
-                        <div className="ps-section__footer">
+                            <div className="ps-section__footer">
                             <Pagination
-                                total={total-1}
-                                pageSize={20}
-                                responsive={true}
-                                defaultCurrent={1}
-                                onChange={this.handlePagination.bind(this)}
+                            total={total-1}
+                            pageSize={20}
+                            responsive={true}
+                            defaultCurrent={1}
+                            onChange={this.handlePagination.bind(this)}
                             />
-                        </div>
+                            </div>
+                               </>
+                               )
+                        }
                     </section>
                 </ContainerDefault>
             );

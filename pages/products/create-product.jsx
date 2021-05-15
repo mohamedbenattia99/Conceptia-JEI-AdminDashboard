@@ -384,7 +384,6 @@ const CreateProductPage = () => {
                         </a>
                         </Link>
 
-                        <button className="ps-btn ps-btn--gray">Annuler</button>
                         <button className="ps-btn" type="submit" onClick={()=>{
                          handleSubmit(onSubmit)
 

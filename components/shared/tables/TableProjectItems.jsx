@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
-import {updateSingleProduct } from '~/store/products/action';
+import {deleteSingleProduct, getUpdateSingleProduct, updateSingleProduct} from '~/store/products/action';
 import {deleteProduct} from '../../../repositories/Repository'
 import { useRouter } from 'next/router'
 
@@ -12,12 +12,12 @@ const TableProjectItems =({values})=>{
     const dispatch =useDispatch();
 
     const  handleDelete =( id)=> {
-        deleteProduct(id) ;
+        dispatch(deleteSingleProduct(id)) ;
         router.push('/products')
 
     }
     const  handleUpdate = (item)=>{
-        dispatch(updateSingleProduct(item))
+        dispatch(getUpdateSingleProduct(item)) ;
         router.push('/products/update-product')
 
     }

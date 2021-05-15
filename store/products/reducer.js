@@ -1,4 +1,4 @@
-import {actionTypes, updateSingleProduct} from './action';
+import {actionTypes} from './action';
 
 export const initialState = {
     allProducts: null ,
@@ -12,6 +12,8 @@ export const initialState = {
     productsLoading: true,
     searchResults: null,
 };
+
+
 
 function reducer(state = initialState, action) {
     switch (action.type) {
@@ -39,8 +41,29 @@ function reducer(state = initialState, action) {
                 ...{ error: action.error },
             };
 
-        case actionTypes.UPDATE_SINGLE_PRODUCT :
+        case actionTypes.GET_UPDATE_SINGLE_PRODUCT :
             return {...state,...{updateSingleProduct:action.singleProduct,updateLoading: false}};
+
+        case actionTypes.UPDATE_SINGLE_PRODUCT_SUCCESS :
+            return {...state,...{allProducts:action.payload.data,productsLoading: false}};
+
+
+        case actionTypes.DELETE_SINGLE_PRODUCT_SUCCESS :
+            return {...state,...{productsLoading: false}};
+
+        case actionTypes.UPDATE_SINGLE_PRODUCT_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
+
+        case actionTypes.DELETE_SINGLE_PRODUCT_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
+
+
 
         case actionTypes.GET_PRODUCTS_CATEGORIES_ERROR:
             return {

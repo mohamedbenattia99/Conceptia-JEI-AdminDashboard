@@ -8,8 +8,11 @@ import {
     getOrdersSuccess,
     getSingleOrderSuccess,
     getTotalOrdersSuccess,
+    validateOrderSuccess,
+    validateOrderError
 
 } from './action';
+import {updateProduct} from "~/repositories/Repository";
 polyfill();
 
 function* getOrders({ payload }) {
@@ -51,21 +54,32 @@ function* getOrderByKeyword({ keyword }) {
     }
 }
 
-function* getOrderById(param) {
+function* getOrderById({id}) {
     //used for single product
-    const payload ={id: param.id}
+
     try {
-        const order = yield call(OrderRepository.getOrderById, payload);
-        yield put(getOrdersSuccess(order));
+        const order = yield call(OrderRepository.getOrderById, id);
+        const order2=[order]
+        yield put(getOrdersSuccess(order2));
     } catch (err) {
         yield put(getOrdersError(err));
+    }
+}
+
+function* validateOrder({id,data}) {
+
+    try {
+        const order = yield call(updateProduct,id,data,'orders');
+        yield put(validateOrderSuccess(order));
+    } catch (err) {
+        yield put(validateOrderError(err));
     }
 }
 
 function* getOrdersByProductName({ productName }) {
     // productName : type string
     const params = {
-        product_title_contains : productName ,
+        title_contains : productName ,
     }
     try {
         const result = yield call(
@@ -106,6 +120,10 @@ export default function* rootSaga() {
 
     yield all([
         takeEvery(actionTypes.GET_TOTAL_OF_ORDERS, getTotalOfOrders)
+    ]);
+
+    yield all([
+        takeEvery(actionTypes.VALIDATE_ORDER, validateOrder)
     ]);
 
     yield all([takeEvery(actionTypes.GET_ORDERS_BY_ID, getOrderById)]);

@@ -12,6 +12,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import PicturesWall from './uploadImage'
 import {useRouter} from "next/router";
+import {updateSingleProduct} from "~/store/products/action";
 const UpdateProductPage = () =>{
     const router = useRouter() ;
 
@@ -22,6 +23,8 @@ const dispatch = useDispatch();
 const uProd=useSelector(state=>state.products);
 const updateLoading = uProd.updateLoading
     const updateProd = uProd.updateSingleProduct
+    const [id,setid] =useState()
+
     const [productName,setProductName] =useState()
     const [productRef,setProductRef] =useState()
     const [productDescription,setProductDescription] =useState()
@@ -41,8 +44,10 @@ const updateLoading = uProd.updateLoading
 
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
-        if(updateLoading || updateProd===null);
+        if(updateLoading || updateProd===undefined || updateProd===null);
         else{
+            console.log(updateProd);
+            setid(updateProd.id)
             setProductName(updateProd.title)
             setProductRef(updateProd.sku)
 
@@ -67,6 +72,7 @@ const updateLoading = uProd.updateLoading
     const onSubmit = () =>{
 
         const data={
+            id : id ,
             title :productName ,
             //product_categories:productCategories,
             images :productImages,
@@ -79,8 +85,8 @@ const updateLoading = uProd.updateLoading
             inventory :productQuantity,
 
         }
-        updateProduct(updateProd.id,data);
-        router.push('/products')
+        dispatch(updateSingleProduct(data.id,data))
+    router.push('/products')
 
     }
 
@@ -90,7 +96,7 @@ const updateLoading = uProd.updateLoading
 
 
     return (<div>
-            {updateLoading ? <Spin indicator={antIcon} /> :
+            {(updateLoading || updateProd===undefined || updateProd===null) ? <Spin indicator={antIcon} /> :
                 <ContainerDefault title="Create new product">
                 <HeaderDashboard
                     title=" mettre à jour le produit"
@@ -332,7 +338,7 @@ const updateLoading = uProd.updateLoading
                                 </a>
                             </Link>
 
-                            <button className="ps-btn" type="submit" disabled={updateLoading || updateProd===null} onClick={()=>{handleSubmit(onSubmit)}}>mise à jour</button>
+                            <button className="ps-btn" type="submit" disabled={updateLoading || updateProd===null || updateProd===undefined} onClick={()=>{handleSubmit(onSubmit)}}>mise à jour</button>
                         </div>
                     </form>
                 </section>

@@ -5,7 +5,13 @@ export const actionTypes = {
     GET_PRODUCTS_ERROR: 'GET_PRODUCTS_ERROR',
     GET_PRODUCTS_CATEGORIES_ERROR: 'GET_PRODUCTS_CATEGORIES_ERROR',
     UPDATE_SINGLE_PRODUCT : 'UPDATE_SINGLE_PRODUCT',
+    UPDATE_SINGLE_PRODUCT_ERROR :'UPDATE_SINGLE_PRODUCT_ERROR',
+    GET_UPDATE_SINGLE_PRODUCT : 'GET_UPDATE_SINGLE_PRODUCT',
+    DELETE_SINGLE_PRODUCT : 'DELETE_SINGLE_PRODUCT',
+    DELETE_SINGLE_PRODUCT_SUCCESS : 'DELETE_SINGLE_PRODUCT_SUCCESS',
+    DELETE_SINGLE_PRODUCT_ERROR : 'DELETE_SINGLE_PRODUCT_ERROR',
 
+    UPDATE_SINGLE_PRODUCT_SUCCESS : 'UPDATE_SINGLE_PRODUCT_SUCCESS',
     GET_PRODUCTS_BY_CATEGORY: 'GET_PRODUCTS_BY_CATEGORY',
     GET_PRODUCTS_BY_PRICE_RANGE: 'GET_PRODUCTS_BY_PRICE_RANGE',
     GET_PRODUCTS_BY_KEYWORD: 'GET_PRODUCTS_BY_KEYWORD',
@@ -42,8 +48,27 @@ export function getTotalProducts() {
 export function getProductCategories() {
     return { type: actionTypes.GET_PRODUCT_CATEGORIES };
 }
-export function updateSingleProduct(singleProduct){
-    return {type:actionTypes.UPDATE_SINGLE_PRODUCT,singleProduct}
+export function getUpdateSingleProduct(singleProduct){
+    return {type:actionTypes.GET_UPDATE_SINGLE_PRODUCT,singleProduct}
+}
+export function updateSingleProduct(id,query){
+    return {type:actionTypes.UPDATE_SINGLE_PRODUCT,id,query}
+}
+export function updateSingleProductSuccess(payload){
+    return {type:actionTypes.UPDATE_SINGLE_PRODUCT_SUCCESS,payload}
+}
+export function updateSingleProductError(error){
+    return {type:actionTypes.UPDATE_SINGLE_PRODUCT_ERROR,error}
+}
+
+export function deleteSingleProduct(id){
+    return {type:actionTypes.DELETE_SINGLE_PRODUCT,id}
+}
+export function deleteSingleProductSuccess(payload){
+    return {type:actionTypes.DELETE_SINGLE_PRODUCT_SUCCESS,payload}
+}
+export function deleteSingleProductError(error){
+    return {type:actionTypes.DELETE_SINGLE_PRODUCT_ERROR,error}
 }
 
 export function getProductCategoriesSuccess(payload) {

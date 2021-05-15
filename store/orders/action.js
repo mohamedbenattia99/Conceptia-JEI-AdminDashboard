@@ -4,7 +4,9 @@ export const actionTypes = {
   GET_ORDERS_ERROR: "GET_ORDERS_ERROR",
 
   GET_ORDERS_BY_PRODUCT_NAME: "GET_ORDERS_BY_PRODUCT_NAME",
-
+  VALIDATE_ORDER :'VALIDATE_ORDER',
+  VALIDATE_ORDER_SUCCESS :'VALIDATE_ORDER_SUCCESS',
+  VALIDATE_ORDER_ERROR :'VALIDATE_ORDER_ERROR',
   GET_ORDERS_BY_DATE: "GET_ORDERS_BY_DATE",
 
   GET_ORDERS_BY_ID: "GET_ORDER_BY_ID",
@@ -60,6 +62,20 @@ export function getOrderById(id) {
     id,
   };
 }
+
+
+export function validateOrder(id,data){
+  return {type :actionTypes.VALIDATE_ORDER,id,data}
+};
+
+export function validateOrderSuccess(payload){
+  return {type :actionTypes.VALIDATE_ORDER_SUCCESS,payload}
+};
+export function validateOrderError(error){
+  return {type :actionTypes.VALIDATE_ORDER_ERROR,error}
+};
+
+
 
 export function getOrdersByDate(payload) {
    /*

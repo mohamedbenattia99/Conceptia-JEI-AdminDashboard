@@ -1,7 +1,8 @@
 import React from 'react';
 import { Dropdown, Menu } from 'antd';
-import connect from "react-redux/lib/connect/connect";
-import Link from "next/link";
+import { Popconfirm } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+
 const DropdownAction = ({handleDelete,handleUpdate}) => {
 
 
@@ -21,10 +22,12 @@ const DropdownAction = ({handleDelete,handleUpdate}) => {
                 </Menu.Item>
 
             <Menu.Item key={0}>
-                <a className="dropdown-item" href="#" onClick={handleDelete}>
-                    <i className="icon-trash2 mr-2"></i>
-                    supprimer
-                </a>
+                <Popconfirm onConfirm={(e)=>(handleDelete())} title="Etes-vous sûr que vous voulez supprimer？" icon={<QuestionCircleOutlined style={{ color: 'red' }}  />}>
+                    <a className="dropdown-item" href="#" >
+                        <i className="icon-trash2 mr-2"></i>
+                        supprimer
+                    </a>
+                </Popconfirm>
             </Menu.Item>
         </Menu>
     );

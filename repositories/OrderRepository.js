@@ -39,9 +39,8 @@ class OrderRepository {
 
     async getOrderById(payload) {
        /*
-        payload {
-            id : string
-        }
+        payload : integer
+
 
        */
         console.log(`${baseUrl}/orders/${payload}`) ;

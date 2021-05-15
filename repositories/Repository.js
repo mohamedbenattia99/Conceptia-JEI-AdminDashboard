@@ -30,7 +30,11 @@ export async function fetchData(query,url) {
             message: 'succès !',
             description: 'demande envoyée avec succès',
             duration: 7,
-        })
+
+        }
+
+
+        )
         }).catch(  error=> {
         notification.open({
             type :'warning',
@@ -42,13 +46,15 @@ export async function fetchData(query,url) {
     return response;
 }
 
-export async function updateProduct(id,query) {
+export async function updateProduct(id,query,model) {
     const response = await axios({
         method: 'PUT',
-        url: `${baseDomain}/products/${id}`,
+        url: `${baseDomain}/${model}/${id}`,
         headers: customHeaders,
         data:query,
     }).then(  result=> {
+        console.log(result)
+
         notification.open({
             type :'success',
             message: 'succès !',
@@ -56,6 +62,8 @@ export async function updateProduct(id,query) {
             duration: 7,
         })
     }).catch(  error=> {
+        console.log(error)
+
         notification.open({
             type :'warning',
             message: 'erreur !',
@@ -66,12 +74,13 @@ export async function updateProduct(id,query) {
     return response;
 
 }
-export async function deleteProduct (id) {
+export async function deleteProduct (id,model) {
     const response = await axios({
         method: 'DELETE',
         url: `${baseDomain}/products/${id}`,
         headers: customHeaders,
     }).then(  result=> {
+        console.log(result)
         notification.open({
             type :'success',
             message: 'succès !',
@@ -79,6 +88,8 @@ export async function deleteProduct (id) {
             duration: 7,
         })
     }).catch(  error=> {
+
+        console.log(error)
         notification.open({
             type :'warning',
             message: 'erreur !',
