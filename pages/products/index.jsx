@@ -119,6 +119,7 @@ class ProductPage extends Component  {
                                 style={{ height: '100%' }}
                                 defaultValue={["id", "name", "ref", "price", "category","edit"]}
                                 onChange={this.handleChange}
+                                maxTagCount= 'responsive' as const
                             >
                                 <Option value="id"
                                         selected={this.state.values.includes("id")}
