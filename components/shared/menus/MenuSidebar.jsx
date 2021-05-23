@@ -20,11 +20,11 @@ const MenuSidebar = () => {
             url: '/orders',
             icon: 'icon-bag2',
         },
-        // {
-        //     text: 'Customers',
-        //     url: '/customers',
-        //     icon: 'icon-users2',
-        // },
+        {
+            text: 'Promotions',
+            url: '/promotions',
+            icon: 'icon-arrow-down',
+        },
         {
             text: 'Catégories',
             url: '/categories',
