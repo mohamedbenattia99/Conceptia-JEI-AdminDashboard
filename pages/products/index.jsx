@@ -107,8 +107,8 @@ class ProductPage extends Component {
                         <Link href="/products/create-product">
                             <a className="ps-btn success">
                                 <i className="icon icon-plus mr-2" />
-                                    Nouveau Produit
-                                </a>
+                                Nouveau Produit
+                            </a>
                         </Link>
                     </div>
                     <div className="form-group">
@@ -121,63 +121,63 @@ class ProductPage extends Component {
                             style={{ height: '100%' }}
                             defaultValue={["id", "name", "ref", "price", "category", "edit"]}
                             onChange={this.handleChange}
-                            maxTagCount='responsive' as const                        
+                            maxTagCount='responsive' as const
                         >
                             <Option value="id"
                                 selected={this.state.values.includes("id")}
-                                disabled={this.state.values.includes("id") && this.state.values.length <4}
+                                disabled={this.state.values.includes("id") && this.state.values.length < 4}
                             >
                                 ID
-                                </Option>
+                            </Option>
                             <Option value="name"
                                 selected={this.state.values.includes("name")}
-                                disabled={this.state.values.includes("name") && this.state.values.length <4}
+                                disabled={this.state.values.includes("name") && this.state.values.length < 4}
                             >
                                 Nom
-                                </Option>
+                            </Option>
                             <Option value="ref"
                                 selected={this.state.values.includes("ref")}
-                                disabled={this.state.values.includes("ref") && this.state.values.length <4}
+                                disabled={this.state.values.includes("ref") && this.state.values.length < 4}
                             >
                                 Référence
-                                </Option>
+                            </Option>
                             <Option value="numArt"
                                 selected={this.state.values.includes("numArt")}
-                                disabled={this.state.values.includes("numArt") && this.state.values.length <4}
+                                disabled={this.state.values.includes("numArt") && this.state.values.length < 4}
                             >
                                 N° d'article
-                                </Option>
+                            </Option>
                             <Option value="stock"
                                 selected={this.state.values.includes("stock")}
-                                disabled={this.state.values.includes("stock") && this.state.values.length <4}
+                                disabled={this.state.values.includes("stock") && this.state.values.length < 4}
                             >
                                 stock
-                                </Option>
+                            </Option>
 
                             <Option value="price"
                                 selected={this.state.values.includes("price")}
-                                disabled={this.state.values.includes("price") && this.state.values.length <4}
+                                disabled={this.state.values.includes("price") && this.state.values.length < 4}
                             >
                                 Prix
-                                </Option>
+                            </Option>
                             <Option value="salePrice"
                                 selected={this.state.values.includes("salePrice")}
-                                disabled={this.state.values.includes("salePrice") && this.state.values.length <4}
+                                disabled={this.state.values.includes("salePrice") && this.state.values.length < 4}
                             >
                                 Prix de vente
-                                </Option>
+                            </Option>
                             <Option value="category"
                                 selected={this.state.values.includes("category")}
-                                disabled={this.state.values.includes("category") && this.state.values.length <4}
+                                disabled={this.state.values.includes("category") && this.state.values.length < 4}
                             >
                                 category
-                                </Option>
+                            </Option>
                             <Option value="edit"
                                 selected={this.state.values.includes("edit")}
-                                disabled={this.state.values.includes("edit") && this.state.values.length <4}
+                                disabled={this.state.values.includes("edit") && this.state.values.length < 4}
                             >
                                 edit
-                                </Option>
+                            </Option>
 
                         </Select>
                     </div>
@@ -189,9 +189,7 @@ class ProductPage extends Component {
                                     (event) => { event.preventDefault() }}
 
                             >
-
                                 <div className="form-group">
-
                                     <Select
                                         onSelect={(value) => { this.handleSelectParameter(value) }}
                                         placeholder="paramètre de recherche "
@@ -199,10 +197,10 @@ class ProductPage extends Component {
                                         listItemHeight={20}>
                                         <Option value="productName">
                                             nom du produit
-                                            </Option>
+                                        </Option>
                                         <Option value="productNumber">
                                             numéro d'article
-                                            </Option>
+                                        </Option>
                                     </Select>
                                 </div>
 
@@ -211,7 +209,7 @@ class ProductPage extends Component {
                                     <button className="ps-btn ps-btn--gray" disabled={this.state.searchParam === ''}
                                         onClick={this.handleClick.bind(this)}>
                                         annuler
-                                        </button>
+                                    </button>
                                 </div>
                             </form>
                         </div>
