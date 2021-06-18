@@ -69,9 +69,9 @@ const CreatePromotionPage = () => {
 
     }
 
-    const handleSelectParameter = (e) => {
-        setSearchParam(e.target.value);
-        console.log(searchParam);
+    const handleSelectParameter = (value) => {
+        setSearchParam({ searchParam: value });
+        console.log(value);
     }
 
     const handleSearch = (e) => {
@@ -137,7 +137,7 @@ const CreatePromotionPage = () => {
                                             <div className="form-group__content">
                                                 {/* TODO CRITERE DE RECHERCHE */}
                                                 <Select
-                                                    onChange={handleSelectParameter}
+                                                    onSelect={(value)=>{handleSelectParameter(value)}}
                                                     placeholder="critére de promotion"
                                                     className="ps-ant-dropdown"
                                                     listItemHeight={20}>
@@ -175,7 +175,6 @@ const CreatePromotionPage = () => {
                                                 </form>
                                             </div>
                                         </div>
-
                                     </div>
                                 </figure>
                             </div>
