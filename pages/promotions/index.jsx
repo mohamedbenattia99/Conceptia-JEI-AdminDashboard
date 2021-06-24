@@ -114,17 +114,17 @@ const CreatePromotionPage = () => {
                                             <label>Galerie de produits</label>
                                             <div className="form-group--nest " >
                                                 <Space size={[16, 16]} wrap>
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-                                                    <ImageDemo src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
+                                                    <ImageDemo/>
                                                 </Space>
                                             </div>
-                                            {errors.image && <span role="alert">{errors.image.message}</span>}
+                                            {/* {errors.image && <span role="alert">{errors.image.message}</span>} */}
                                         </div>
                                     </div>
                                 </figure>
@@ -166,7 +166,7 @@ const CreatePromotionPage = () => {
                                                         disabled={searchParam === ''}
                                                         className="form-control"
                                                         type="text"
-                                                        placeholder="recherche produit ..."
+                                                        placeholder="recherche produit/catégorie ..."
                                                         onChange={handleSearch}
                                                     />
                                                     <button>
