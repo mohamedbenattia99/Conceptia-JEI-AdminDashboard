@@ -50,18 +50,8 @@ const CreatePromotionPage = () => {
     const onSubmit = () => {
 
         const data = {
-            //  title :productName ,
-            //product_categories:productCategories,
-            // images: productImages,
-            //  price :productPrice,
-            //  sale_price : productSalePrice ,
-            // brands : productBrand ,
-            //  productNumber : productNumber ,
-            //  description : productDescription ,
-            //  sku : productRef ,
-            //  inventory :productQuantity,
-
-
+            images: productImages,
+            criteria: productCriteria
         }
         fetchData(data, 'promotions');
 
@@ -123,9 +113,7 @@ const CreatePromotionPage = () => {
                                                     <ImageDemo/>
                                                     <ImageDemo/>
                                                 </Space>
-                                            </div>
-                                            {/* {errors.image && <span role="alert">{errors.image.message}</span>} */}
-                                        </div>
+                                            </div>                                        </div>
                                     </div>
                                 </figure>
 
@@ -135,7 +123,6 @@ const CreatePromotionPage = () => {
                                         <div className="form-group form-group--select">
                                             <label>Critére de promotion<sup>*</sup></label>
                                             <div className="form-group__content">
-                                                {/* TODO CRITERE DE RECHERCHE */}
                                                 <Select
                                                     onSelect={(value)=>{handleSelectParameter(value)}}
                                                     placeholder="critére de promotion"
@@ -155,8 +142,7 @@ const CreatePromotionPage = () => {
                                     </div>
                                     <div className="ps-block__content">
                                         <div className="form-group form-group--select">
-                                            <label>Lien<sup>*</sup></label>
-                                            {/* TO DO SEARCH BAR */}
+                                            <label>Recherche<sup>*</sup></label>
                                             <div className="ps-section__search">
                                                 <form
                                                     className="ps-form--search-simple"
