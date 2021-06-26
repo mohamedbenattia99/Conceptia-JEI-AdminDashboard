@@ -1,17 +1,26 @@
 export const actionTypes = {
     LOGIN_REQUEST: 'LOGIN_REQUEST',
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+    LOGIN_FAILURE: 'LOGIN_FAILURE',
     LOGOUT: 'LOGOUT',
     LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
-    CHECK_AUTHORIZATION: 'CHECK_AUTHORIZATION',
+    LOGIN_ERROR :' LOGIN_ERROR',
+
 };
 
-export function login() {
-    return { type: actionTypes.LOGIN_REQUEST };
+export const login = userData =>{
+    return { type: actionTypes.LOGIN_REQUEST,
+        userData,
+    }
+}
+export const loginError=()=>{
+    return{
+        type:actionTypes.LOGIN_ERROR,
+    }
 }
 
-export function loginSuccess() {
-    return { type: actionTypes.LOGIN_SUCCESS };
+export function loginSuccess(user,jwt) {
+    return { type: actionTypes.LOGIN_SUCCESS,user,jwt };
 }
 
 export function logOut() {
@@ -20,4 +29,6 @@ export function logOut() {
 
 export function logOutSuccess() {
     return { type: actionTypes.LOGOUT_SUCCESS };
+
+
 }

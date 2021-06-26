@@ -28,11 +28,10 @@ export const makeStore = (context) => {
 
 export const wrapper = createWrapper(makeStore, { debug: false });
 
-/*
 const persistConfig = {
-    key: 'RED SYS',
+    key: 'RED SYS ',
     storage,
-    whitelist: ['cart', 'compare', 'auth', 'wishlist'],
+    whitelist: ['auth'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -50,4 +49,3 @@ function configureStore(initialState) {
 }
 
 export default configureStore;
-*/

@@ -4,6 +4,7 @@ import Router from 'next/router';
 import {login} from '~/store/auth/action';
 import {Form, Input, notification} from 'antd';
 import {connect} from 'react-redux';
+import logoImage from '../public/img/logo.png';
 
 
 class Login extends Component {
@@ -18,9 +19,9 @@ class Login extends Component {
     }
 
     static getDerivedStateFromProps(props) {
-        /* if (props.isLoggedIn === true) {
-             Router.push('/');
-         }*/
+        if (props.isLoggedIn === true) {
+            return  Router.push('/');
+         }
         return false;
     }
 
@@ -30,9 +31,10 @@ class Login extends Component {
         data[e.target.name] = e.target.value;
         this.setState({data});
     }
+
     handleLoginSubmit = e => {
         const userData = {
-            email: this.state.data.email,
+            identifier: this.state.data.email,
             password: this.state.data.password
         };
 
@@ -49,19 +51,23 @@ class Login extends Component {
                     margin: 100px auto;
                     width: 500px;
                   }
-
                   p {
                     color: blue;
                   }
                 `}</style>
                 <div className="container">
+                    <img
+                        src={logoImage}
+                        alt="REDSYS"
+                        style={{background : "lightgray",borderRadius : "20px",marginBottom : "8%" }}
+                    />
                     <Form
                         className="ps-form--account"
-                        onClick={this.handleLoginSubmit.bind(this)}>
+                        onFinish={this.handleLoginSubmit.bind(this)}>
 
                         <div className="ps-tab active" id="sign-in">
                             <div className="ps-form__content">
-                                <h5>Login to your account</h5>
+                                <h5>Login to your Admin account</h5>
                                 <div className="form-group">
                                     <Form.Item
                                         name="username"

@@ -1,41 +1,81 @@
-import { all, put, takeEvery } from 'redux-saga/effects';
-import { notification } from 'antd';
+import { all, put, takeEvery, call ,fork ,take ,cancel ,cancelled }  from 'redux-saga/effects';
+import {notification } from 'antd';
+import axios from 'axios';
+import { actionTypes, loginError, loginSuccess, logOutSuccess } from './action';
+import Router from 'next/router';
 
-import { actionTypes, loginSuccess, logOutSuccess } from './action';
 
-const modalSuccess = (type) => {
+const modalSuccess = type => {
     notification[type]({
-        message: 'Wellcome back',
-        description: 'You are login successful!',
+        message: 'Welcome back',
+        description: 'You are logged in successful!',
     });
 };
 
-const modalWarning = (type) => {
+const modalError = type => {
+    notification[type]({
+        message: 'Error !',
+        description: 'Wrong Credentials !',
+    });
+};
+
+const modalWarning = type => {
     notification[type]({
         message: 'Good bye!',
-        description: 'Your account has been logged out!',
+        description: 'Logged out Successfully!',
     });
 };
 
-function* loginSaga() {
+const loginApi= userData => {
+    return axios
+        .post("http://localhost:1337/auth/local",  userData)
+        .then(response => response.data)
+        .catch(err => {
+            throw err;
+        });
+}
+
+
+
+function* loginSaga(action) {
+
     try {
-        yield put(loginSuccess());
-        modalSuccess('success');
-    } catch (err) {
-        console.log(err);
+        const {userData}=action;
+        const resp =yield call(loginApi,userData);
+        if(resp.user.role.name === "Admin"){
+            yield put(loginSuccess(resp.user,resp.jwt));
+            modalSuccess('success');
+            Router.push('/');
+        }else throw "Account Role is not Admin !";
+
+    } catch (error) {
+        console.error(error);
+        yield put(loginError())
+        modalError('error');
+
+    }finally {
+        if (yield cancelled()) {
+            Router.push('/login');
+        }
     }
+
+
 }
 
 function* logOutSaga() {
     try {
         yield put(logOutSuccess());
         modalWarning('warning');
+        Router.push('/login');
     } catch (err) {
         console.log(err);
     }
 }
 
-export default function* rootSaga() {
-    yield all([takeEvery(actionTypes.LOGIN_REQUEST, loginSaga)]);
-    yield all([takeEvery(actionTypes.LOGOUT, logOutSaga)]);
+
+
+export  default function* rootSaga (){
+    yield all ([takeEvery(actionTypes.LOGIN_REQUEST,loginSaga)])
+    yield all([takeEvery(actionTypes.LOGOUT,logOutSaga )])
+
 }
