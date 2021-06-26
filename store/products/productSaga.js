@@ -11,7 +11,7 @@ import {
     getTotalProductsSuccess,
     getProductCategoriesSuccess,
     getProductCategoriesError, updateSingleProductSuccess, deleteSingleProductSuccess
-    ,deleteSingleProductError,updateSingleProductError
+    ,deleteSingleProductError,updateSingleProductError,getProductBrandsSuccess,getProductBrandsError
 
 } from './action';
 import productRepository from "../../repositories/productRepository";
@@ -26,6 +26,7 @@ function* getProducts({ payload }) {
    */
     try {
         const data = yield call(ProductRepository.getRecords, payload);
+        console.log(data)
         yield put(getProductsSuccess(data));
     } catch (err) {
         yield put(getProductsError(err));
@@ -48,6 +49,16 @@ function* getProductCategories() {
         yield put(getProductCategoriesSuccess(result));
     } catch (err) {
         yield put(getProductCategoriesError(err));
+    }
+}
+
+
+function* getProductBrands() {
+    try {
+        const result = yield call(ProductRepository.getProductBrands);
+        yield put(getProductBrandsSuccess(result));
+    } catch (err) {
+        yield put(getProductBrandsError(err));
     }
 }
 
@@ -143,6 +154,10 @@ export default function* rootSaga() {
 
     yield all([
         takeEvery(actionTypes.GET_PRODUCT_CATEGORIES, getProductCategories),
+    ]);
+
+    yield all([
+        takeEvery(actionTypes.GET_PRODUCT_BRANDS, getProductBrands),
     ]);
 
     yield all([

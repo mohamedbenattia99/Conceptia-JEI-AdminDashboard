@@ -1,3 +1,4 @@
+
 export const actionTypes = {
   GET_ORDERS: "GET_ORDERS",
   GET_ORDERS_SUCCESS: "GET_ORDERS_SUCCESS",
@@ -16,6 +17,12 @@ export const actionTypes = {
   GET_ORDERS_BY_PRODUCT_SUCCESS :'GET_ORDERS_BY_PRODUCT_SUCCESS',
   GET_TOTAL_OF_ORDERS: "GET_TOTAL_OF_ORDERS",
   GET_TOTAL_OF_ORDERS_SUCCESS: "GET_TOTAL_OF_ORDERS_SUCCESS",
+
+
+  GET_ORDERS_COUNT_BY_DATE :"GET_ORDERS_COUNT_BY_DATE",
+  GET_ORDERS_COUNT_BY_DATE_SUCCESS :"GET_ORDERS_COUNT_BY_DATE_SUCCESS",
+  GET_ORDERS_COUNT_BY_DATE_ERROR :"GET_ORDERS_COUNT_BY_DATE_ERROR"
+
 };
 
 export function getOrders(payload) {
@@ -74,6 +81,22 @@ export function validateOrderSuccess(payload){
 export function validateOrderError(error){
   return {type :actionTypes.VALIDATE_ORDER_ERROR,error}
 };
+
+export function OrdersCountByDateError(error){
+  return {type :actionTypes.GET_ORDERS_COUNT_BY_DATE_ERROR,error}
+};
+
+export function getOrdersCountByDate(){
+  return {type :actionTypes.GET_ORDERS_COUNT_BY_DATE}
+};
+
+
+export function getOrdersCountByDateSuccess(payload){
+  return {type :actionTypes.GET_ORDERS_COUNT_BY_DATE_SUCCESS,payload}
+};
+
+
+
 
 
 

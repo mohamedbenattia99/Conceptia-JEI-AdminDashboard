@@ -6,34 +6,27 @@ class CategoriesRepository {
         this.callback = callback;
     }
 
-    async getRecords(params) {
-        // used for pagination & search by keyword
-        // params  = {
-//             _start: number,
-//             _limit: number,
-//         }
-        const reponse = await Repository.get(
-            `${baseUrl}/categories?${serializeQuery(params)}`
-        )
+    async getProductCategories() {
+        const response = await Repository.get(`${baseUrl}/product-categories`)
             .then(response => {
+                console.log(response)
+
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
-
-
-
-    async getTotalRecords() {
-
-        const reponse = await Repository.get(`${baseUrl}/categories/count`)
+    async getTotalCategories() {
+        const response = await Repository.get(`${baseUrl}/product-categories/count`)
             .then(response => {
+                console.log(response)
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
+
 
 
 }

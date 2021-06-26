@@ -77,11 +77,7 @@ class TableOrdersItems extends Component {
                 <tr key={item.id}>
                     <td>{item.id}</td>
                     <td>
-                        <Link href="/orders/order-detail">
-                            <a>
-                                <strong>{item.productName}</strong>
-                            </a>
-                        </Link>
+                        {}
                     </td>
                     <td>
                         <strong>{item.date}</strong>

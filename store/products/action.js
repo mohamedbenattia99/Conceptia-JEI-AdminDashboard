@@ -3,7 +3,6 @@ export const actionTypes = {
     GET_PRODUCTS: 'GET_PRODUCTS',
     GET_PRODUCTS_SUCCESS: 'GET_PRODUCTS_SUCCESS',
     GET_PRODUCTS_ERROR: 'GET_PRODUCTS_ERROR',
-    GET_PRODUCTS_CATEGORIES_ERROR: 'GET_PRODUCTS_CATEGORIES_ERROR',
     UPDATE_SINGLE_PRODUCT : 'UPDATE_SINGLE_PRODUCT',
     UPDATE_SINGLE_PRODUCT_ERROR :'UPDATE_SINGLE_PRODUCT_ERROR',
     GET_UPDATE_SINGLE_PRODUCT : 'GET_UPDATE_SINGLE_PRODUCT',
@@ -30,6 +29,11 @@ export const actionTypes = {
 
     GET_PRODUCT_CATEGORIES: 'GET_PRODUCT_CATEGORIES',
     GET_PRODUCT_CATEGORIES_SUCCESS: 'GET_PRODUCT_CATEGORIES_SUCCESS',
+    GET_PRODUCTS_CATEGORIES_ERROR: 'GET_PRODUCTS_CATEGORIES_ERROR',
+
+    GET_PRODUCT_BRANDS: 'GET_PRODUCT_BRANDS',
+    GET_PRODUCT_BRANDS_SUCCESS: 'GET_PRODUCT_BRANDS_SUCCESS',
+    GET_PRODUCTS_BRANDS_ERROR: 'GET_PRODUCTS_BRANDS_ERROR',
 };
 
 export function getProducts(payload) {
@@ -45,9 +49,7 @@ export function getTotalProducts() {
     return { type: actionTypes.GET_TOTAL_OF_PRODUCTS };
 }
 
-export function getProductCategories() {
-    return { type: actionTypes.GET_PRODUCT_CATEGORIES };
-}
+
 export function getUpdateSingleProduct(singleProduct){
     return {type:actionTypes.GET_UPDATE_SINGLE_PRODUCT,singleProduct}
 }
@@ -71,9 +73,40 @@ export function deleteSingleProductError(error){
     return {type:actionTypes.DELETE_SINGLE_PRODUCT_ERROR,error}
 }
 
+export function getProductCategories() {
+    return { type: actionTypes.GET_PRODUCT_CATEGORIES };
+}
+
 export function getProductCategoriesSuccess(payload) {
     return { type: actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS, payload };
 }
+
+export function getProductCategoriesError(error) {
+    return {
+        type: actionTypes.GET_PRODUCTS_CATEGORIES_ERROR
+        ,
+        error,
+    };
+}
+
+
+export function getProductBrands() {
+    return { type: actionTypes.GET_PRODUCT_BRANDS };
+}
+
+export function getProductBrandsSuccess(payload) {
+    return { type: actionTypes.GET_PRODUCT_BRANDS_SUCCESS, payload };
+}
+
+export function getProductBrandsError(error) {
+    return {
+        type: actionTypes.GET_PRODUCTS_BRANDS_ERROR
+        ,
+        error,
+    };
+}
+
+
 
 export function getTotalProductsSuccess(payload) {
     return {
@@ -96,13 +129,7 @@ export function getProductsError(error) {
     };
 }
 
-export function getProductCategoriesError(error) {
-    return {
-        type: actionTypes.GET_PRODUCTS_CATEGORIES_ERROR
-        ,
-        error,
-    };
-}
+
 
 export function getProductsByCategory(category) {
      // category  type :string  ;

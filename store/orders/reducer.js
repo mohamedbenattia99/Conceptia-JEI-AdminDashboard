@@ -8,6 +8,8 @@ export const initialState = {
     orderLoading: true ,
     ordersLoading: true,
     searchResults: null,
+    recentOrders : null,
+    recentOrdersLoading : true
 };
 
 function reducer(state = initialState, action) {
@@ -39,6 +41,15 @@ function reducer(state = initialState, action) {
 
 
         case actionTypes.GET_ORDERS_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
+
+        case actionTypes.GET_ORDERS_COUNT_BY_DATE_SUCCESS:
+            return {...state,...{recentOrders: action.payload, recentOrdersLoading: false}}
+
+        case actionTypes.GET_ORDERS_COUNT_BY_DATE_ERROR:
             return {
                 ...state,
                 ...{ error: action.error },

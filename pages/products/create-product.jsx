@@ -4,21 +4,27 @@ import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import Link from "next/link";
 import { generate } from 'shortid';
 import { produce } from "immer";
-import { connect, useDispatch } from 'react-redux';
+import {connect, useDispatch, useSelector} from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import { useForm } from 'react-hook-form';
 import {fetchData,serializeQuery} from "~/repositories/Repository";
 const MARQUE=['marque1', 'marque2', 'marque3', 'marque4'];
 const CATEGORY=['category1', 'category2', 'category3', 'category4'];
-import {notification} from "antd";
+import {notification, Select} from "antd";
 import PicturesWall from './uploadImage'
 import { useRouter } from 'next/router';
+import {getProductBrands, getProductCategories} from "~/store/products/action";
 const CreateProductPage = () => {
     const router =useRouter() ;
-
+    const brands = useSelector(state=>state.products.brands)
+    const categories = useSelector(state=>state.products.categories)
     const [property,setProperty] = useState([
         { id:"", key:"", value:""}
     ]);
+    const [description_list,setDescription] = useState([
+        { id:"",  value:""}
+    ]);
+
     const [productName,setProductName] =useState()
     const [productRef,setProductRef] =useState()
     const [productDescription,setProductDescription] =useState()
@@ -34,34 +40,62 @@ const CreateProductPage = () => {
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
     }, []);
+    useEffect(() => {
+        dispatch(getProductBrands())
+        dispatch(getProductCategories()) ;
+    }, [dispatch]);
 
-    const handleChange = (fileList ) => {
+    useEffect(() => {
+        dispatch(getProductBrands())
+        dispatch(getProductCategories()) ;
+    }, [dispatch]);
+
+
+    const handleImageChange = (fileList ) => {
         setProductImages({fileList})
-        console.log(productImages)
     }
+
+
+
 
 
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const onSubmit = () =>{
+        const thumbnail = {files : productImages.fileList[0].originFileObj};
+        const images = [{files : productImages.fileList[1].originFileObj},{files : productImages.fileList[2].originFileObj}];
 
+        const spec =  property.map(prop=>{
+
+              return {spec_name: prop.key, spec_value : prop.value}
+          })
+        const desc =  description_list.map(prop=>{
+
+            return { desc_item : prop.value}
+        })
+        console.log('categories'+productCategories)
          const data={
              title :productName ,
-             //product_categories:productCategories,
-             images :productImages,
+             thumbnail : thumbnail ,
+             images : images,
+             product_categories:productCategories,
              price :productPrice,
              sale_price : productSalePrice ,
-            // brands : productBrand ,
+             brands : productBrand ,
              productNumber : productNumber ,
-           //  description : productDescription ,
+             description : productDescription ,
              sku : productRef ,
              inventory :productQuantity,
+             specifications : spec ,
+             description_list : desc,
+
 
 
          }
+         console.log(data)
          fetchData(data,'products');
 
-        router.push("/products")
+   //     router.push("/products")
     
       }
 
@@ -222,7 +256,7 @@ const CreateProductPage = () => {
                                         <div className="form-group">
                                             <label>Galerie de produits</label>
                                             <div className="form-group--nest" >
-                                                <PicturesWall handleChange={handleChange} />
+                                                <PicturesWall  handleChange={handleImageChange} />
 
                                             </div>
                                             {errors.image && <span role="alert">{errors.image.message}</span>}
@@ -258,19 +292,20 @@ const CreateProductPage = () => {
                                         <div className="form-group form-group--select">
                                             <label>Marque<sup>*</sup></label>
                                             <div className="form-group__content">
-                                                <select
+                                                {brands && Array.isArray(brands) ? <select
                                                     className="ps-select"
                                                     title="Brand"
                                                     name="marque"
-                                                    value={productDescription}
-                                                    onSelect={(event)=>{setProductBrand(event.target.value)}}
-                                                    {...register("marque",{
+                                                    onSelect={(event) => {
+                                                        setProductBrand(event.target.value)
+                                                    }}
+                                                    {...register("marque", {
                                                         required: "Marque est un champ obligatoire"
                                                     })}
-                                                    >
-                                                        <option value="" disabled>Veuillez choisir une marque</option>
-                                                        {MARQUE.map(c => <option key={c}>{c}</option>)}
-                                                </select>
+                                                >
+                                                    <option value="" disabled>Veuillez choisir une marque</option>
+                                                    {brands.map(c => <option key={c} value ={c.id}>{c.name}</option>)}
+                                                </select>:<select></select>}
                                                 <br></br>
                                                 {errors.marque && <span role="alert">{errors.marque.message}</span>}
 
@@ -279,18 +314,22 @@ const CreateProductPage = () => {
                                         <div className="form-group form-group--select">
                                             <label>Nom de la catégorie associée au produit<sup>*</sup></label>
                                             <div className="form-group__content">
-                                                <select
+                                                {categories && Array.isArray(categories) ? <select
+
                                                     className="ps-select"
                                                     title="Category"
-                                                    value={productCategories}
-                                                    onSelect={(event)=>{setProductCategories(event.target.value)}}
-                                                    {...register("category",{
+                                                    onSelect={(event) => {
+                                                        console.log(event)
+                                                        setProductCategories(event.target.value)
+
+                                                    }}
+                                                    {...register("category", {
                                                         required: "Catégorie est un champ obligatoire"
-                                                        })}
-                                                    >
-                                                        <option value="" disabled>Veuillez choisir une catégorie</option>
-                                                        {CATEGORY.map(c => <option key={c} value={c}>{c}</option>)}
-                                                </select>
+                                                    })}
+                                                >
+                                                    <option value="" disabled>Veuillez choisir une catégorie</option>
+                                                    {categories.map(c => <option  key={c.id} value={c.id} >{c.name}</option>)}
+                                                </select> : <select></select>}
                                                 <br></br>
                                                 {errors.category && <span role="alert">{errors.category.message}</span>}
                                             </div>
@@ -305,7 +344,8 @@ const CreateProductPage = () => {
                                             <button
                                                 className="ps-btn"
                                                 style={{marginBottom:"8px"}}
-                                                onClick= {()=>{
+                                                onClick= {(event)=>{
+                                                    event.preventDefault()
                                                     setProperty(currentProperty => [
                                                         ...currentProperty,
                                                         {
@@ -372,9 +412,75 @@ const CreateProductPage = () => {
                                         </div>
                                     </div>
                                 </figure>
+                                <figure className="ps-block--form-box">
+                                    <figcaption>desccription list </figcaption>
+                                    <div className="ps-block__content">
+                                        <div className="form-group form-group--select">
+                                            <label>Valeurs  <sup>*</sup></label>
+                                            <button
+                                                className="ps-btn"
+                                                style={{marginBottom:"8px"}}
+                                                onClick= {(event)=>{
+                                                    event.preventDefault()
+                                                    setDescription(currentProperty => [
+                                                        ...currentProperty,
+                                                        {
+                                                            id: generate(),
+
+                                                            value:""
+                                                        }
+                                                    ]);
+                                                }}
+                                            >
+                                                Ajouter une description
+                                            </button>
+                                            <div className="form-group__content" >
+
+
+
+                                                {description_list.map((p, index)=>{
+                                                        return(
+                                                            <div className="row" key={p.id}>
+
+                                                                <input
+                                                                    className="form-control col-sm-4"
+                                                                    style={{width:"50%"}}
+                                                                    onChange={e => {
+                                                                        const value = e.target.value;
+                                                                        setDescription(currentProperty =>
+                                                                            produce(currentProperty, v => {
+                                                                                v[index].value = value;
+                                                                            }))
+                                                                    }}
+                                                                    value = {p.value}
+                                                                    placeholder="Entrer une valeur"
+                                                                />
+                                                                <button
+                                                                    className="ps-btn ps-btn--gray col-sm-4"
+                                                                    onClick={()=> {
+                                                                        setDescription(currentProperty => currentProperty.filter(x => x.id !== p.id))
+                                                                    }}
+                                                                >
+                                                                    Supprimer
+                                                                </button>
+                                                            </div>
+
+                                                        )
+                                                    }
+
+                                                )}
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </figure>
+
                             </div>
                         </div>
                     </div>
+
                     <div className="ps-form__bottom">
                         <Link href={'/products'}>
                         <a
@@ -385,13 +491,17 @@ const CreateProductPage = () => {
                         </Link>
 
                         <button className="ps-btn" type="submit" onClick={()=>{
+                        console.log(productImages)
                          handleSubmit(onSubmit)
 
-                        }}>Soumettre</button>
+                        }} disabled={!productImages} style={!productImages ? {cursor : "not-allowed"}:{}} >Soumettre</button>
                     </div>
+
+
+
                 </form>
             </section>
         </ContainerDefault>
     );
 };
-export default connect((state) => state.app)(CreateProductPage);
+export default connect((state) => state.products )(CreateProductPage);

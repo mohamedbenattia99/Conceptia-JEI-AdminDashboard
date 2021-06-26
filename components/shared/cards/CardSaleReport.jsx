@@ -1,22 +1,27 @@
 import React from 'react';
-
+import {useDispatch,useSelector} from "react-redux";
 import dynamic from 'next/dynamic';
-
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+import { connect} from 'react-redux';
 
-const CardSaleReport = () => {
+const CardSaleReport = (props) => {
+
+console.log(props.x_axis)
+    console.log(props.y_axis)
+
+
     const state = {
         series: [
             {
                 name: 'series1',
-                data: [100, 120, 99, 125, 127, 130, 148],
+                data: props.y_axis,
             },
         ],
 
         options: {
             chart: {
                 height: 350,
-                type: 'area',
+                type: 'bar',
                 toolbar: {
                     show: false,
                 },
@@ -24,25 +29,17 @@ const CardSaleReport = () => {
             dataLabels: {
                 enabled: false,
             },
-            colors: ['#fcb800', '#f9f9f9', '#9C27B0'],
+            colors: ['#fcb800', '#f9f9f9', '#9c27b0'],
             stroke: {
                 curve: 'smooth',
             },
             xaxis: {
                 type: 'datetime',
-                categories: [
-                    '2018-09-19T00:00:00.000Z',
-                    '2018-09-19T01:30:00.000Z',
-                    '2018-09-19T02:30:00.000Z',
-                    '2018-09-19T03:30:00.000Z',
-                    '2018-09-19T04:30:00.000Z',
-                    '2018-09-19T05:30:00.000Z',
-                    '2018-09-19T06:30:00.000Z',
-                ],
+                categories: props.x_axis,
             },
             tooltip: {
                 x: {
-                    format: 'dd/MM/yy HH:mm',
+                    format: 'dd/MM/yy ',
                 },
             },
             responsive: [
@@ -85,20 +82,7 @@ const CardSaleReport = () => {
                 />
             </div>
 
-            <div className="ps-card__footer">
-                <div className="row">
-                    <div className="col-md-8">
-                        <p>Articles vendus ($)</p>
-                        {/* Items Earning Sales  */}
-                    </div>
-                    <div className="col-md-4">
-                        <a href="#">
-                            Export 
-                            <i className="icon icon-cloud-download ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+
         </div>
     );
 };

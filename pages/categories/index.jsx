@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
 import TableCategoryItems from '~/components/shared/tables/TableCategoryItems';
-import { Pagination}from 'antd';
+import {Pagination, Spin} from 'antd';
 
 import FormCreateCategory from '~/components/shared/forms/FormCreateCategory';
 import FormSearchSimple from '~/components/shared/forms/FormSearchSimple';
@@ -10,6 +10,7 @@ import { connect, useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import {getTotalCategories,getCategories} from "~/store/categories/action";
 import {getCollectionCategories} from "~/store/collections/action"
+import {LoadingOutlined} from "@ant-design/icons";
 class CategoriesPage extends Component {
     constructor(props) {
         super(props);
@@ -22,7 +23,7 @@ class CategoriesPage extends Component {
     componentDidMount() {
 
         const params = {
-            _start: 1,
+            _start: 0,
             _limit: 10,
         };
         this.props.dispatch(toggleDrawerMenu(false))
@@ -40,18 +41,28 @@ class CategoriesPage extends Component {
     }
 
 
+
      handleSearch (e) {
     if (e.target.value !== '') {
         const keyword = e.target.value;
         this.setState({
             keyword: e.target.value
-        });
+        })
+        const params ={title_contains:keyword,  _start: 0 ,
+            _limit: 10}
+        this.props.dispatch(getCategories(params))
+
+        ;
 
 
     }}
 
         render(){
         const total = this.props.totalCategories
+            const antIcon = <LoadingOutlined style={{ fontSize: 50 , color :'red' ,  position: 'fixed ', left: '50%', top: '60%'}
+            } spin />;
+            const allCategories =this.props.allCategories ;
+            const categoriesLoading =this.props.categoriesLoading
             return (
                 <ContainerDefault>
                     <HeaderDashboard
@@ -82,7 +93,10 @@ class CategoriesPage extends Component {
                                     </button>
                                 </form>
                             </div>
-                            <div className="ps-section__content">
+                            {!categoriesLoading && Array.isArray(allCategories) ?
+                                <>
+                                    <div className="ps-section__content">
+
                                 <TableCategoryItems />
                                 <div className="ps-section__footer">
                                     <Pagination
@@ -94,6 +108,7 @@ class CategoriesPage extends Component {
                                     />
                                 </div>
                             </div>
+                                </>: <Spin indicator={antIcon}/> }
                         </div>
                         <div className="ps-section__right">
                             <FormCreateCategory />

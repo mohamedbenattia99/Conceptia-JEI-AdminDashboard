@@ -31,7 +31,7 @@ class ProductPage extends Component  {
     componentDidMount() {
 
         const params = {
-            _start: 1,
+            _start: 0,
             _limit: 10,
         };
         this.props.dispatch(toggleDrawerMenu(false))
@@ -54,9 +54,9 @@ class ProductPage extends Component  {
         this.setState({searchParam :value}) ;
     }
 
-    handleClick (){
+    handleAnnuler (){
         const params = {
-            _start: 1,
+            _start: 0,
             _limit: 10,
         };
         this.props.dispatch(toggleDrawerMenu(false))
@@ -196,7 +196,7 @@ class ProductPage extends Component  {
 
                                     <div className="ps-form__right">
                                         <button className="ps-btn ps-btn--gray" disabled={this.state.searchParam===''}
-                                                onClick={this.handleClick.bind(this)}>
+                                                onClick={this.handleAnnuler.bind(this)}>
                                             annuler
                                         </button>
                                     </div>

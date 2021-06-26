@@ -9,9 +9,13 @@ import {
     getSingleOrderSuccess,
     getTotalOrdersSuccess,
     validateOrderSuccess,
-    validateOrderError
+    validateOrderError,
+    getOrdersCountByDateSuccess,
+
 
 } from './action';
+
+import {OrdersCountByDateError} from './action'
 import {updateProduct} from "~/repositories/Repository";
 polyfill();
 
@@ -27,6 +31,18 @@ function* getOrders({ payload }) {
         yield put(getOrdersError(err));
     }
 }
+
+function* getOrdersCountByDate({ payload }) {
+
+    try {
+        const data = yield call(OrderRepository.getOrdersCountByDate);
+        console.log(data)
+        yield put(getOrdersCountByDateSuccess(data));
+    } catch (err) {
+        yield put(OrdersCountByDateError(err));
+    }
+}
+
 
 function* getTotalOfOrders() {
     // used to get all orders
@@ -132,6 +148,10 @@ export default function* rootSaga() {
 
     yield all([
         takeEvery(actionTypes.GET_ORDERS_BY_KEYWORD, getOrderByKeyword),
+    ]);
+
+    yield all([
+        takeEvery(actionTypes.GET_ORDERS_COUNT_BY_DATE, getOrdersCountByDate),
     ]);
 
     yield all([takeEvery(actionTypes.GET_ORDERS_BY_DATE,getOrdersByDate)]);

@@ -6,12 +6,13 @@ class ProductRepository {
     }
 
     async getRecords(params) {
-        console.log(`/products?${serializeQuery(params)}`);
+        console.log(`${baseUrl}/products?${serializeQuery(params)}`);
 
         const reponse = await Repository.get(
             `${baseUrl}/products?${serializeQuery(params)}`
         )
             .then(response => {
+                console.log(response)
                 return response.data;
 
             })
@@ -32,13 +33,26 @@ class ProductRepository {
         return reponse;
     }
 
+
+    async getProductBrands() {
+
+        const response = await Repository.get(`${baseUrl}/brands`)
+            .then(response => {
+                console.log(response)
+                return response.data;
+            })
+            .catch(error => ({ error: JSON.stringify(error) }));
+        return response;
+    }
+
+
     async getTotalRecords() {
-        const reponse = await Repository.get(`${baseUrl}/products/count`)
+        const response = await Repository.get(`${baseUrl}/products/count`)
             .then(response => {
                 return response.data;
             })
             .catch(error => ({ error: JSON.stringify(error) }));
-        return reponse;
+        return response;
     }
 
 

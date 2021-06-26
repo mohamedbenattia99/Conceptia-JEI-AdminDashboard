@@ -8,8 +8,20 @@ class TableCategoryItems extends Component {
 
 
     render() {
-        const allCategories =this.props.allCategories ;
-        const categoriesLoading = this.props.categoriesLoading ;
+
+        const allCategories=this.props.allCategories ;
+        const tableItems = allCategories && this.props.allCategories.map((item) => {
+return(
+                <tr key={item.bfdb}>
+                    <td>
+                        <strong>{item.name}</strong>
+                    </td>
+                    <td>{item.slug}</td>
+
+                </tr>)
+            });
+        console.log(this.props.allCategories)
+
         return (
             <div className="table-responsive" >
                 <table className="table ps-table">
@@ -17,46 +29,15 @@ class TableCategoryItems extends Component {
                         <tr>
                             <th>Nom de la catégorie</th>
                             <th>Slug</th>
-                            <th>Creé le</th>
-                            <th></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        {!(categoriesLoading) && Array.isArray(allCategories)? allCategories.map((item) => {
-                            <tr>
-                                <td>
-                                    <strong>{item.title}</strong>
-                                </td>
-                                <td>{item.slug}</td>
-                                <td>{item.date}</td>
-                                <td>
-                                    <div className="dropdown">
-                                        <a
-                                            id="dropdownMenuButton"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i className="icon-ellipsis"></i>
-                                        </a>
-                                        <div
-                                            className="dropdown-menu"
-                                            aria-labelledby="dropdownMenuButton">
-                                            <a className="dropdown-item" href="#">
-                                                Editer
-                                        </a>
-                                            <a className="dropdown-item" href="#">
-                                                Supprimer
-                                        </a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        }):null}
+                    <tbody>{tableItems}
                     </tbody>
                 </table>
+
             </div>
         );
     }
 };
 
-export default connect(state => state.categories)(TableCategoryItems);
+export default connect((state) => state.categories)(TableCategoryItems);

@@ -19,7 +19,7 @@ function* getCategories({ payload }) {
   }
    */
     try {
-        const data = yield call(categoriesRepository.getRecords, payload);
+        const data = yield call(categoriesRepository.getProductCategories, payload);
         yield put(getCategoriesSuccess(data));
     } catch (err) {
         yield put(getCategoriesError(err));
@@ -28,7 +28,7 @@ function* getCategories({ payload }) {
 
 function* getTotalOfCategories() {
     try {
-        const result = yield call(categoriesRepository.getTotalRecords);
+        const result = yield call(categoriesRepository.getTotalCategories);
         yield put(getTotalCategoriesSuccess(result));
     } catch (err) {
         console.log(err);

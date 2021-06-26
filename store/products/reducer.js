@@ -6,11 +6,12 @@ export const initialState = {
     updateSingleProduct : null ,
     updateLoading :true,
     totalProducts: 0,
-    categories: null ,
+    categories: [] ,
     categoriesLoading :true ,
     brands: [],
     productsLoading: true,
     searchResults: null,
+
 };
 
 
@@ -31,9 +32,28 @@ function reducer(state = initialState, action) {
         case actionTypes.GET_PRODUCT_CATEGORIES_SUCCESS:
             return {
                 ...state,
-                ...{ categories: action.payload ,categoriesLoading: false},
+                ...{ categories: action.payload },
             };
 
+
+        case actionTypes.GET_PRODUCTS_CATEGORIES_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
+
+        case actionTypes.GET_PRODUCT_BRANDS_SUCCESS:
+            return {
+                ...state,
+                ...{ brands: action.payload },
+            };
+
+
+        case actionTypes.GET_PRODUCTS_BRANDS_ERROR:
+            return {
+                ...state,
+                ...{ error: action.error },
+            };
 
         case actionTypes.GET_PRODUCTS_ERROR:
             return {
@@ -65,11 +85,6 @@ function reducer(state = initialState, action) {
 
 
 
-        case actionTypes.GET_PRODUCTS_CATEGORIES_ERROR:
-            return {
-                ...state,
-                ...{ error: action.error },
-            };
 
         default:
             return state;
