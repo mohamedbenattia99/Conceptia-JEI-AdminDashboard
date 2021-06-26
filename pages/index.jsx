@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import CardRecentOrders from '~/components/shared/cards/CardRecentOrders';
 import CardSaleReport from '~/components/shared/cards/CardSaleReport';
 import CardEarning from '~/components/shared/cards/CardEarning';
@@ -6,13 +6,30 @@ import CardEarning from '~/components/shared/cards/CardEarning';
 import ContainerDashboard from '~/components/layouts/ContainerDashboard';
 import { useDispatch } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
+import { connect } from 'react-redux';
+import { useRouter } from 'next/router'
+
 // import CardTopCountries from '~/components/shared/cards/CardTopCountries';
 
-const Index = () => {
+const Index = (props) => {
     const dispatch = useDispatch();
+    const router = useRouter();
+
+    const checkLogin = async () =>{
+        await setTimeout(()=>{
+            if(props.isLoggedIn===false){
+                router.push('/login');
+            }
+        },0)
+    }
+
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
+        checkLogin();
+
     }, []);
+
+
 
     return (
         <ContainerDashboard title="Dashboard">
@@ -35,7 +52,10 @@ const Index = () => {
                 </div> */}
             </section>
         </ContainerDashboard>
+
     );
 };
-
-export default Index;
+const mapStateToProps = state => {
+    return state.auth;
+};
+export default connect(mapStateToProps)(Index);

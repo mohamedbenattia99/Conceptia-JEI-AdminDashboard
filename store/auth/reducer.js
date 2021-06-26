@@ -1,9 +1,9 @@
 import { actionTypes } from './action';
-
 export const initState = {
     isLoggedIn: false,
     user : null,
-    jwt : null
+    jwt : null,
+
 };
 
 function reducer(state = initState, action) {
@@ -26,6 +26,7 @@ function reducer(state = initState, action) {
                 user : null,
                 jwt : null
             };
+
         default:
             return state;
     }
