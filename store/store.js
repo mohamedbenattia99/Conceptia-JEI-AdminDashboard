@@ -1,7 +1,6 @@
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import { persistReducer,persistStore } from 'redux-persist';
 
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
@@ -15,7 +14,27 @@ const bindMiddleware = (middleware) => {
     return applyMiddleware(...middleware);
 };
 
-export const makeStore = (context) => {
+////// FIXING THE NOOP STORAGE REDUX-PERSIST ERROR
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
+
+const createNoopStorage = () => {
+    return {
+        getItem(_key) {
+            return Promise.resolve(null);
+        },
+        setItem(_key, value) {
+            return Promise.resolve(value);
+        },
+        removeItem(_key) {
+            return Promise.resolve();
+        },
+    };
+};
+const storage = typeof window !== "undefined" ? createWebStorage("local") : createNoopStorage();
+
+////////////////*****************////////////////////////////
+
+/*export const makeStore = (context) => {
 
     const sagaMiddleware = createSagaMiddleware();
     const store = createStore(rootReducer,
@@ -24,9 +43,9 @@ export const makeStore = (context) => {
     store.sagaTask = sagaMiddleware.run(rootSaga);
 
     return store;
-};
+};*/
 
-export const wrapper = createWrapper(makeStore, { debug: false });
+
 
 const persistConfig = {
     key: 'RED SYS ',
@@ -45,7 +64,11 @@ function configureStore(initialState) {
     );
 
     store.sagaTask = sagaMiddleware.run(rootSaga);
+    store.__persistor = persistStore(store);
+
     return store;
 }
+
+export const wrapper = createWrapper(configureStore);
 
 export default configureStore;
