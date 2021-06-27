@@ -30,14 +30,15 @@ console.log(data)
         notification.open({
             type :'success',
             message: 'succès !',
-            description: 'demande envoyée avec succès',
+            description: 'demande en cours d\'envoie' ,
             duration: 7,
 
         }
 
 
+
         )
-        }).catch(  error=> {
+        }).catch(error=> {
         notification.open({
             type :'warning',
             message: 'erreur !',

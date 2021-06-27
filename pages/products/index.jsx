@@ -86,7 +86,6 @@ class ProductPage extends Component {
     }
     handleChange = (e) => {
         this.setState({ values: e });
-        console.log(this.state.values);
     }
 
     render() {

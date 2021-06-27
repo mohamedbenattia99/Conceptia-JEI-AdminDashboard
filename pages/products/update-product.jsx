@@ -46,7 +46,6 @@ const updateLoading = uProd.updateLoading
         dispatch(toggleDrawerMenu(false));
         if(updateLoading || updateProd===undefined || updateProd===null);
         else{
-            console.log(updateProd);
             setid(updateProd.id)
             setProductName(updateProd.title)
             setProductRef(updateProd.sku)
@@ -63,7 +62,6 @@ const updateLoading = uProd.updateLoading
 
     const handleChange = (fileList ) => {
         setProductImages({fileList})
-        console.log(productImages)
     }
 
 

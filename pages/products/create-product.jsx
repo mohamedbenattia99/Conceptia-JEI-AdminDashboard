@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import Link from "next/link";
+import {Select} from "antd";
 import { generate } from 'shortid';
 import { produce } from "immer";
 import {connect, useDispatch, useSelector} from 'react-redux';
@@ -10,10 +11,10 @@ import { useForm } from 'react-hook-form';
 import {fetchData,serializeQuery} from "~/repositories/Repository";
 const MARQUE=['marque1', 'marque2', 'marque3', 'marque4'];
 const CATEGORY=['category1', 'category2', 'category3', 'category4'];
-import {notification, Select} from "antd";
 import PicturesWall from './uploadImage'
 import { useRouter } from 'next/router';
 import {getProductBrands, getProductCategories} from "~/store/products/action";
+
 const CreateProductPage = () => {
     const router =useRouter() ;
     const brands = useSelector(state=>state.products.brands)
@@ -33,6 +34,7 @@ const CreateProductPage = () => {
     const [productSalePrice,setProductSalePrice] =useState()
     const [productQuantity,setProductQuantity] =useState()
     const [productCategories,setProductCategories] =useState()
+    const [productSubCategories,setProductSubCategories] =useState()
     const [productBrand,setProductBrand] =useState()
     const [productImages,setProductImages] =useState()
 
@@ -54,6 +56,32 @@ const CreateProductPage = () => {
     const handleImageChange = (fileList ) => {
         setProductImages({fileList})
     }
+    const handleBrandSelect = (value) => {
+        setProductBrand(value )
+    }
+    const handleCategorySelect = (value) => {
+        const category=categories.filter(c=>c.id==value)
+        if (!category[0].mega_contents){setProductSubCategories({})}
+        setProductCategories(category[0])
+        }
+
+
+
+    const handleSubCategorySelect = (value) =>{
+        setProductSubCategories(value)
+
+
+    }
+
+    const megaContentDisplay =  c => {
+        return c.mega_items && Array.isArray(c.mega_items) ? c.mega_items.map(i => {
+
+            return (
+
+                <option key={i.id} value={i.id}>{i.name}</option>
+            )
+        }) : ""
+    };
 
 
 
@@ -62,9 +90,8 @@ const CreateProductPage = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const onSubmit = () =>{
-        const thumbnail = {files : productImages.fileList[0].originFileObj};
-        const images = [{files : productImages.fileList[1].originFileObj},{files : productImages.fileList[2].originFileObj}];
-
+        const thumbnail = {file: productImages.fileList[0]};
+        const images = [{file : productImages.fileList[1]},{file : productImages.fileList[2]}];
         const spec =  property.map(prop=>{
 
               return {spec_name: prop.key, spec_value : prop.value}
@@ -73,26 +100,26 @@ const CreateProductPage = () => {
 
             return { desc_item : prop.value}
         })
-        console.log('categories'+productCategories)
+
          const data={
-             title :productName ,
-             thumbnail : thumbnail ,
-             images : images,
-             product_categories:productCategories,
-             price :productPrice,
-             sale_price : productSalePrice ,
-             brands : productBrand ,
-             productNumber : productNumber ,
-             description : productDescription ,
-             sku : productRef ,
-             inventory :productQuantity,
-             specifications : spec ,
-             description_list : desc,
+             "title" :productName ,
+             "files.thumbnail" : thumbnail ,
+             "files.images" : images,
+             "product_categories":productCategories.id,
+             "price" :productPrice,
+             "sale_price" : productSalePrice ,
+             "brands" : productBrand ,
+             "productNumber" : productNumber ,
+             "description" : productDescription ,
+             "sku" : productRef ,
+             "inventory" :productQuantity,
+             "specifications" : spec ,
+             "description_list" : desc,
+             "mega_items" : productSubCategories ,
 
 
 
          }
-         console.log(data)
          fetchData(data,'products');
 
    //     router.push("/products")
@@ -289,51 +316,69 @@ const CreateProductPage = () => {
                                 <figure className="ps-block--form-box">
                                     <figcaption>Meta</figcaption>
                                     <div className="ps-block__content">
+
                                         <div className="form-group form-group--select">
                                             <label>Marque<sup>*</sup></label>
                                             <div className="form-group__content">
-                                                {brands && Array.isArray(brands) ? <select
+                                                {brands && Array.isArray(brands) ? <Select
+                                                    onSelect={(value)=>handleBrandSelect(value)}
                                                     className="ps-select"
                                                     title="Brand"
                                                     name="marque"
-                                                    onSelect={(event) => {
-                                                        setProductBrand(event.target.value)
-                                                    }}
-                                                    {...register("marque", {
-                                                        required: "Marque est un champ obligatoire"
-                                                    })}
-                                                >
-                                                    <option value="" disabled>Veuillez choisir une marque</option>
-                                                    {brands.map(c => <option key={c} value ={c.id}>{c.name}</option>)}
-                                                </select>:<select></select>}
-                                                <br></br>
-                                                {errors.marque && <span role="alert">{errors.marque.message}</span>}
 
-                                            </div>
-                                        </div>
-                                        <div className="form-group form-group--select">
-                                            <label>Nom de la catégorie associée au produit<sup>*</sup></label>
-                                            <div className="form-group__content">
-                                                {categories && Array.isArray(categories) ? <select
-
-                                                    className="ps-select"
-                                                    title="Category"
-                                                    onSelect={(event) => {
-                                                        console.log(event)
-                                                        setProductCategories(event.target.value)
-
-                                                    }}
                                                     {...register("category", {
-                                                        required: "Catégorie est un champ obligatoire"
+                                                        required:!productBrand
                                                     })}
                                                 >
-                                                    <option value="" disabled>Veuillez choisir une catégorie</option>
-                                                    {categories.map(c => <option  key={c.id} value={c.id} >{c.name}</option>)}
-                                                </select> : <select></select>}
+                                                    {/*<option value="" disabled>Veuillez choisir une catégorie</option>*/}
+                                                    {brands.map(c => <option  key={c.id} value={c.id}   >{c.name}</option>)}
+                                                </Select> : <select></select>}
                                                 <br></br>
                                                 {errors.category && <span role="alert">{errors.category.message}</span>}
                                             </div>
                                         </div>
+
+                                        <div className="form-group form-group--select">
+                                            <label>Nom de la catégorie associée au produit<sup>*</sup></label>
+                                            <div className="form-group__content">
+                                                {categories && Array.isArray(categories) ? <Select
+                                                    onSelect={(value)=>handleCategorySelect(value)}
+                                                    className="ps-select"
+                                                    title="Category"
+                                                    name="category"
+
+                                                    {...register("category", {
+                                                        required:!productCategories
+                                                    })}
+                                                >
+                                                    {/*<option value="" disabled>Veuillez choisir une catégorie</option>*/}
+                                                    {categories.map(c => <option  key={c.id} value={c.id}    >{c.name}</option>)}
+                                                </Select> : <select></select>}
+                                                <br></br>
+                                                {errors.category && <span role="alert">{errors.category.message}</span>}
+                                            </div>
+                                        </div>
+
+                                        <div className="form-group form-group--select">
+                                            <label>sous category</label>
+                                            <div className="form-group__content">
+                                                {productCategories && productCategories.mega_contents && productCategories.mega_contents && Array.isArray(productCategories.mega_contents) ? <Select
+                                                    disabled={!productCategories || !productCategories.mega_contents}
+                                                    className="ps-select"
+                                                    title="SubCategory"
+
+                                                    onSelect={(value)=> {
+                                                        handleSubCategorySelect(value)
+                                                    }}
+                                                >
+                                                    {/*<option value="" disabled={!productCategories}>Veuillez choisir une catégorie</option>*/}
+                                                    {productCategories.mega_contents.map((c)=>megaContentDisplay(c))}
+                                                </Select> : <select></select>}
+                                                <br></br>
+
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </figure>
                                 <figure className="ps-block--form-box">
@@ -491,10 +536,9 @@ const CreateProductPage = () => {
                         </Link>
 
                         <button className="ps-btn" type="submit" onClick={()=>{
-                        console.log(productImages)
-                         handleSubmit(onSubmit)
-
-                        }} disabled={!productImages} style={!productImages ? {cursor : "not-allowed"}:{}} >Soumettre</button>
+                            console.log(productImages)
+                             handleSubmit(onSubmit)
+                            }} disabled={!productImages || productImages.fileList.length<3} style={!productImages || productImages.fileList.length < 3 ? {cursor : "not-allowed"}:{}} >Soumettre</button>
                     </div>
 
 
