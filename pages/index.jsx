@@ -6,19 +6,29 @@ import {getOrdersCountByDate}  from '../store/orders/action'
 import ContainerDashboard from '~/components/layouts/ContainerDashboard';
 import {useDispatch, useSelector} from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
-// import CardTopCountries from '~/components/shared/cards/CardTopCountries';
-
-const Index = () => {
-    const dispatch= useDispatch() ;
+import { connect } from 'react-redux';
+import { useRouter } from 'next/router'
 
 
+const Index = (props) => {
+    const dispatch = useDispatch();
+    const router = useRouter();
     useEffect(() => {
         dispatch(getOrdersCountByDate()) ;
     }, [dispatch]) ;
 
+    const checkLogin = async () =>{
+        await setTimeout(()=>{
+            if(props.isLoggedIn===false){
+                router.push('/login');
+            }
+        },0)
+    }
 
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
+        checkLogin();
+
     }, []);
 
     const recentOrders = useSelector(state=>state.orders.recentOrders)
@@ -45,14 +55,12 @@ const Index = () => {
                     </div>
                     <CardRecentOrders />
                 </div>
-
-                {/* <div className="ps-section__right">
-                    <CardStatics />
-                    <CardTopCountries />
-                </div> */}
             </section>
         </ContainerDashboard>
+
     );
 };
-
-export default Index;
+const mapStateToProps = state => {
+    return state.auth;
+};
+export default connect(mapStateToProps)(Index);

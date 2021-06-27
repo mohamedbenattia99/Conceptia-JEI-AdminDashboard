@@ -1,7 +1,9 @@
 import axios from 'axios';
 export const isGrapql = true;
 const baseDomain = 'http://localhost:1337';
-/*const baseDomain = 'http://45.7localhost6.97.89:1337';*/
+/*const baseDomain = 'http://45.76.97.89:1337';*/
+const shopBaseUrl = "http://localhost:3000";
+
 const authorization_prefix = 'Bearer ';
 import {notification} from "antd";
 const token ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjI0MDE5NDIxLCJleHAiOjE2MjY2MTE0MjF9.krBrZUPqtNQnhMAkJ2dWpEUf9DOuU_CljGjPPLWhxU0'
@@ -11,6 +13,7 @@ export const customHeaders = {
 };
 
 export const baseUrl = `${baseDomain}`;
+export const shopUrl = `${shopBaseUrl}`;
 
 export default axios.create({
     baseUrl,

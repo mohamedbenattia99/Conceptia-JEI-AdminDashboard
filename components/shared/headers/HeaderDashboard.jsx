@@ -1,5 +1,6 @@
 import React from 'react';
 import FormHeaderSearch from '~/components/shared/forms/FormHeaderSearch';
+import {shopUrl} from "~/repositories/Repository";
 
 const HeaderDashboard = ({
     title = 'Tableau de bord',
@@ -16,7 +17,7 @@ const HeaderDashboard = ({
                 <FormHeaderSearch />
             </div> */}
             <div className="header__right">
-                <a className="header__site-link" href="#">
+                <a className="header__site-link" href={shopUrl} target="_blank">
                     <span>Consultez votre boutique</span>
                     <i className="icon-exit-right"></i>
                 </a>

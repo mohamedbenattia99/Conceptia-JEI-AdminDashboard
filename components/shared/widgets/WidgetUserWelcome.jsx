@@ -1,6 +1,9 @@
 import React from 'react';
+import {logOut} from '~/store/auth/action';
+import { connect } from 'react-redux';
 
-const WidgetUserWelcome = () => {
+const WidgetUserWelcome = (props) => {
+
     return (
         <div className="ps-block--user-wellcome">
             <div className="ps-block__left">
@@ -8,16 +11,19 @@ const WidgetUserWelcome = () => {
             </div>
             <div className="ps-block__right">
                 <p>
-                    Bonjour,<a href="#">Red Sys</a>
+                    Bonjour,<a href="#">{props.user != null ? props.user.username : null}</a>
                 </p>
             </div>
             <div className="ps-block__action">
-                <a href="#">
-                    <i className="icon-exit"></i>
+                <a onClick={()=>props.dispatch(logOut())}>
+                    <i className="icon-exit"></i>Logout
                 </a>
             </div>
         </div>
     );
 };
+const mapStateToProps = state => {
+    return state.auth;
+};
 
-export default WidgetUserWelcome;
+export default connect(mapStateToProps)(WidgetUserWelcome);
