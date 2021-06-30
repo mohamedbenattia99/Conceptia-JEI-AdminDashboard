@@ -9,6 +9,7 @@ export const initState = {
 function reducer(state = initState, action) {
     switch (action.type) {
         case actionTypes.LOGIN_SUCCESS:
+            localStorage.setItem('token', action.jwt);
             return {
                 isLoggedIn: true ,
                 user : action.user,

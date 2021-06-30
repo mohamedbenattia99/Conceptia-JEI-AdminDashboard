@@ -44,6 +44,7 @@ function* loginSaga(action) {
         const resp =yield call(loginApi,userData);
         if(resp.user.role.name === "Admin"){
             yield put(loginSuccess(resp.user,resp.jwt));
+             localStorage.setItem('token', token.jwt)
             modalSuccess('success');
             Router.push('/');
         }else throw "Account Role is not Admin !";

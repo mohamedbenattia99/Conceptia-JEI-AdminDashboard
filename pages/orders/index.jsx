@@ -29,6 +29,7 @@ class OrdersPage extends Component {
         const params = {
             _start: 0,
             _limit: 20,
+            _sort : "date:DESC"
         };
         this.props.dispatch(toggleDrawerMenu(false))
         this.props.dispatch(getTotalOrders())
@@ -39,6 +40,7 @@ class OrdersPage extends Component {
         const params = {
             _start: page === 1 ? 0 : page * pageSize,
             _limit: pageSize,
+            _sort : "date:DESC"
         };
         this.props.dispatch(getOrders(params));
     }
@@ -83,12 +85,12 @@ class OrdersPage extends Component {
         const total = this.props.totalOrders ;
 
         return (
-            <ContainerDefault>
+            <ContainerDefault style={{overflow :'scroll'}}>
                 <HeaderDashboard
                     title="Orders"
                     description="RED SYS Orders Listing"
                 />
-                <section className="ps-items-listing">
+                <section className="ps-items-listing" >
                     <div className="ps-section__header simple">
                         <div className="ps-section__filter">
                             <form
@@ -128,7 +130,7 @@ class OrdersPage extends Component {
                         </div>
                     </div>
                     <div className="ps-section__content">
-                        <TableOrdersItems />
+                        <TableOrdersItems  style={{overflowX: "auto"}}/>
                     </div>
                     <div className="ps-section__footer">
                         <Pagination

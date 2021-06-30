@@ -4,7 +4,7 @@ import { Menu, Checkbox,Popconfirm,Button} from 'antd';
 import DropdownAction from '~/components/elements/basic/DropdownAction';
 import { connect} from 'react-redux';
 import {validateOrder} from "~/store/orders/action";
-
+import {CheckOutlined, QuestionCircleOutlined} from '@ant-design/icons'
 
 class TableOrdersItems extends Component {
 
@@ -18,16 +18,16 @@ class TableOrdersItems extends Component {
     }
 
 
-     handleValidate (item){
-        const data =item
-        data.valid =!(data.valid) ;
-        this.props.dispatch(validateOrder(data.id,data)) ;
-    }
-
 
     render() {
 
+        const handleValidate = (e,item,condition)=> {
+            this.props.dispatch(validateOrder(item.id, {fullfillment: condition, valid: !item.valid}))
+        }
 
+        const handleDeliver = (e,item)=> {
+            this.props.dispatch(validateOrder(item.id, {delivered : !item.delivered ,fullfillment :item.delivered? 'Cancel':'livré'} ))
+        }
         const allOrders =this.props.allOrders ;
         const ordersLoading =this.props.ordersLoading;
 
@@ -35,28 +35,14 @@ class TableOrdersItems extends Component {
     console.log(ordersLoading)
     console.log(Array.isArray(allOrders))
 
-
         const tableItemsView = (!(ordersLoading) && Array.isArray(allOrders) )? allOrders.map((item) => {
-            console.log(item.productName)
+            const condition = item.delivered  ? "livré" : item.valid ? "Cancel" : "en cours de livraison "
+
             let  fullfillmentView;
-            const menuView = (
-                <Menu>
-                    <Menu.Item key={0}>
-                        <a className="dropdown-item" href="#">
-                            Editer
-                        </a>
-                    </Menu.Item>
-                    <Menu.Item key={0}>
-                        <a className="dropdown-item" href="#">
-                            <i className="icon-t"></i>
-                            Supprimer
-                        </a>
-                    </Menu.Item>
-                </Menu>
-            );
+
 
             switch (item.fullfillment) {
-                case 'Success':
+                case 'livré':
                     fullfillmentView = (
                         <span className="ps-fullfillment success">delivered</span>
                     );
@@ -67,6 +53,13 @@ class TableOrdersItems extends Component {
                     );
 
                     break;
+                case "en cours de livraison ":
+                    fullfillmentView = (
+                        <span className="ps-fullfillment warning">en cours de livraison </span>
+                    );
+
+                    break;
+
                 default:
                     fullfillmentView = (
                         <span className="ps-fullfillment warning">In Progress</span>
@@ -76,25 +69,34 @@ class TableOrdersItems extends Component {
             return (
                 <tr key={item.id}>
                     <td>{item.id}</td>
-                    <td>
-                        {}
-                    </td>
+
                     <td>
                         <strong>{item.date}</strong>
                     </td>
-                    <td>{item.productNumber}</td>
+                    <td>
+                        <ol type={"I"}>
+                        {item.order_products ? item.order_products.map(prod =><><li >{prod.productName}</li><br></br></>):'no products'}
+                        </ol>
+                    </td>
+                    <td>
+                        <ol type={"I"}>
+                            {item.order_products ? item.order_products.map(prod =><><li >{prod.productNumber}</li><br></br></>):'no products'}
+                        </ol>
+                    </td>
                     <td>{item.customerName}</td>
                     <td>{item.customerPhoneNumber}</td>
-                    <td>put customer mail in here</td>
+                    <td ><p>{item.user && item.user.email ?item.user.email :'email non fourni'}</p></td>
                     <td>{fullfillmentView}</td>
                     <td>
                         <strong>{item.total}</strong>
                     </td>
-                    <td>
-                        <Button color={item.valid ? "success":"danger"}>{item.valid ? 'validé':'non validé'}</Button>
+                    <td>                <Popconfirm onConfirm={(e)=>(handleValidate(e,item,condition))} title="Etes-vous sûr que vous voulez changer？" icon={<QuestionCircleOutlined style={{ color: 'red' }}  />}>
+                    <Button  type={"default"} danger={!item.valid}  disabled={item.delivered}>{item.valid ? 'validé':'non validé'} </Button> </Popconfirm>
                     </td>
                     <td>
-                        <DropdownAction />
+                        <Popconfirm onConfirm={(e)=>(handleDeliver(e,item))} title="Etes-vous sûr que vous voulez changer？" icon={<QuestionCircleOutlined style={{ color: 'red' }}  />}>
+                        <Button type={"default"}  danger={!item.delivered} >{item.delivered ? 'livré':'non livré'}</Button>
+                </Popconfirm>
                     </td>
                 </tr>
             );
@@ -115,7 +117,8 @@ class TableOrdersItems extends Component {
                             <th>Accomplissement</th>
                             <th>Total</th>
                             <th>Valider</th>
-                            <th></th>
+                            <th>livré</th>
+
                         </tr>
                     </thead>
                     <tbody>{tableItemsView}</tbody>

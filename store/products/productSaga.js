@@ -83,6 +83,8 @@ function* deleteProducts({id}) {
 function* getProductByProductNumber({ number }) {
     const params = {
         productNumber: number,
+        _sort : "title:DESC"
+
     }
     try {
         const product = yield call(ProductRepository.getRecords, params);

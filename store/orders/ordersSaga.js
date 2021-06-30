@@ -87,6 +87,7 @@ function* validateOrder({id,data}) {
     try {
         const order = yield call(updateProduct,id,data,'orders');
         yield put(validateOrderSuccess(order));
+
     } catch (err) {
         yield put(validateOrderError(err));
     }
@@ -95,6 +96,8 @@ function* validateOrder({id,data}) {
 function* getOrdersByProductName({ productName }) {
     // productName : type string
     const params = {
+        _sort : "title:DESC",
+
         title_contains : productName ,
     }
     try {

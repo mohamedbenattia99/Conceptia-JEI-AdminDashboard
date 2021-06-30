@@ -6,14 +6,19 @@ import { connect} from 'react-redux';
 
 const CardSaleReport = (props) => {
 
-console.log(props.x_axis)
-    console.log(props.y_axis)
 
+    var date = new Date();
 
+    var daysInMonth = new Date(date.getFullYear(), date. getMonth()+1, 0).getDate();
+    let days = [] ;
+    for (let i=0;i<=parseInt(daysInMonth);i++)
+    {days[i]=`${i}/${date.getMonth()+1}/${date.getFullYear()}`}
+console.log(props.y_axis)
+    console.log(days)
     const state = {
         series: [
             {
-                name: 'series1',
+                name: 'orders',
                 data: props.y_axis,
             },
         ],
@@ -34,13 +39,10 @@ console.log(props.x_axis)
                 curve: 'smooth',
             },
             xaxis: {
-                type: 'datetime',
-                categories: props.x_axis,
-            },
-            tooltip: {
-                x: {
-                    format: 'dd/MM/yy ',
-                },
+
+                categories : days,
+                type: 'category',
+
             },
             responsive: [
                 {

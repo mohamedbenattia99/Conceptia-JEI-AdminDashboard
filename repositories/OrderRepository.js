@@ -54,6 +54,11 @@ class OrderRepository {
 
 
     async getOrdersCountByDate(){
+        const token = localStorage.getItem('token')
+        const config = {
+            Authorization:
+                `Bearer ${token}` ,
+        };
         let today = new Date();
         const tomorrow = new Date(today)
         tomorrow.setDate(tomorrow.getDate() + 1)
@@ -64,7 +69,7 @@ class OrderRepository {
 
         const thisDay = yyyy + '-' + mm + '-' + dd;
         const thisMonthFirstDate = `${yyyy}-${mm}-01`
-        const response = await Repository.get(`${baseUrl}/orders/?created_at_gte=${thisMonthFirstDate}&created_at_lte=${thisDay}`) .then(response => {
+        const response = await Repository.get(`${baseUrl}/orders/?created_at_gte=${thisMonthFirstDate}&created_at_lte=${thisDay}`, {headers: config}) .then(response => {
           return response.data}).catch(error => ({ error: JSON.stringify(error) }));
             return response;
 

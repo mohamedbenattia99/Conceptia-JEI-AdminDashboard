@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import ContainerDefault from '~/components/layouts/ContainerDefault';
 import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import Link from "next/link";
-import {Select} from "antd";
+import {notification, Select} from "antd";
 import { generate } from 'shortid';
 import { produce } from "immer";
 import {connect, useDispatch, useSelector} from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import { useForm } from 'react-hook-form';
-import {fetchData,serializeQuery} from "~/repositories/Repository";
+import {fetchData,updateMegaContent} from "~/repositories/Repository";
 const MARQUE=['marque1', 'marque2', 'marque3', 'marque4'];
 const CATEGORY=['category1', 'category2', 'category3', 'category4'];
 import PicturesWall from './uploadImage'
@@ -59,29 +59,22 @@ const CreateProductPage = () => {
     const handleBrandSelect = (value) => {
         setProductBrand(value )
     }
-    const handleCategorySelect = (value) => {
-        const category=categories.filter(c=>c.id==value)
+    const handleCategorySelect = (event) => {
+        const category=categories.filter(c=>c.id==event)
         if (!category[0].mega_contents){setProductSubCategories({})}
         setProductCategories(category[0])
         }
 
 
 
-    const handleSubCategorySelect = (value) =>{
-        setProductSubCategories(value)
+    const handleSubCategorySelect = (event) =>{
+        setProductSubCategories(event)
+
 
 
     }
 
-    const megaContentDisplay =  c => {
-        return c.mega_items && Array.isArray(c.mega_items) ? c.mega_items.map(i => {
 
-            return (
-
-                <option key={i.id} value={i.id}>{i.name}</option>
-            )
-        }) : ""
-    };
 
 
 
@@ -90,37 +83,65 @@ const CreateProductPage = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
 
     const onSubmit = () =>{
-        const thumbnail = {file: productImages.fileList[0]};
-        const images = [{file : productImages.fileList[1]},{file : productImages.fileList[2]}];
-        const spec =  property.map(prop=>{
+        const spec =  property.map(p=>{
 
-              return {spec_name: prop.key, spec_value : prop.value}
-          })
+            return {spec_name: p.prop, spec_value : p.value}
+        })
         const desc =  description_list.map(prop=>{
 
             return { desc_item : prop.value}
         })
 
-         const data={
-             "title" :productName ,
-             "files.thumbnail" : thumbnail ,
-             "files.images" : images,
-             "product_categories":productCategories.id,
-             "price" :productPrice,
-             "sale_price" : productSalePrice ,
-             "brands" : productBrand ,
-             "productNumber" : productNumber ,
-             "description" : productDescription ,
-             "sku" : productRef ,
-             "inventory" :productQuantity,
-             "specifications" : spec ,
-             "description_list" : desc,
-             "mega_items" : productSubCategories ,
+
+        const data={
+            "title" :productName ,
+            "product_categories":productCategories.id,
+            "price" :productPrice,
+            "sale_price" : productSalePrice ,
+            "brand" : productBrand ,
+            "productNumber" : productNumber ,
+            "description" : productDescription ,
+            "sku" : productRef ,
+            "inventory" :productQuantity,
+            "specifications" : spec ,
+            "description_list" : desc,
+            "description_title" : productName
+        }
+
+        const thumbnail = productImages.fileList[0].originFileObj;
+        const images = productImages.fileList.map(f=>f.originFileObj)
+        let formData= new FormData()
+        console.log(thumbnail)
+
+        formData.append('files.thumbnail', thumbnail,thumbnail.name)
+      images.forEach(image=>{formData.append('files.images', image,image.name)})
+        formData.append('data', JSON.stringify(data));
+        console.log(formData)
+
+
+         fetchData(formData,'products').then(  result=> {
+          if(productSubCategories) {
+              updateMegaContent(productSubCategories, result.data.id)
+          }
+             notification.open({
+                     type :'success',
+                     message: 'succès !',
+                     description: 'demande en cours d\'envoie' ,
+                     duration: 7,
+
+                 }
 
 
 
-         }
-         fetchData(data,'products');
+             )
+         }).catch(error=> {
+             notification.open({
+                 type :'warning',
+                 message: 'erreur !',
+                 description: "erreur à l'envoie du demande",
+                 duration: 7,
+             });})
+
 
    //     router.push("/products")
     
@@ -342,7 +363,7 @@ const CreateProductPage = () => {
                                             <label>Nom de la catégorie associée au produit<sup>*</sup></label>
                                             <div className="form-group__content">
                                                 {categories && Array.isArray(categories) ? <Select
-                                                    onSelect={(value)=>handleCategorySelect(value)}
+                                                    onSelect={(event,{})=>handleCategorySelect(event)}
                                                     className="ps-select"
                                                     title="Category"
                                                     name="category"
@@ -369,10 +390,17 @@ const CreateProductPage = () => {
 
                                                     onSelect={(value)=> {
                                                         handleSubCategorySelect(value)
+
                                                     }}
                                                 >
                                                     {/*<option value="" disabled={!productCategories}>Veuillez choisir une catégorie</option>*/}
-                                                    {productCategories.mega_contents.map((c)=>megaContentDisplay(c))}
+                                                    {productCategories.mega_contents.map(i => {
+                                                        {console.log(i)}
+                                                        return (
+
+                                                            <option key={i.id} value={i.id}>{i.name}</option>
+                                                        )
+                                                    })}
                                                 </Select> : <select></select>}
                                                 <br></br>
 

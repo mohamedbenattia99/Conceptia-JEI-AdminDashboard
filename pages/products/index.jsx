@@ -33,6 +33,7 @@ class ProductPage extends Component {
         const params = {
             _start: 0,
             _limit: 10,
+            _sort : "title:DESC"
         };
         this.props.dispatch(toggleDrawerMenu(false))
         this.props.dispatch(getTotalProducts())
@@ -46,6 +47,8 @@ class ProductPage extends Component {
         const params = {
             _start: page === 1 ? 0 : page * pageSize,
             _limit: pageSize,
+            _sort : "title:DESC"
+
         };
         this.props.dispatch(getProducts(params));
     }
@@ -58,6 +61,8 @@ class ProductPage extends Component {
         const params = {
             _start: 0,
             _limit: 10,
+            _sort : "title:DESC"
+
         };
         this.props.dispatch(toggleDrawerMenu(false))
         this.props.dispatch(getTotalProducts())

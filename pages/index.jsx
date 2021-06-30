@@ -31,23 +31,38 @@ const Index = (props) => {
 
     }, []);
 
+    const function1 = (order)=>{
+        let productNbr =0
+         if ( Array.isArray(order.order_products)){ for(let  i=0;i<order.order_products.length;i++){if(order.order_products[i].quantity) {
+             console.log("order.order_products[i].quantity ",order.order_products[i].quantity)
+             productNbr += order.order_products[i].quantity
+         }
+         }
+         }
+
+         else productNbr =0
+        let [year,month,day]= order.date.split('-')
+
+        data[parseInt(day)]+=parseInt(productNbr)  ;
+    }
     const recentOrders = useSelector(state=>state.orders.recentOrders)
     const recentOrdersLoading = useSelector(state=>state.orders.recentOrdersLoading)
-    console.log('recent orders '+recentOrders)
+    console.log('recent orders ',recentOrders)
+    var date = new Date();
+    var daysInMonth = new Date(date.getFullYear(), date. getMonth()+1, 0).getDate();
+    let data = new Array(daysInMonth+1); for (let i=0; i<daysInMonth+1;i++) data[i] = 0;
+    if(!recentOrdersLoading && recentOrders && Array.isArray(recentOrders) ) {
 
+        recentOrders.forEach(order=>function1(order))
+    }
 
-    let productnbr = 0 ;
-    const data = !recentOrdersLoading && Array.isArray(recentOrders) ? recentOrders.map(order=>{productnbr+=order.products.length;return productnbr}):[]
-   console.log(data)
-    const dateLine = !recentOrdersLoading && Array.isArray(recentOrders) ?   recentOrders.map(order=>{return order.date}) :[]
-    console.log(dateLine)
     return (
         <ContainerDashboard title="Dashboard">
             <section className="ps-dashboard" id="homepage">
                 <div className="ps-section__left">
                     <div className="row">
                         <div className="col-xl-8 col-12">
-                            <CardSaleReport y_axis={data} x_axis={dateLine} />
+                            <CardSaleReport y_axis={data}  />
                         </div>
                         <div className="col-xl-4 col-12">
                             <CardEarning />

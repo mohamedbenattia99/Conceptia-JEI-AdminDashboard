@@ -27,7 +27,8 @@ function reducer(state = initialState, action) {
 
         case actionTypes.VALIDATE_ORDER_SUCCESS:
             return {
-                ...state
+                ...state ,
+                ...{ allOrders:  state.allOrders.map (o=>o.id ==action.payload.id ? action.payload:o) , ordersLoading: false },
 
             };
 
