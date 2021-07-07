@@ -6,6 +6,7 @@ import orders from './orders/reducer'
 import products from './products/reducer'
 import categories from './categories/reducer'
 import collections from './collections/reducer'
+import promotions from './promotions/reducer'
 export default combineReducers({
     auth,
     app,
@@ -13,4 +14,5 @@ export default combineReducers({
     products,
     categories,
     collections,
+    promotions,
 });

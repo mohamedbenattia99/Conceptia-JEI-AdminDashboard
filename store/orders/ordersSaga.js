@@ -17,6 +17,7 @@ import {
 
 import {OrdersCountByDateError} from './action'
 import {updateProduct} from "~/repositories/Repository";
+import {useRouter} from "next/router";
 polyfill();
 
 function* getOrders({ payload }) {
@@ -85,6 +86,7 @@ function* getOrderById({id}) {
 function* validateOrder({id,data}) {
 
     try {
+
         const order = yield call(updateProduct,id,data,'orders');
         yield put(validateOrderSuccess(order));
 

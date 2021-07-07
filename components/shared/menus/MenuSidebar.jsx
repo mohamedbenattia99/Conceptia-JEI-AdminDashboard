@@ -30,11 +30,7 @@ const MenuSidebar = () => {
             url: '/categories',
             icon: 'icon-users2',
         },
-        {
-            text: 'Paramètres',
-            url: '/settings',
-            icon: 'icon-cog',
-        },
+        
     ];
 
     return (

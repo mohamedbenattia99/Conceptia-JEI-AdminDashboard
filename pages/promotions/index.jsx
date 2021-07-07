@@ -4,78 +4,106 @@ import HeaderDashboard from '~/components/shared/headers/HeaderDashboard';
 import Link from "next/link";
 import { generate } from 'shortid';
 import { produce } from "immer";
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch , useSelector } from 'react-redux';
 import { toggleDrawerMenu } from '~/store/app/action';
 import { useForm } from 'react-hook-form';
-import { Space, Button } from 'antd';
-import { fetchData, serializeQuery } from "~/repositories/Repository";
-const CRITERIA = ['catégorie', 'produit'];
+import { Upload, Button, Space } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import { updatePromotions, baseUrl } from "~/repositories/Repository";
+
 
 import { Select } from "antd";
-import PicturesWall from './uploadImage';
-import ImageDemo from './Images';
+
 import { useRouter } from 'next/router';
+import {getProductBrands, getProductCategories} from "~/store/products/action";
+import {getBanners, getPromotions} from "~/store/promotions/action";
 const CreatePromotionPage = () => {
-    const router = useRouter();
+const router = useRouter();
+const CRITERIA = ['catégorie', 'produit'];
 
-    const [property, setProperty] = useState([
-        { id: "", key: "", value: "" }
-    ]);
-    // const [productName, setProductName] = useState()
-    // const [productRef, setProductRef] = useState()
-    // const [productDescription, setProductDescription] = useState()
-    // const [productNumber, setProductNumber] = useState()
-    // const [productPrice, setProductPrice] = useState()
-    // const [productSalePrice, setProductSalePrice] = useState()
-    // const [productQuantity, setProductQuantity] = useState()
-    // const [criteria, setCriteria] = useState();
-    const [searchParam, setSearchParam] = useState();
-    // const [productBrand, setProductBrand] = useState()
-    // const [productImages, setProductImages] = useState()
+const [searchParam, setSearchParam] = useState();
+const [images, setImages] = useState();
+const [keyword,setKeyword]=useState();
+const [prodBanners,setBanners]=useState();
+const [prodPromotions,setPromotions]=useState();
 
-    const dispatch = useDispatch();
+
+const promotions = useSelector(state=>state.promotions.promotions );
+const banners = useSelector(state=>state.promotions.banners );
+console.log(banners)
+const promotionsLoading = useSelector(state=>state.promotions.promotionsLoading )
+const bannersLoading = useSelector(state=>state.promotions.bannersLoading )
+
+const dispatch = useDispatch()
     useEffect(() => {
         dispatch(toggleDrawerMenu(false));
     }, []);
 
-    const handleChange = (fileList) => {
-        setProductImages({ fileList })
-        console.log(productImages)
+    useEffect(() => {
+        dispatch(getPromotions())
+        dispatch(getBanners())
+    }, [dispatch]);
+
+
+
+
+    const handleImageChange = (fileList ) => {
+    setImages({fileList})
+console.log(fileList)
+
     }
 
+const handleBannersChange = (value ) => {
+    const name = (banners && !bannersLoading && Array.isArray(banners)) ? banners.filter(b=>b.id===value) : undefined
+setBanners({id:value,name:name[0].name})
+    }
+
+const handlePromotionsChange = (value ) => {
+setPromotions(value)
+    }
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
 
     const onSubmit = () => {
+        let formData= new FormData()
+        console.log(images.fileList.file.originFileObj)
+        const image = images.fileList.file.originFileObj
+        formData.append("files.image",image)
 
-        const data = {
-            images: productImages,
-            criteria: productCriteria
+
+        let data ;
+        console.log('search param = ',searchParam)
+        let query = searchParam === "category" ? `/search?category=${keyword}`: searchParam === "category" ?`/product/${keyword}` :'/'
+        if(prodBanners.id){
+            console.log(prodBanners)
+            data ={"name":prodBanners.name , "url": query}
+            console.log(data)
+            formData.append('data', JSON.stringify(data));
+            updatePromotions(formData, 'banners',prodBanners.id);
         }
-        fetchData(data, 'promotions');
 
-        router.push("/promotions");
+
+        else if (prodPromotions) {
+            data ={"id": prodPromotions, "link": query}
+            formData.append('data', JSON.stringify(data));
+            updatePromotions(formData, 'promotions',prodPromotions);
+        }
+
+
+      //  router.push("/promotions");
 
     }
 
     const handleSelectParameter = (value) => {
-        setSearchParam({ searchParam: value });
+        setSearchParam(value);
         console.log(value);
     }
 
     const handleSearch = (e) => {
         if (e.target.value !== '') {
-            // const keyword = e.target.value;
-            // this.setState({
-            //     keyword: e.target.value
-            // });
-
-            if (searchParam == "product") {
-                console.log('searchparam = product')
-            } else if (searchParam == "category") {
-                console.log('searchparam = category')
-            }
+            const keyword = e.target.value;
+            setKeyword(prev=>keyword)
         }
     }
 
@@ -98,29 +126,68 @@ const CreatePromotionPage = () => {
 
                             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                 <figure className="ps-block--form-box">
-                                    <figcaption>Images des promotions</figcaption>
-                                    <div className="ps-block__content">
-                                        <div className="form-group">
-                                            <label>Galerie de produits</label>
-                                            <div className="form-group--nest " >
-                                                <Space size={[16, 16]} wrap>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                    <ImageDemo/>
-                                                </Space>
-                                            </div>                                        </div>
-                                    </div>
+                                    <figcaption>Banners & Promotions</figcaption>
+                                    <div className="ps-block__content" >
+                                        <div className="form-group" style={{display : prodPromotions ? 'none' : 'block'}}>
+                                            <label>Banners</label>
+                                            <div className="form-group form-group--select">
+                                                <label>Banners  a changer <sup>*</sup></label>
+                                                <div className="form-group__content">
+                                                    {banners && !bannersLoading && Array.isArray(banners) ? <Select
+                                                        onSelect={(value)=>handleBannersChange(value)}
+                                                        className="ps-select"
+
+                                                    >
+                                                        {/*<option value="" disabled>Veuillez choisir une image</option>*/}
+                                                        {banners.map(item => <option  key={item.id} value={item.id}>{item.slug}</option>)}
+                                                    </Select> : <select></select>}
+                                                    <br></br>
+                                                </div>
+                                            </div>
+
+                                            <Upload
+                                                listType="picture"
+                                                maxCount={1}
+                                                onChange={handleImageChange}
+                                            >
+                                                <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+                                            </Upload>
+
+                                        </div>
+
+                                        <div className="form-group" style={{display : prodBanners ? 'none' : 'block'}}>
+                                            <label>Promotions</label>
+                                            <div className="form-group form-group--select">
+                                                <label>promotions a changer <sup>*</sup></label>
+                                                <div className="form-group__content">
+                                                    {promotions && !promotionsLoading && Array.isArray(promotions) ? <Select
+                                                        onSelect={(value)=>handlePromotionsChange(value)}
+                                                        className="ps-select"
+
+                                                    >
+                                                        {/*<option value="" disabled>Veuillez choisir une image</option>*/}
+                                                        {promotions.map(item => <option  key={item.id} value={item.id}>{item.slug}</option>)}
+                                                    </Select> : <select></select>}
+                                                    <br></br>
+                                                </div>
+                                            </div>
+
+                                            <Upload
+                                                listType="picture"
+                                                maxCount={1}
+                                                onChange={handleImageChange}
+                                            >
+                                                <Button icon={<UploadOutlined />}>Upload (Max: 1)</Button>
+                                            </Upload>
+
+                                        </div>
+                                        </div>
                                 </figure>
 
                                 <figure className="ps-block--form-box">
                                     <figcaption>Critére de promotion</figcaption>
                                     <div className="ps-block__content">
-                                        <div className="form-group form-group--select">
+                            <div className="form-group form-group--select">
                                             <label>Critére de promotion<sup>*</sup></label>
                                             <div className="form-group__content">
                                                 <Select
@@ -142,7 +209,7 @@ const CreatePromotionPage = () => {
                                     </div>
                                     <div className="ps-block__content">
                                         <div className="form-group form-group--select">
-                                            <label>Recherche<sup>*</sup></label>
+                                            <label>product/categorie Id <sup>*</sup></label>
                                             <div className="ps-section__search">
                                                 <form
                                                     className="ps-form--search-simple"
@@ -152,12 +219,10 @@ const CreatePromotionPage = () => {
                                                         disabled={searchParam === ''}
                                                         className="form-control"
                                                         type="text"
-                                                        placeholder="recherche produit/catégorie ..."
+                                                        placeholder="donner id du produit ou slug du catégorie ..."
                                                         onChange={handleSearch}
                                                     />
-                                                    <button>
-                                                        <i className="icon icon-magnifier"></i>
-                                                    </button>
+
                                                 </form>
                                             </div>
                                         </div>
@@ -174,7 +239,7 @@ const CreatePromotionPage = () => {
                                 Retour
                             </a>
                         </Link>
-                        <button className="ps-btn" type="submit" onClick={() => {
+                        <button className="ps-btn" type="submit" disabled={!images || (!prodBanners && !prodPromotions)} style={!images || (!prodBanners && !prodPromotions) ? {cursor : "not-allowed"}:{}} onClick={() => {
                             handleSubmit(onSubmit)
 
                         }}>Soumettre</button>
@@ -184,4 +249,4 @@ const CreatePromotionPage = () => {
         </ContainerDefault>
     );
 };
-export default connect((state) => state.app)(CreatePromotionPage);
+export default CreatePromotionPage;

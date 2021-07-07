@@ -83,14 +83,16 @@ class OrdersPage extends Component {
 
     render(){
         const total = this.props.totalOrders ;
+        const allOrders = this.props.allOrders ;
+
 
         return (
-            <ContainerDefault style={{overflow :'scroll'}}>
+            <ContainerDefault >
                 <HeaderDashboard
                     title="Orders"
                     description="RED SYS Orders Listing"
                 />
-                <section className="ps-items-listing" >
+                <section className="ps-items-listing" style={{overflowX: "scroll" , maxWidth:'100%'}} >
                     <div className="ps-section__header simple">
                         <div className="ps-section__filter">
                             <form
@@ -129,8 +131,8 @@ class OrdersPage extends Component {
                             </a>
                         </div>
                     </div>
-                    <div className="ps-section__content">
-                        <TableOrdersItems  style={{overflowX: "auto"}}/>
+                    <div className="ps-section__content" >
+                        <TableOrdersItems  style={{ marginRight :'50px'}}/>
                     </div>
                     <div className="ps-section__footer">
                         <Pagination

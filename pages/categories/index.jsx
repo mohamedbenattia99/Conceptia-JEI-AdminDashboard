@@ -71,28 +71,6 @@ class CategoriesPage extends Component {
                     />
                     <section className="ps-dashboard ps-items-listing">
                         <div className="ps-section__left">
-                            <div className="ps-section__header">
-                                <form
-                                    className="ps-form--search-simple"
-                                    onSubmit={(event => {event.preventDefault();
-                                        const params = [this.state.keyword]
-                                        this.props.dispatch(getCollectionCategories(params))
-
-                                        console.log('handle search' + this.state.keyword)
-                                    })}
-                                    >
-                                    <input
-                                        className="form-control"
-                                        type="text"
-                                        placeholder="Search..."
-                                        onChange={(event    )=>{this.handleSearch(event)}}
-
-                                    />
-                                    <button>
-                                        <i className="icon icon-magnifier"></i>
-                                    </button>
-                                </form>
-                            </div>
                             {!categoriesLoading && Array.isArray(allCategories) ?
                                 <>
                                     <div className="ps-section__content">

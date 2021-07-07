@@ -1,6 +1,8 @@
 import { Upload, Button, Space } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
+
 const ImageDemo = () => {
+
 return(
   <Space direction="vertical" style={{ width: '100%' }} size="large">
     <Upload

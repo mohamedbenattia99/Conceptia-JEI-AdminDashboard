@@ -120,7 +120,7 @@ const CreateProductPage = () => {
 
 
          fetchData(formData,'products').then(  result=> {
-          if(productSubCategories) {
+              if(productSubCategories) {
               updateMegaContent(productSubCategories, result.data.id)
           }
              notification.open({
@@ -143,7 +143,7 @@ const CreateProductPage = () => {
              });})
 
 
-   //     router.push("/products")
+        router.push("/products")
     
       }
 
@@ -398,7 +398,7 @@ const CreateProductPage = () => {
                                                         {console.log(i)}
                                                         return (
 
-                                                            <option key={i.id} value={i.id}>{i.name}</option>
+                                                            <option key={i.id} value={i.id}>{i.heading}</option>
                                                         )
                                                     })}
                                                 </Select> : <select></select>}

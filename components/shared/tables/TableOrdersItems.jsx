@@ -1,10 +1,9 @@
 import React, { Component, useEffect } from 'react';
-import Link from 'next/link';
-import { Menu, Checkbox,Popconfirm,Button} from 'antd';
-import DropdownAction from '~/components/elements/basic/DropdownAction';
+import { Popconfirm,Button} from 'antd';
 import { connect} from 'react-redux';
-import {validateOrder} from "~/store/orders/action";
-import {CheckOutlined, QuestionCircleOutlined} from '@ant-design/icons'
+import { validateOrder} from "~/store/orders/action";
+import { QuestionCircleOutlined} from '@ant-design/icons'
+import { withRouter} from "next/router";
 
 class TableOrdersItems extends Component {
 
@@ -12,21 +11,34 @@ class TableOrdersItems extends Component {
     constructor(props) {
         super(props);
         this.state ={
-            valid : false ,
+            valid : [] ,
             visibility:true ,
-        }
+            delivered : false ,
+            router : this.props.router
+
+
+         }
+
     }
 
+
+    componentDidMount() {
+       if(this.props.allOrders && !this.props.ordersLoading  && Array.isArray(this.props.allOrders)) this.setState({valid : this.props.allOrders.map(order=>order.valid),delivered : this.props.allOrders.map(order=>order.delivered)})
+
+    }
 
 
     render() {
 
         const handleValidate = (e,item,condition)=> {
             this.props.dispatch(validateOrder(item.id, {fullfillment: condition, valid: !item.valid}))
+            this.state.router.push("/")
         }
 
         const handleDeliver = (e,item)=> {
             this.props.dispatch(validateOrder(item.id, {delivered : !item.delivered ,fullfillment :item.delivered? 'Cancel':'livré'} ))
+            this.state.router.push("/")
+
         }
         const allOrders =this.props.allOrders ;
         const ordersLoading =this.props.ordersLoading;
@@ -128,4 +140,4 @@ class TableOrdersItems extends Component {
     }
 };
 
-export default connect(state => state.orders)(TableOrdersItems);
+export default withRouter( connect(state => state.orders)(TableOrdersItems));

@@ -4,6 +4,7 @@ import AuthSaga from './auth/saga';
 import OrdersSaga from './orders/ordersSaga'
 import productSaga from './products/productSaga'
 import categoriesSaga from './categories/CategoriesSaga'
+import promotionSaga from './promotions/promotionsSaga'
 export default function* rootSaga() {
-    yield all([AppSaga(), AuthSaga(),OrdersSaga(),productSaga(),categoriesSaga()]);
+    yield all([AppSaga(), AuthSaga(),OrdersSaga(),productSaga(),categoriesSaga(),promotionSaga()]);
 }

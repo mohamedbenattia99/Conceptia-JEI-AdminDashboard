@@ -244,7 +244,7 @@ class ProductPage extends Component {
                             <div className="ps-section__footer">
                                 <Pagination
                                     total={total - 1}
-                                    pageSize={20}
+                                    pageSize={10}
                                     responsive={true}
                                     defaultCurrent={1}
                                     onChange={this.handlePagination.bind(this)}

@@ -38,6 +38,45 @@ console.log(data)
     return response;
 }
 
+
+export async function updatePromotions(data,url,id) {
+    const token = localStorage.getItem('token')
+
+    const config = {
+        Authorization:
+            `Bearer ${token}` ,
+    };
+    console.log(data)
+
+    const response = await axios({
+        method: 'PUT',
+        url: `${baseDomain}/${url}/${id}`,
+        headers: config,
+        data:data,
+    }).then(response=>{
+        notification.open({
+            type :'success',
+            message: 'succès !',
+            description: 'succès de la mise à jour du produit',
+            duration: 7,
+        })
+
+
+    }).catch(  error=> {
+        console.log(error)
+
+        notification.open({
+            type :'warning',
+            message: 'erreur !',
+            description: "erreur à l'envoie du demande",
+            duration: 7,
+        });})
+    console.log('response',response)
+    return response;
+}
+
+
+
 export async function updateProduct(id,query,model) {
     const token = localStorage.getItem('token')
 
