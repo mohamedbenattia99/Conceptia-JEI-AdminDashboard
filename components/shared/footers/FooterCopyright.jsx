@@ -5,7 +5,7 @@ const FooterCopyright = () => {
         <div className="ps-copyright">
             <img src="/img/logo.png" alt="" />
             <p>
-                &copy;Red Sys 2021. <br /> Tous les Droits Réservés.
+                &copy;CONCEPTIA 2021. <br /> Tous les Droits Réservés.
             </p>
         </div>
     );

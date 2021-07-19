@@ -67,7 +67,7 @@ class CategoriesPage extends Component {
                 <ContainerDefault>
                     <HeaderDashboard
                         title="Categories"
-                        description="RED SYS Category Listing"
+                        description="CONCEPTIA Category Listing"
                     />
                     <section className="ps-dashboard ps-items-listing">
                         <div className="ps-section__left">

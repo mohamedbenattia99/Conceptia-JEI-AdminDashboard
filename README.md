@@ -1,4 +1,4 @@
-## JEI-RedSys-AdminDashboard Front-End
+## JEI-CONCEPTIA-AdminDashboard Front-End
 
 ### Installation
 
@@ -17,8 +17,9 @@ yarn install
 ```bash
 yarn dev
 ```
-Or
-```bash
-npm run dev 
-```
 
+Or
+
+```bash
+npm run dev
+```

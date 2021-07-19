@@ -113,7 +113,7 @@ setPromotions(value)
         <ContainerDefault title="Create new product">
             <HeaderDashboard
                 title="Create Product"
-                description="RED SYS Create New Product "
+                description="CONCEPTIA Create New Product "
             />
             <section className="ps-new-item">
                 <form

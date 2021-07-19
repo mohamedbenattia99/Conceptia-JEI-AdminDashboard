@@ -12,12 +12,12 @@ const StyleSheets = () => (
         <link rel="icon" href="/static/img/favi.png" sizes="192x192" />
         <link rel="apple-touch-icon-precomposed" href="/static/img/favi.png" />*/}
         <meta name="author" content="nouthemes" />
-        <meta name="keywords" content="RED SYS, react, ecommerce, Template" />
+        <meta name="keywords" content="CONCEPTIA, react, ecommerce, Template" />
         <meta
             name="description"
-            content="RED SYS - React eCommerce Template"
+            content="CONCEPTIA - React eCommerce Template"
         />
-        <title>Red Sys | Administrateur</title>
+        <title>CONCEPTIA | Administrateur</title>
         <link
             href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext"
             rel="stylesheet"

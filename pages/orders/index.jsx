@@ -90,7 +90,7 @@ class OrdersPage extends Component {
             <ContainerDefault >
                 <HeaderDashboard
                     title="Orders"
-                    description="RED SYS Orders Listing"
+                    description="CONCEPTIA Orders Listing"
                 />
                 <section className="ps-items-listing" style={{overflowX: "scroll" , maxWidth:'100%'}} >
                     <div className="ps-section__header simple">

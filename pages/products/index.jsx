@@ -104,7 +104,7 @@ class ProductPage extends Component {
             <ContainerDefault title="produits" >
                 <HeaderDashboard
                     title="Products"
-                    description="RED SYS Product Listing "
+                    description="CONCEPTIA Product Listing "
                 />
                 <section className="ps-items-listing" style={{ position: "relative" }}>
                     <div className="ps-section__actions">

@@ -16,7 +16,7 @@
 //         <ContainerDefault title="Customers">
 //             <HeaderDashboard
 //                 title="Customers"
-//                 description="RED SYS Customer Listing"
+//                 description="CONCEPTIA Customer Listing"
 //             />
 //             <section className="ps-items-listing">
 //                 <div className="ps-section__header simple">

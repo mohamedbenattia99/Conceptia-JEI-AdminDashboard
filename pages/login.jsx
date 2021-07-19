@@ -58,7 +58,7 @@ class Login extends Component {
                 <div className="container">
                     <img
                         src={logoImage}
-                        alt="REDSYS"
+                        alt="CONCEPTIA"
                         style={{background : "lightgray",borderRadius : "20px",marginBottom : "8%" }}
                     />
                     <Form

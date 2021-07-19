@@ -6,9 +6,7 @@ const WidgetUserWelcome = (props) => {
 
     return (
         <div className="ps-block--user-wellcome">
-            <div className="ps-block__left">
-                <img src="/img/user/admin.jpg" alt="" />
-            </div>
+           
             <div className="ps-block__right">
                 <p>
                     Bonjour,<a href="#">{props.user != null ? props.user.username : null}</a>
@@ -16,7 +14,7 @@ const WidgetUserWelcome = (props) => {
             </div>
             <div className="ps-block__action">
                 <a onClick={()=>props.dispatch(logOut())}>
-                    <i className="icon-exit"></i>Logout
+                    <i className="icon-exit"></i>Se déconnecter
                 </a>
             </div>
         </div>

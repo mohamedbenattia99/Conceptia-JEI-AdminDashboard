@@ -1,5 +1,5 @@
 /*
-* RED SYS - Admin Template
+* CONCEPTIA - Admin Template
 * Author: nouthemes
 * Homepage: https://themeforest.net/user/nouthemes/portfolio
 * Created at: n/a
@@ -11,7 +11,7 @@ const withImages = require('next-images');
 
 const nextSettings = {
     env: {
-        title: 'RED SYS',
+        title: 'CONCEPTIA',
         titleDescription: 'Admin Template',
     },
 };

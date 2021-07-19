@@ -48,7 +48,7 @@ const storage = typeof window !== "undefined" ? createWebStorage("local") : crea
 
 
 const persistConfig = {
-    key: 'RED SYS ',
+    key: 'CONCEPTIA ',
     storage,
     whitelist: ['auth'],
 };
