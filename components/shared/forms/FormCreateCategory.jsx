@@ -36,7 +36,7 @@ const FormCreateCategory = () => {
             <div className="ps-form__content">
                 <div className="form-group">
                     <label>
-                        Nom<sup>*</sup>
+                        Nom catégorie<sup>*</sup>
                     </label>
                     <input
                         className="form-control"
@@ -56,7 +56,7 @@ const FormCreateCategory = () => {
                     />
                     {errors.name && <span role="alert">{errors.name.message}</span>}
                 </div>
-                <figure className="ps-block--form-box">
+                {/*<figure className="ps-block--form-box">
                     <br></br>
                     <h4>Sous Gategorie</h4>
                     <br></br>
@@ -135,14 +135,14 @@ const FormCreateCategory = () => {
                     </div>
 
 
-                </figure>
+                                </figure>*/}
 
 
 
             </div>
             <div className="ps-form__bottom">
                 <button className="ps-btn ps-btn--sumbit success" type="submit">
-                    Add new
+                    Ajouter Catégorie
                 </button>
             </div>
         </form>

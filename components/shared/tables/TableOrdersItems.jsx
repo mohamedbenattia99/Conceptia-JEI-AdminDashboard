@@ -87,12 +87,13 @@ class TableOrdersItems extends Component {
                     </td>
                     <td>
                         <ol type={"I"}>
-                        {item.order_products ? item.order_products.map(prod =><><li >{prod.productName}</li><br></br></>):'no products'}
+                            {console.log("item",item)}
+                        {item.products ? item.products.map(prod =><><li >{prod.title}</li><br></br></>):'no products'}
                         </ol>
                     </td>
                     <td>
                         <ol type={"I"}>
-                            {item.order_products ? item.order_products.map(prod =><><li >{prod.productNumber}</li><br></br></>):'no products'}
+                            {item.products ? item.products.map(prod =><><li >{prod.id}</li><br></br></>):'no products'}
                         </ol>
                     </td>
                     <td>{item.customerName}</td>
@@ -122,14 +123,14 @@ class TableOrdersItems extends Component {
                             <th>ID</th>
                             <th>Date</th>
                             <th>Produit</th>
-                            <th>n° d'article</th>
-                            <th>nom du client </th>
-                            <th>numéro de telephone</th>
-                            <th>email du client </th>
+                            <th>N° d'article</th>
+                            <th>Nom client </th>
+                            <th>Numéro téléphone</th>
+                            <th>Email client </th>
                             <th>Accomplissement</th>
                             <th>Total</th>
                             <th>Valider</th>
-                            <th>livré</th>
+                            <th>Livré</th>
 
                         </tr>
                     </thead>

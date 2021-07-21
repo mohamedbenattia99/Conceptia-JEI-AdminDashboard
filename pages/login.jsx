@@ -67,7 +67,7 @@ class Login extends Component {
 
                         <div className="ps-tab active" id="sign-in">
                             <div className="ps-form__content">
-                                <h5>Login to your Admin account</h5>
+                                <h5>Se connecter à votre compte administrateur</h5>
                                 <div className="form-group">
                                     <Form.Item
                                         name="username"
@@ -112,7 +112,7 @@ class Login extends Component {
                                     <button
                                         type="submit"
                                         className="ps-btn ps-btn--fullwidth" style={{background: 'grey'}}>
-                                        Login
+                                        Se connecter
                                     </button>
                                 </div>
                             </div>
