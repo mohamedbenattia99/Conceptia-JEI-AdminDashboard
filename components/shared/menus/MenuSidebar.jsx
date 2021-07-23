@@ -30,7 +30,11 @@ const MenuSidebar = () => {
             url: '/categories',
             icon: 'icon-users2',
         },
-        
+        {
+            text: 'Newsletter',
+            url: '/newsletters',
+            icon: 'icon-mail',
+        }
     ];
 
     return (
